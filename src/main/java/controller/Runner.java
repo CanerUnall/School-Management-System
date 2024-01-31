@@ -2,7 +2,7 @@ package controller;
 
 public class Runner {
     public static void main(String[] args) {
-
-        SchoolManagementSystem.twoThreads();
+        SchoolManagementSystem schoolManagementSystem=new SchoolManagementSystem();
+        schoolManagementSystem.threads();
     }
 }
