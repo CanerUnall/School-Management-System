@@ -18,6 +18,23 @@ public class Student extends Person {
 
     private HashMap<Integer, Attendance> historyAttendance = new HashMap<>();
 
+    public Student(String name, String surName, String password, String address, String phoneNumber,
+                   UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment, HashMap<Integer,
+            Lessons> allLessons, HashMap<Integer, Attendance> historyAttendance) {
+        super(name, surName, password, address, phoneNumber, role);
+        this.studentID = studentID;
+        this.grade = grade;
+        this.lastYearGradeAvg = lastYearGradeAvg;
+        this.payment = payment;
+        this.allLessons = allLessons;
+        this.historyAttendance = historyAttendance;
+        this.lessonCredit = 20;
+        this.totalPrice = 0;
+        this.thisYearGradeAvg = 0;
+    }
+
+    public Student() {
+    }
 
     public int getStudentID() {
         return studentID;
@@ -92,22 +109,18 @@ public class Student extends Person {
         this.historyAttendance = historyAttendance;
     }
 
-    public Student(String name, String surName, String password, String address, String phoneNumber,
-                   UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment, HashMap<Integer,
-            Lessons> allLessons, HashMap<Integer, Attendance> historyAttendance) {
-        super(name, surName, password, address, phoneNumber, role);
-        this.studentID = studentID;
-        this.grade = grade;
-        this.lastYearGradeAvg = lastYearGradeAvg;
-        this.payment = payment;
-        this.allLessons = allLessons;
-        this.historyAttendance = historyAttendance;
-        this.lessonCredit = 20;
-        this.totalPrice = 0;
-        this.thisYearGradeAvg = 0;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentID=" + studentID +
+                ", grade=" + grade +
+                ", lastYearGradeAvg=" + lastYearGradeAvg +
+                ", thisYearGradeAvg=" + thisYearGradeAvg +
+                ", payment=" + payment +
+                ", totalPrice=" + totalPrice +
+                ", lessonCredit=" + lessonCredit +
+                ", allLessons=" + allLessons +
+                ", historyAttendance=" + historyAttendance +
+                '}';
     }
-
-    public Student() {
-    }
-
 }

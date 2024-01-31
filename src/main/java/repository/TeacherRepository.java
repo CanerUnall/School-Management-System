@@ -6,9 +6,8 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 
 
 
-
+    // Umut Ayaz 10 -110
     public void createTeacherTable(){
-// // Umut Ayaz 10 -110
       /*  bu methodun query si yazilirken if not exist kullanilacak
 
         tablo adi = t_teacher
@@ -109,9 +108,10 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
         // Umut Ayaz 10 -110
     }
 
+    // Umut Ayaz 113-213
     @Override
     public Teacher find(int id) {
-        // Umut Ayaz 113-213
+
         return null;
 
 
@@ -212,9 +212,10 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
         // Umut Ayaz 113-213
     }
 
+    //Mustafa Ubeyde Kayhan 216- 2316
     @Override
     public void addRepoSomeoneInfo(Teacher person) {
-        //Mustafa Ubeyde Kayhan 216- 2316
+
 
 
 
@@ -316,9 +317,10 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
         // Mustafa Ubeyde Kayhan 216- 316
     }
 
+    //Gaukhar Ergin 320 420
     @Override
     public void removeRepoSomeoneInfo(Teacher person) {
-//Gaukhar Ergin 320 420
+
 
 
 
@@ -419,10 +421,10 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 // Gaukhar Ergin 320 420
     }
 
-
+    //Ersagun Eryildiz 423 - 623
     @Override
     public void updateAdressInfo(Teacher person, String adress) {
-        //Ersagun Eryildiz 423 - 623
+
 // choice 1 ise adres, 2 ise brans, 3 ise maas update edilsin
 
 
@@ -622,15 +624,19 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 
         //Ersagun Eryildiz 423 - 623
     }
+
     public void updateBranchInfo(Teacher person, String branch) {
 
     }
+
     public void updateSalaryInfo(Teacher person, double salary) {
 
     }
+
+    // Seval Senturk 626 - 726
     @Override
     public void getRepoSomeoneInfo(int id) {
-// Seval Senturk 626 - 726
+
 
 
 

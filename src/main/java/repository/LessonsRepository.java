@@ -6,8 +6,8 @@ import java.util.List;
 
 public class LessonsRepository {
 
+    //Omer Faruk Osmanoglu 9 - 109
     public void createLessonsTable(){
-//Omer Faruk Osmanoglu 9 - 109
       /*
       burada tum dersler kaydedilecek
 
@@ -108,8 +108,8 @@ public class LessonsRepository {
         //Omer Faruk Osmanoglu 9 - 109
     }
 
+    //Mustafa Ubeyde Kayhan 111 -  211
     public void  addRepoLessons(Lessons lessons){
-        //Mustafa Ubeyde Kayhan 111 -  211
         // ilgili dersi if not exist ile dbye kayit edecek
 
 
@@ -210,13 +210,9 @@ public class LessonsRepository {
         //Mustafa Ubeyde Kayhan 111 - 211
     }
 
+    //Caner Unal
     public List<Lessons> getAllLessons(){
-        //Caner Unal
         //dbdeki tum dersleri getirecek ve br liste ekleyecek daha sonra o listi return edecek
         return null;
     }
-
-
-
-
 }
