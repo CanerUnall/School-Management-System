@@ -3,122 +3,125 @@ package controller;
 import domain.Admins;
 import domain.Student;
 import domain.Teacher;
-import repository.StudentRepository;
+import repository.*;
 import service.StudentMethods;
 
 public class SchoolManagementSystem {
 
-    private static StudentRepository studentRepository;
 
-    public SchoolManagementSystem(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     static {
 
         //burada db ile alakali create methodlarindan birkaci cagrilsin.
     }
 
-    // Omer Faruk Osmanoglu
-    static void twoThreads(){
+        // Omer Faruk Osmanoglu
         /*
         2 adet thread olusturulacak
         ilk thread icinde db ile alakali create methodlarinin gerisi cagrilsin.
         ikinci thread de ise bizim uygulamamizin starti buradan baslasin
          */
+        public  void threads() {
+            // Omer Faruk Osmanoglu
+
+
+            Thread secondThread = new Thread(() -> {
+                AdminRepository adminRepository=new AdminRepository();
+                adminRepository.createAdminTable();
+                AttendanceRepository attendanceRepository=new AttendanceRepository();
+                attendanceRepository.createAttendanceTable();
+                StudentRepository studentRepository=new StudentRepository();
+                studentRepository.createStudentTable();
+                TeacherRepository teacherRepository=new TeacherRepository();
+                teacherRepository.createTeacherTable();
+                LessonsRepository lessonsRepository=new LessonsRepository();
+                lessonsRepository.createLessonsTable();
+            });
+            Thread startToThread = new Thread(() -> {
+                homePage();
+            });
+
+            secondThread.start();
+            startToThread.start();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //21-121 // Omer Faruk Osmanoglu
     }
+
+
+
 
     //Semra Zengin 123-223
     static void homePage() {
