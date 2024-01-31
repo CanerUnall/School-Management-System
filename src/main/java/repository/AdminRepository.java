@@ -3,8 +3,9 @@ package repository;
 import domain.Admins;
 
 public class AdminRepository {
+
+    // Mustafa Ubeyde Kayhan 7 -  57
     public void createAdminTable(){
-        // Mustafa Ubeyde Kayhan 7 -  57
       /*  bu methodun query si yazilirken if not exist kullanilacak
 
         tablo adi = t_admin
@@ -56,11 +57,9 @@ public class AdminRepository {
         // Mustafa Ubeyde Kayhan 7 -  57
     }
 
-
-
+    // Mustafa Ubeyde Kayhan 61 -  161
     public Admins find(int id){
-        // Mustafa Ubeyde Kayhan 61 -  161
-//buradan girilen idye gore dbden admin bilgileri alinacak ve obje olusturulup return edilecek
+     //buradan girilen idye gore dbden admin bilgileri alinacak ve obje olusturulup return edilecek
 
         return null;
 
@@ -160,9 +159,8 @@ public class AdminRepository {
         // Mustafa Ubeyde Kayhan 61 -  161
     }
 
-
-   public void addAdminRepo(){
-        // Rumeysa Dagtekin 164 - 264
+    // Rumeysa Dagtekin 164 - 264
+    public void addAdminRepo(){
         //burada projede yer alan arkadaslar admin olarak dbye eklenmesi icin gerekli sorgu yazilacak.
 
 

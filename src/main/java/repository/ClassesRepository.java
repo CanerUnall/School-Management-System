@@ -1,11 +1,16 @@
 package repository;
 
+import config.JDBC_Utils;
 import domain.Grades;
+
+import java.sql.ResultSet;
 
 public class ClassesRepository {
 
+
+
+    // Hanife Ocak 6-106
     public void getAllClassNotes(Grades grades) {
-// Hanife Ocak 6-106
         //tum ogrenciler arasindan grade=1 veya 2 olani suzecek
         //sout ile ekrana yazdir
 
@@ -106,11 +111,11 @@ public class ClassesRepository {
     }
 
     public void getAllClassInfo(Grades grades) {
-//Seval Senturk 109 - 209
+    //Seval Senturk 109 - 209
 
     //secilen sinifa gore tum ogrenci bilgileri getirilecek
 
-
+    }
 
 
 
@@ -206,6 +211,6 @@ public class ClassesRepository {
 
 
 //Seval Senturk 109 - 209
-    }
+
 
 }

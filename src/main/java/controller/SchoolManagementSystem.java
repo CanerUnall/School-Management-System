@@ -123,9 +123,8 @@ public class SchoolManagementSystem {
 
 
 
+    //Semra Zengin 123-223
     static void homePage() {
-        //Semra Zengin 123-223
-
         // kullanicinin ana sayfada gormesi gerekenleri bir dongu ile yazdir.
         /*ogrenci olarak giris yap (ogrenci login  methodu burada cagrilacak)
          * ogretmen olarak giris yap (ogretmen login methodu burada cagrilacak)
@@ -219,10 +218,10 @@ public class SchoolManagementSystem {
 
         //Semra Zengin 123-223
     }
-    
-    static void studentPage(Student student){
-        /* Hanife Ocak 225-325
 
+    //Hanife Ocak 225-325
+    static void studentPage(Student student){
+        /*
         * ogrenci ahmet hosgeldin
         * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
         * OGRENCI EKRANINDA
@@ -322,8 +321,9 @@ public class SchoolManagementSystem {
         //Hanife Ocak 225-325
     }
 
+    //Emrah Kaya 327 -477
     static void teacherPage(Teacher teacher){
-        /* Emrah Kaya 327 -477
+        /*
          * ogretmen ahmet hosgeldin
          * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
          * 1. TUM OGRENCI BILGILERI
@@ -474,8 +474,9 @@ public class SchoolManagementSystem {
         //Emrah Kaya 327 -477
     }
 
+    //Cihan Guler 479 - 679
     static void adminPage(Admins admins){
-        /* Cihan Guler 479 - 679
+        /*
          * yonetici ahmet hosgeldin
          * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
          * 1. TUM OGRENCI BILGILERI
