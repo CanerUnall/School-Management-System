@@ -1,6 +1,7 @@
 package service;
 
 import config.Scanner_Utils;
+import controller.SchoolManagementSystem;
 import domain.Lessons;
 import domain.Student;
 import domain.SuccessDegree;
@@ -8,9 +9,11 @@ import repository.StudentRepository;
 
 import java.util.Scanner;
 
+
 public class StudentMethods implements Login<Student>, SameOperations  {
     private final Scanner scanner;
     private final StudentRepository studentRepository;
+
     public StudentMethods(Scanner scanner, StudentRepository studentRepository) {
         this.scanner = scanner;
         this.studentRepository = studentRepository;
@@ -60,13 +63,9 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 
 
-
-
-
-
-
         //Ersagun Eryildiz 17-67
     }
+
 
     @Override
     public void login() {
@@ -79,16 +78,38 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 5. sifre yanlis ise yanlis oldugu soylenecek ve devam etmek / cikis yapmak isteyip istemedigi sorulacak ona gore dongu devam edecek.
         */
 
+        System.out.println("Öğrienci id'sini giriniz");
+        int id=scanner.nextInt();
 
+        Student foundedStudent=find(id);
 
+        if(foundedStudent!=null) {
+           boolean girisBasarili=false;
+            do {
+                System.out.println("Öğrenci Şifrenizi Giriniz :");
+                String sifre = scanner.nextLine();
 
+                if (sifre.equals(foundedStudent.getPassword())) {
 
+                    studentRepository.find(id);
 
+                } else {
+                    System.out.println("Şifreyi yanlış girdiniz!...");
+                    System.out.println("Tekrar denemek için  't' ,çıkış yapmak için 'c' giriniz: ");
+                    char secim = scanner.next().charAt(0);
+                    scanner.nextInt();
 
+                    if (secim == 'c' || secim =='C') {
+                        System.out.println("Çıkış yapılıyor....");
+                    }
+                }
 
+                }
+                while (!girisBasarili) ;
 
 
 
+}
 
 
 
@@ -145,30 +166,9 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Gaukhar Ergin 70-170
+    // Gaukhar Ergin 70-170
     }
+
 
     @Override
     public void addSomeoneInfo() {
