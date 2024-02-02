@@ -1,19 +1,22 @@
 package repository;
 
+import config.JDBC_Utils;
 import domain.Teacher;
+import domain.UserRol;
+
+import java.sql.*;
+import java.util.List;
+import java.util.Optional;
+
 
 public class TeacherRepository implements SameRepoOperations<Teacher>{
 
 
 
-
-    public void createTeacherTable(){
+    public static void createTeacherTable() {
 // // Umut Ayaz 10 -110
-      /*  bu methodun query si yazilirken if not exist kullanilacak
-
-        tablo adi = t_teacher
-
-        teacherID bu pk olacak
+        /*  bu methodun query si yazilirken if not exist kullanilacak
+       tablo adi = t_teacher teacherID bu pk olacak
 
         tchr_name,
         tchr_surName
@@ -22,21 +25,46 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
         phoneNumber
         role
         salary
-        branch
+        branch */
 
-                */
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
 
+                String sql = "CREATE TABLE IF NOT EXISTS t_teacher ("
+                        + "teacherID INT PRIMARY KEY AUTO_INCREMENT,"
 
+                        + "tchr_name VARCHAR(15),"
 
+                        + "tchr_surName VARCHAR(15),"
 
+                        + "password VARCHAR(12),"
 
+                        + "address VARCHAR(85),"
 
+                        + "phoneNumber VARCHAR(15),"
 
+                        + "role VARCHAR(20),"
 
+                        + "salary REAL,"
 
+                        + "branch VARCHAR(30))";
+        try {
+            JDBC_Utils.getSt().executeUpdate(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
 
+        }
 
 
+        System.out.println("t_teacher tablosu");
+            }
 
 
 
@@ -76,43 +104,84 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Umut Ayaz 10 -110
-    }
-
+            // Umut Ayaz 10 -110
     @Override
     public Teacher find(int id) {
         // Umut Ayaz 113-213
-        return null;
+
+                {
+
+                    JDBC_Utils.setConnection();
+
+                    Teacher teacher = null;
+
+
+
+                    try {
+
+                        String sql = "SELECT * FROM t_teacher WHERE teacherID = ?";
+                        JDBC_Utils.setPrst(sql);
+
+                        JDBC_Utils.getPrst().setInt(1, id);
+
+                       ResultSet resultSet = JDBC_Utils.getPrst().executeQuery();
+
+                        if (resultSet.next()) {
+                            teacher = new Teacher(
+
+                                    resultSet.getString("tchr_name"),
+                                    resultSet.getString("tchr_surName"),
+                                    resultSet.getString("password"),
+                                    resultSet.getString("address"),
+                                    resultSet.getString("phoneNumber"),
+                                    UserRol.TEACHER,
+                                    resultSet.getDouble("salary"),
+                                    resultSet.getString("branch"),
+                                    resultSet.getInt("teacherID")
+                            );
+                        }
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    } finally {try {
+                        JDBC_Utils.getPrst().close();
+                        JDBC_Utils.getCon().close();
+                    } catch (SQLException e) {
+                        System.out.println(e.getMessage());
+                    }
+                        return teacher;
+
+                    //String name, String surName, String password, String address, String phoneNumber,
+                        //                   UserRol role, double salary, String branch, int teacherID
+
+                    }
+                }
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -210,7 +279,7 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 
 
         // Umut Ayaz 113-213
-    }
+
 
     @Override
     public void addRepoSomeoneInfo(Teacher person) {
@@ -729,9 +798,8 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 // Seval Senturk 626 - 726
 
     }
-
-
-
-
+    public List<Teacher> getAllTeacher(){
+        return null;
+    }   //Umut Ayaz
     //728- 828 arasi tum ogretmenleri get edecek methodu yaz Caner Unal
-}
+            }

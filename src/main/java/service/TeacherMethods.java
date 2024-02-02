@@ -1,6 +1,7 @@
 package service;
 
 import domain.Teacher;
+import exceptions.TeacherNotFoundException;
 import repository.TeacherRepository;
 
 import java.util.List;
@@ -14,28 +15,28 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         this.teacherRepository = teacherRepository;
         this.scanner = scanner;
     }
-
     @Override
     public Teacher find(int id) {
         // Umut Ayaz 18 -68
         //burada TeacherRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
         //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
+
+        try {
+            Teacher foundTeacher = teacherRepository.find(id);
+            if (
+                    foundTeacher!= null
+            ){
+                System.out.println(foundTeacher);
+                return foundTeacher;
+            }else {
+                throw new TeacherNotFoundException("Teacher not found with ID :" + id);
+            }
+
+        } catch (TeacherNotFoundException e) {
+
+            System.out.println("Hata: " + e.getMessage());
+        }
         return null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -684,7 +685,7 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
     }
 
     public List<Teacher> getAllTeacher(){
-        // Caner Unal 686 - 786
+        //Umut Ayaz 686 - 786
         //burada reTeacherRepository clasindaki getAllTeacherRepo methodu cagrilacak
         return null;
 

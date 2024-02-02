@@ -6,6 +6,9 @@ public class Teacher extends Person{
 
     private  int teacherID;
 
+    public Teacher(int teacherId, String tchrName, String tchrSurName, String password, String address, String phoneNumber, String role, double salary, String branch) {
+    }
+
     public double getSalary() {
         return salary;
     }
