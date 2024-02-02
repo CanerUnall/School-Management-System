@@ -2,6 +2,13 @@ package repository;
 
 import config.JDBC_Utils;
 
+import domain.Lessons;
+import domain.Student;
+
+import java.sql.Connection;
+import java.util.*;
+
+
 import domain.Student;
 
 import java.sql.ResultSet;
@@ -19,6 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 public class FinanceRepository {

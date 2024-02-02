@@ -125,6 +125,31 @@ public class ReportMethods {
 
     //Seval Senturk  119 - 219
     public void showClassSuccess() {
+
+    //SuccessDegree enumlarini kullanacaksin
+        //tüm öğrencileri sınıf sınıf çağıracağız
+        SuccessDegree successDegree = null; // ihtiyacımızı gidermiyor burası tekrar gözden geçecek!!!
+
+        switch (successDegree) {
+            case A:
+                System.out.println("Sınıf başarısı: Mükemmel");
+                break;
+            case B:
+                System.out.println("Sınıf başarısı: İyi");
+                break;
+            case C:
+                System.out.println("Sınıf başarısı: Orta");
+                break;
+            case D:
+                System.out.println("Sınıf başarısı: Geçer");
+                break;
+            case F:
+                System.out.println("Sınıf başarısı: Başarısız");
+                break;
+            default:
+                System.out.println("Geçersiz değer");
+                break;
+
     /*
         burada once kullanıcıya hangı sınıfın basarısını gormek ıstedıgını soracaksınız
         daha sonra aldıgınız cevaba ıstınaden ReportReposıtory classındaki getClassSuccess methodunu
@@ -144,6 +169,7 @@ public class ReportMethods {
             System.err.println("Geçersiz sınıf ismi. Lütfen geçerli bir sınıf ismi giriniz.");
         } finally {
             scanner.close();
+
         }
 
 
