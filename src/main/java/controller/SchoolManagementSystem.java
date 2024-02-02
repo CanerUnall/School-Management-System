@@ -1,136 +1,191 @@
 package controller;
 
+import config.Scanner_Utils;
 import domain.Admins;
 import domain.Student;
 import domain.Teacher;
+
+import repository.*;
+
+import repository.AdminRepository;
 import repository.StudentRepository;
+import repository.TeacherRepository;
+import service.AdminMethods;
+
 import service.StudentMethods;
+import service.TeacherMethods;
+
+import java.util.Scanner;
 
 public class SchoolManagementSystem {
 
-    private static StudentRepository studentRepository;
 
-    public SchoolManagementSystem(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     static {
 
         //burada db ile alakali create methodlarindan birkaci cagrilsin.
     }
 
-    static void twoThreads(){
         // Omer Faruk Osmanoglu
-
         /*
         2 adet thread olusturulacak
         ilk thread icinde db ile alakali create methodlarinin gerisi cagrilsin.
         ikinci thread de ise bizim uygulamamizin starti buradan baslasin
          */
+        public  void threads() {
+            // Omer Faruk Osmanoglu
+
+
+            Thread secondThread = new Thread(() -> {
+                AdminRepository adminRepository=new AdminRepository();
+                adminRepository.createAdminTable();
+                AttendanceRepository attendanceRepository=new AttendanceRepository();
+                attendanceRepository.createAttendanceTable();
+                StudentRepository studentRepository=new StudentRepository();
+                studentRepository.createStudentTable();
+                TeacherRepository teacherRepository=new TeacherRepository();
+                teacherRepository.createTeacherTable();
+                LessonsRepository lessonsRepository=new LessonsRepository();
+                lessonsRepository.createLessonsTable();
+            });
+            Thread startToThread = new Thread(() -> {
+                homePage();
+            });
+
+            secondThread.start();
+            startToThread.start();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //21-121 // Omer Faruk Osmanoglu
     }
 
-    static void homePage() {
-        //Semra Zengin 123-223
 
+
+
+    //Semra Zengin 123-223
+    static void homePage() {
         // kullanicinin ana sayfada gormesi gerekenleri bir dongu ile yazdir.
         /*ogrenci olarak giris yap (ogrenci login  methodu burada cagrilacak)
          * ogretmen olarak giris yap (ogretmen login methodu burada cagrilacak)
          * yonetici olarak giris yap (admin login methodu burada cagrilacak)
          * cikis
          * */
+        Scanner scanner=new Scanner(System.in);
+        Scanner_Utils.intScanner(scanner);
 
+        StudentRepository studentRepository=new StudentRepository();
+        StudentMethods studentMethods=new StudentMethods(scanner, studentRepository);
+
+        TeacherRepository teacherRepository=new TeacherRepository();
+        TeacherMethods teacherMethods=new TeacherMethods(teacherRepository, scanner);
+
+        AdminRepository adminRepository=new AdminRepository();
+        AdminMethods adminMethods=new AdminMethods(scanner, adminRepository);
+
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("========= Welcome to School Management System =========");
+            System.out.println( "1. Student Operations\n" +
+                    "2. Teacher Operations\n" +
+                    "3. Admin Operations\n" +
+                    "0. Exit\n" +
+                    "Enter your choice : ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    studentMethods.login();
+                    break;
+                case 2:
+                    teacherMethods.login();
+                    break;
+                case 3:
+                    adminMethods.login();
+                    break;
+                case 0:
+                    exit = true;
+                    System.out.println("Good bye...");
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again");
+                    break;
+            }
+        }
 
 
 
@@ -217,10 +272,10 @@ public class SchoolManagementSystem {
 
         //Semra Zengin 123-223
     }
-    
-    static void studentPage(Student student){
-        /* Hanife Ocak 225-325
 
+    //Hanife Ocak 225-325
+    static void studentPage(Student student){
+        /*
         * ogrenci ahmet hosgeldin
         * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
         * OGRENCI EKRANINDA
@@ -320,8 +375,9 @@ public class SchoolManagementSystem {
         //Hanife Ocak 225-325
     }
 
+    //Emrah Kaya 327 -477
     static void teacherPage(Teacher teacher){
-        /* Emrah Kaya 327 -477
+        /*
          * ogretmen ahmet hosgeldin
          * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
          * 1. TUM OGRENCI BILGILERI
@@ -472,8 +528,9 @@ public class SchoolManagementSystem {
         //Emrah Kaya 327 -477
     }
 
+    //Cihan Guler 479 - 679
     static void adminPage(Admins admins){
-        /* Cihan Guler 479 - 679
+        /*
          * yonetici ahmet hosgeldin
          * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
          * 1. TUM OGRENCI BILGILERI
