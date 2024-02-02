@@ -18,6 +18,7 @@ public class Admins extends Teacher{
     }
 
     public Admins() {
+
     }
 
     @Override
