@@ -1,5 +1,6 @@
 package service;
 
+import config.Scanner_Utils;
 import domain.Teacher;
 import exceptions.TeacherNotFoundException;
 import repository.TeacherRepository;
@@ -591,11 +592,7 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
     @Override
     public void getSomeoneInfo(int id) {
 
-        /*1. once ogretmenin id alinacak
-        2. TeacherRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
-
-        System.out.println( "Öğretmenin id'sini giriniz...");
-        id = scanner.nextInt();
+        //1. TeacherRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
 
         teacherRepository.getRepoSomeoneInfo(id);
 

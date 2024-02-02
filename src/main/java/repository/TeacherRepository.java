@@ -10,6 +10,9 @@ import java.util.Optional;
 
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class TeacherRepository implements SameRepoOperations<Teacher>{
 
 
@@ -724,6 +727,42 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
     // Seval Senturk 626 - 726
     @Override
     public void getRepoSomeoneInfo(int id) {
+
+        // JDBC bağlantısını aç
+
+        JDBC_Utils.setConnection();
+
+        String sql = "SELECT * FROM t_teacher WHERE id = ?";
+
+        JDBC_Utils.setPrst(sql);
+
+        try {
+            JDBC_Utils.getPrst().setInt(1,id);
+            ResultSet resultSet=JDBC_Utils.getPrst().executeQuery();
+
+
+            if (resultSet.next()) {
+                System.out.print(" Teacher ID : "+ resultSet.getInt("teacherID"));
+                System.out.print(" Name : "+resultSet.getString("tchr_name"));
+                System.out.print(" Surname : "+ resultSet.getString("tchr_surName"));
+                System.out.print(" Address : "+resultSet.getString("address"));
+                System.out.print(" Phone Number : "+ resultSet.getString("phoneNumber"));
+                System.out.print(" Branch : "+ resultSet.getString("branch"));
+
+                System.out.println();
+
+            }
+        } catch (SQLException e) {
+            System.err.println("Error : " + e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println("Error : " + e.getMessage());
+            }
+        }
+
 
 
 

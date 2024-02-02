@@ -1,9 +1,7 @@
 package service;
 
-
 import domain.Grades;
 import repository.ClassesRepository;
-
 import java.util.Scanner;
 
 public class ClassesMethods {
@@ -139,29 +137,6 @@ public class ClassesMethods {
         }
 
         classesRepository.getAllClassInfo(grades);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

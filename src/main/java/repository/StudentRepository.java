@@ -575,7 +575,7 @@ public class StudentRepository implements SameRepoOperations<Student>{
 
 
 // Seval Senturk 323 - 523
-    }
+    } //anlamadım ??? :((((
 
     public void updateClassInfo(Student person, Grades grades){}
 

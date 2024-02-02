@@ -17,11 +17,11 @@ public class Student extends Person {
     private int lessonCredit;
     private HashMap<Integer, Lessons> allLessons ;
 
-
     private Integer percentDiscount=1;
 
     public Integer getPercentDiscount() {
         return percentDiscount;
+
     }
 
     public void setPercentDiscount() {
@@ -129,8 +129,6 @@ public class Student extends Person {
 
     }
 
-
-  
   
     @Override
     public String toString() {

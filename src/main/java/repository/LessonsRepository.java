@@ -24,7 +24,6 @@ public class LessonsRepository {
     TeacherRepository tRepo=new TeacherRepository();
 
 
-  
     //Omer Faruk Osmanoglu 9 - 109
 
     public void createLessonsTable(){
