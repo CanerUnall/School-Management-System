@@ -1,10 +1,11 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Student extends Person {
+
+    private Integer percentDiscount;
+
     private int studentID;
     private Grades grade;
     private double lastYearGradeAvg;
@@ -14,9 +15,20 @@ public class Student extends Person {
 
     private double totalPrice;
     private int lessonCredit;
-    private HashMap<Integer, Lessons> allLessons = new HashMap<>();
+    private HashMap<Integer, Lessons> allLessons ;
 
-    private HashMap<Integer, Attendance> historyAttendance = new HashMap<>();
+
+    private Integer percentDiscount=1;
+
+    public Integer getPercentDiscount() {
+        return percentDiscount;
+    }
+
+    public void setPercentDiscount() {
+        this.percentDiscount=percentDiscount;
+    }
+
+    private HashMap<Integer, Attendance> historyAttendance;
 
 
     public int getStudentID() {
@@ -92,6 +104,15 @@ public class Student extends Person {
         this.historyAttendance = historyAttendance;
     }
 
+
+    public Integer getPercentDiscount() {
+        return percentDiscount;
+    }
+
+    public void setPercentDiscount(Integer percentDiscount) {
+        this.percentDiscount = percentDiscount;
+    }
+
     public Student(String name, String surName, String password, String address, String phoneNumber,
                    UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment) {
         super(name, surName, password, address, phoneNumber, role);
@@ -99,14 +120,32 @@ public class Student extends Person {
         this.grade = grade;
         this.lastYearGradeAvg = lastYearGradeAvg;
         this.payment = payment;
-       this.allLessons = new HashMap<>();
-       this.historyAttendance =new HashMap<>();
+        this.allLessons = new HashMap<>();
+        this.historyAttendance = new HashMap<>();
         this.lessonCredit = 20;
         this.totalPrice = 0;
         this.thisYearGradeAvg = 0;
+        this.percentDiscount=1;
+
     }
 
-    public Student() {
-    }
 
+  
+  
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentID=" + studentID +
+                ", grade=" + grade +
+                ", lastYearGradeAvg=" + lastYearGradeAvg +
+                ", thisYearGradeAvg=" + thisYearGradeAvg +
+                ", payment=" + payment +
+                ", totalPrice=" + totalPrice +
+                ", lessonCredit=" + lessonCredit +
+                ", allLessons=" + allLessons +
+                ", historyAttendance=" + historyAttendance +
+                '}';
+
+
+    }
 }

@@ -2,7 +2,6 @@ package domain;
 
 public class Lessons {
 
-
     private LessonNames name;
     private Teacher teacher;
     private int lessonCredit;
@@ -10,7 +9,21 @@ public class Lessons {
     private Integer studentNote;
     private String day;
 
+
     private SuccessDegree lessonSuccessDegree;
+
+    public Lessons(LessonNames name, Teacher teacher, int lessonCredit, double lessonFee, String day) {
+        this.name = name;
+        this.teacher = teacher;
+        this.lessonCredit = lessonCredit;
+        this.lessonFee = lessonFee;
+        this.day = day;
+        this.studentNote= null;
+        this.lessonSuccessDegree=null;
+    }
+
+    public Lessons() {
+    }
 
     public SuccessDegree getLessonSuccessDegree() {
         return lessonSuccessDegree;
@@ -68,16 +81,16 @@ public class Lessons {
         this.lessonFee = lessonFee;
     }
 
-    public Lessons(LessonNames name, Teacher teacher, int lessonCredit, double lessonFee, String day) {
-        this.name = name;
-        this.teacher = teacher;
-        this.lessonCredit = lessonCredit;
-        this.lessonFee = lessonFee;
-        this.day = day;
-        this.studentNote= null;
-        this.lessonSuccessDegree=null;
-    }
-
-    public Lessons() {
+    @Override
+    public String toString() {
+        return "Lessons{" +
+                "name=" + name +
+                ", teacher=" + teacher +
+                ", lessonCredit=" + lessonCredit +
+                ", lessonFee=" + lessonFee +
+                ", studentNote=" + studentNote +
+                ", day='" + day + '\'' +
+                ", lessonSuccessDegree=" + lessonSuccessDegree +
+                '}';
     }
 }

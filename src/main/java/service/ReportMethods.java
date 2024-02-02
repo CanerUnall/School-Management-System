@@ -1,7 +1,11 @@
 package service;
 
+
 import config.JDBC_Utils;
 import config.Scanner_Utils;
+
+import domain.SuccessDegree;
+
 import repository.ReportRepository;
 
 import java.util.Scanner;
@@ -15,9 +19,8 @@ public class ReportMethods {
         this.reportRepository = reportRepository;
 
     }
-
-    public void showLessonSuccess() {
     //Husnu Sen 17 -117
+    public void showLessonSuccess() {
         //derse gore basariyi yazdiracak.
         // mat, fen
     //SuccessDegree enumlarini kullanacaksin
@@ -116,11 +119,31 @@ public class ReportMethods {
         //Husnu Sen 17 -117
     }
 
-    public void showClassSuccess() {
-//Seval Senturk  119 - 219
-//SuccessDegree enumlarini kullanacaksin
+    //Seval Senturk  119 - 219
+    public void showClassSuccess(SuccessDegree successDegree) {
+    //SuccessDegree enumlarini kullanacaksin
+        //tüm öğrencileri sınıf sınıf çağıracağız
 
-
+        switch (successDegree) {
+            case A:
+                System.out.println("Sınıf başarısı: Mükemmel");
+                break;
+            case B:
+                System.out.println("Sınıf başarısı: İyi");
+                break;
+            case C:
+                System.out.println("Sınıf başarısı: Orta");
+                break;
+            case D:
+                System.out.println("Sınıf başarısı: Geçer");
+                break;
+            case F:
+                System.out.println("Sınıf başarısı: Başarısız");
+                break;
+            default:
+                System.out.println("Geçersiz değer");
+                break;
+        }
 
 
 
@@ -218,13 +241,14 @@ public class ReportMethods {
 //Seval Senturk  119 - 219
     }
 
+    //Caner unal
     public void showStudentSuccess() {
-        //Caner unal
         //secilen ogrencinin once tum ders basarilari gosterilsin daha sonra genel ortalamaasi gosterilsin
     }
 
+    //Caner unal
     public void showStudentRank() {
-        //Caner unal
+
         //ogrencinin genel ortalamasina gore siralamasi gozuksun
     }
 
