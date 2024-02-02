@@ -15,9 +15,9 @@ public class AdminMethods implements Login<Admins>{
         this.adminRepository = adminRepository;
     }
 
+    // Mustafa Ubeyde Kayhan 17 -  67
     @Override
     public Admins find(int id) {
-        // Mustafa Ubeyde Kayhan 17 -  67
         //burada AdminRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
         //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
 
@@ -68,9 +68,10 @@ public class AdminMethods implements Login<Admins>{
         // Mustafa Ubeyde Kayhan 7 -  57
     }
 
+    //Omer Faruk Osman Oglu 70 - 170
     @Override
     public void login() {
-/*Omer Faruk Osman Oglu 70 - 170
+/*
 1. burada yoneticiden id alinacak.
 2. daha sonra yukaridaki find methodu cagrilacak.
 3. return olarak gelen obje null degilse sifre sorulacak.
