@@ -117,9 +117,10 @@ public class ReportMethods {
     }
 
     //Seval Senturk  119 - 219
-    public void showClassSuccess(SuccessDegree successDegree) {
+    public void showClassSuccess() {
     //SuccessDegree enumlarini kullanacaksin
         //tüm öğrencileri sınıf sınıf çağıracağız
+        SuccessDegree successDegree = null; // ihtiyacımızı gidermiyor burası tekrar gözden geçecek!!!
 
         switch (successDegree) {
             case A:

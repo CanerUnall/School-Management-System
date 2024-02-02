@@ -578,7 +578,7 @@ public class LessonMethods {
     }
 
     //Rumeysa Dagtekin 580 - 680
-    public void allClassesSchedule(Classes classes){
+    public void allClassesSchedule(){
 
         //buna dair simdilik bir yol haritasi hazirlayamadim.
     //TODO lutfen herkes bunu nasil yapacagimizi dusunsun

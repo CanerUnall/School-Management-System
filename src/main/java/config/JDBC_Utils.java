@@ -17,7 +17,6 @@ public class JDBC_Utils {
         }
 
     }
-
     public static void setStatement(){
 
         try {

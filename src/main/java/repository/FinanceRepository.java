@@ -1,5 +1,12 @@
 package repository;
 
+import config.JDBC_Utils;
+import domain.Lessons;
+import domain.Student;
+
+import java.sql.Connection;
+import java.util.*;
+
 public class FinanceRepository {
 
     //Cihan Guler  5 - 105

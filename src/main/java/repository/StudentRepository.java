@@ -1,63 +1,49 @@
 package repository;
 
+import config.JDBC_Utils;
 import domain.Grades;
 import domain.Student;
 import domain.SuccessDegree;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class StudentRepository implements SameRepoOperations<Student>{
 
     // Cihan Guler 9-59
     public void createStudentTable(){
-        /*
-        bu methodun query si yazilirken if not exist kullanilacak
-        studentID bu pk olacak
 
-        tablo ismi = t_student
+        JDBC_Utils jdbc_utils = new JDBC_Utils();
 
-        std_name,
-        std_surName
-        password
-        address
-        phoneNumber
-        role
-        grade
-        lastYearGradeAvg
-        payment
-        totalPrice
-        lessonCredit
+        JDBC_Utils.setConnection();//DB ile bağlantı kurmak için  Connection
+        JDBC_Utils.setStatement();//Sorgu oluşturmak için Statement
+        //JDBC_Utils.setPrst();//Belki parametreli sorgular oluşturmak için PreparedStatement
+        try{
+            JDBC_Utils.getSt().executeUpdate("CREATE TABLE IF NOT EXISTS t_student(" +
+                    "studentId SERIAL UNIQUE," +
+                    "std_name VARCHAR(50) NOT NULL CHECK(LENGTH(name)>0)," +
+                    "std_surName VARCHAR(50) NOT NULL CHECK(LENGTH(name)>0)," +
+                    "password VARCHAR(30) NOT NULL CHECK(LENGTH(password)>8)," +
+                    "emails VARCHAR(30) NOT NULL CHECK(LENGTH(emails)>0)," +
+                    "address VARCHAR(50) NOT NULL," +
+                    "phone_number INT NOT NULL," +
+                    "role," +
+                    "grade INT CHECK(age>=0)," +
+                    "lastYearGradeAvg INT CHECK(age>=0)," +
+                    "payment INT," +
+                    "totalPrice INT," +
+                    "balanc");
 
-        */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Cihan Guler 9-59
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
     //Ersagun Eryildiz 62-162
