@@ -288,6 +288,43 @@ public class SchoolManagementSystem {
         * */
 
 
+        class studentPage {
+            private String ad;
+            private String ogrenciNo;
+            private String bolum;
+
+            public studentPage(String ad, String ogrenciNo, String bolum) {
+                this.ad = ad;
+                this.ogrenciNo = ogrenciNo;
+                this.bolum = bolum;
+            }
+
+            public void kendiBilgileriniGor() {
+                System.out.println("Ad: " + ad);
+                System.out.println("Ogrenci No: " + ogrenciNo);
+                System.out.println("Bolum: " + bolum);
+            }
+
+            public void dersPrograminiGor() {
+                // Ders programını görüntüleme işlemleri
+                System.out.println("Ders Programi: ...");
+            }
+
+            public void dersSonuclariniGor() {
+                // Ders sonuçlarını görüntüleme
+                System.out.println("Ders Sonuclari: ...");
+            }
+
+            public void dersSecimiYap() {
+                // Ders seçimi yapma
+                System.out.println("Ders Secimi Yapiliyor...");
+            }
+
+            public void yoklamaAl() {
+                // Yoklama alma
+                System.out.println("Yoklama Aliniyor...");
+            }
+        }
 
 
 

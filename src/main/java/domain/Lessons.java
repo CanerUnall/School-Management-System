@@ -9,6 +9,7 @@ public class Lessons {
     private Integer studentNote;
     private String day;
 
+
     private SuccessDegree lessonSuccessDegree;
 
     public Lessons(LessonNames name, Teacher teacher, int lessonCredit, double lessonFee, String day) {
