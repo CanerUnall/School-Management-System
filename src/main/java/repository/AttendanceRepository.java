@@ -1,8 +1,10 @@
 package repository;
 
 public class AttendanceRepository {
+
+    // Caner Unal
     public void createAttendanceTable() {
-// Caner Unal
+
     /*
     bu tabloda tum okulun devamsizligi kaydedilecek
 
@@ -18,7 +20,4 @@ public class AttendanceRepository {
     select count(studentID) from t_attendance where studentID = 123
 */
     }
-
-
-
 }

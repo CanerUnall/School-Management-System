@@ -1,6 +1,8 @@
 package service;
 
+import config.Scanner_Utils;
 import domain.Teacher;
+import exceptions.TeacherNotFoundException;
 import repository.TeacherRepository;
 
 import java.util.List;
@@ -15,11 +17,29 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         this.scanner = scanner;
     }
 
+    // Umut Ayaz 18 -68
+
     @Override
     public Teacher find(int id) {
-        // Umut Ayaz 18 -68
+
         //burada TeacherRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
         //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
+
+        try {
+            Teacher foundTeacher = teacherRepository.find(id);
+            if (
+                    foundTeacher!= null
+            ){
+                System.out.println(foundTeacher);
+                return foundTeacher;
+            }else {
+                throw new TeacherNotFoundException("Teacher not found with ID :" + id);
+            }
+
+        } catch (TeacherNotFoundException e) {
+
+            System.out.println("Hata: " + e.getMessage());
+        }
         return null;
 
 
@@ -50,34 +70,19 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Umut Ayaz 18 -68
     }
 
+    //Rumeysa Dagtekin 71 - 171
     @Override
     public void login() {
-        //Rumeysa Dagtekin 71 - 171
-/*
-1. burada ogretmen ogrenci id alinacak.
-2. daha sonra yukaridaki find methodu cagrilacak.
-3. return olarak gelen obje null degilse sifre sorulacak.
-4. sifre dogru ise SchoolManagementSystem clasindaki teacherPage methodu burada cagrilacak.
-5. sifre yanlis ise yanlis oldugu soylenecek ve devam etmek / cikis yapmak isteyip istemedigi sorulacak ona gore dongu devam edecek.
-        */
+    /*
+    1. burada ogretmen ogrenci id alinacak.
+    2. daha sonra yukaridaki find methodu cagrilacak.
+    3. return olarak gelen obje null degilse sifre sorulacak.
+    4. sifre dogru ise SchoolManagementSystem clasindaki teacherPage methodu burada cagrilacak.
+    5. sifre yanlis ise yanlis oldugu soylenecek ve devam etmek / cikis yapmak isteyip istemedigi sorulacak ona gore dongu devam edecek.
+            */
 
 
 
@@ -171,9 +176,10 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         //Rumeysa Dagtekin 71 - 171
     }
 
+    //Mustafa Ubeyde Kayhan 174- 274
     @Override
     public void addSomeoneInfo() {
-    /* Mustafa Ubeyde Kayhan 174- 274
+    /*
         1. burada eklenecek ogretmenin tum bilgileri sirasiyla alinacak ve obje olusturulacak
         2. daha sonra TeacherRepository clasindaki addRepoSomeoneInfo methodu cagrilacak.
         3. ogretmen basariyla kaydedildi diye sout atilacak.
@@ -274,12 +280,13 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         //Mustafa Ubeyde Kayhan 174- 274
     }
 
+    //Gaukhar Ergin 277 - 377
     @Override
     public void removeSomeoneInfo() {
-/* Gaukhar Ergin 277 - 377
+        /*
         1. once silinecek ogretmenin id alinacak
         2. TeacherMethods icindeki find methodu ile o ogretmen bulunacak
-        3. daha sonra TeacherRepository clasindaki removeRepoSomeoneInfo methodu cagrilarak ogrenci silinecek
+        3. daha sonra TeacherRepository clasindaki removeRepoSomeoneInfo methodu cagrilarak teacher silinecek
 
          */
 
@@ -377,10 +384,11 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         //Gaukhar Ergin 277 - 377
     }
 
+    //Ersagun Eryildiz 380 - 580
     @Override
     public void updateSomeoneInfo() {
-        //Ersagun Eryildiz 380 - 580
-/*
+
+        /*
         1. once ogretmenin id alinacak
         2. TeacherMethods icindeki find methodu ile o ogrenci bulunacak
         3. daha sonra update edilecek islem sorulacak
@@ -580,11 +588,13 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         //Ersagun Eryildiz  380 - 580
     }
 
+    // Seval Senturk 583 - 683
     @Override
     public void getSomeoneInfo(int id) {
-        // Seval Senturk 583 - 683
-/*1. once ogretmenin id alinacak
-        2. TeacherRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
+
+        //1. TeacherRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
+
+        teacherRepository.getRepoSomeoneInfo(id);
 
 
 
@@ -683,8 +693,13 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 // Seval Senturk 583 - 683
     }
 
+    // Umut Ayaz 686 - 786
     public List<Teacher> getAllTeacher(){
-        // Caner Unal 686 - 786
+
+        
+
+
+
         //burada reTeacherRepository clasindaki getAllTeacherRepo methodu cagrilacak
         return null;
 
@@ -782,6 +797,6 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
 
 
-        // Caner Unal 686 - 786
+        //Umut Ayaz 686 - 786
     }
 }
