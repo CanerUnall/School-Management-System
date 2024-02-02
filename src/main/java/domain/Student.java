@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Student extends Person {
     private int studentID;
@@ -18,6 +16,15 @@ public class Student extends Person {
 
     private HashMap<Integer, Attendance> historyAttendance = new HashMap<>();
 
+    private Integer percentDiscount=1;
+
+    public Integer getPercentDiscount() {
+        return percentDiscount;
+    }
+
+    public void setPercentDiscount() {
+        this.percentDiscount=percentDiscount;
+    }
 
     public int getStudentID() {
         return studentID;
@@ -105,6 +112,7 @@ public class Student extends Person {
         this.lessonCredit = 20;
         this.totalPrice = 0;
         this.thisYearGradeAvg = 0;
+        this.percentDiscount=1;
     }
 
     public Student() {

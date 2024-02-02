@@ -1,10 +1,8 @@
 package controller;
 
-import domain.Admins;
 import domain.Student;
 import domain.Teacher;
 import repository.*;
-import service.StudentMethods;
 
 public class SchoolManagementSystem {
 
@@ -474,7 +472,7 @@ public class SchoolManagementSystem {
         //Emrah Kaya 327 -477
     }
 
-    static void adminPage(Admins admins){
+    public  void adminPage(){
         /* Cihan Guler 479 - 679
          * yonetici ahmet hosgeldin
          * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek

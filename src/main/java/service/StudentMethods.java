@@ -685,11 +685,15 @@ public class StudentMethods implements Login<Student>, SameOperations  {
     }
 
     public void setStudentPrice(Student student, double lastYearGradeAvg){
-
+    //student.setPercentDiscount(); method ismi degisecek unutma
 //Omer Faruk Osmanoglu 688 - 788
-        //ogrencinin toplam odeyecegi miktar set edilmis olacak
+        //ogrencinin gecen yil ki ortalamasina gore indirim miktari set edilecek.
         //kac puan araligina ne kadar indirim yapilacagini bu methodu yazan arkadas takdir edecek.
         //bu method yardimci method olarak ogrenci kaydi yapilirken cagrilacak.
+        //student.setPercentDiscount();
+
+
+
 
 
 
