@@ -9,7 +9,7 @@ public class ReportRepository {
 
 
 
-
+        String dersSorgusu = "Select lesson_name,std_name,std_surName,studentNote From  ";
 
 
 

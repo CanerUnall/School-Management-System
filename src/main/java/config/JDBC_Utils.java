@@ -54,11 +54,10 @@ public class JDBC_Utils {
         return con;
     }
 
-    public static Statement getSt() {
-        return st;
     }
 
     public static PreparedStatement getPrst() {
         return prst;
     }
+
 }

@@ -2,8 +2,15 @@ package repository;
 
 import config.JDBC_Utils;
 import domain.Grades;
+import domain.Lessons;
 import domain.Student;
 import domain.SuccessDegree;
+
+
+import java.sql.SQLException;
+import java.util.List;
+
+import static config.JDBC_Utils.*;
 
 import exceptions.StudentNotFoundException;
 
@@ -19,6 +26,7 @@ import java.util.List;
 
 import static config.JDBC_Utils.con;
 import static config.JDBC_Utils.prst;
+
 
 public class StudentRepository implements SameRepoOperations<Student>{
 
@@ -191,13 +199,13 @@ public class StudentRepository implements SameRepoOperations<Student>{
 
 
 
-
-
-
-
-
         //Ersagun Eryildiz 62-162
     }
+
+    @Override
+    public void addRepoSomeoneInfo(Student person) {
+        /*//Husnu Sen 166- 266
+
 
     //Husnu Sen 166- 266
     @Override
@@ -207,36 +215,42 @@ public class StudentRepository implements SameRepoOperations<Student>{
     burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak ve kayit yapilacak
 
 
+        burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak ve kayit yapilacak
+
+
+*/
+       JDBC_Utils.setConnection();
+        String sql = "INSERT INTO students (name, surName, password, address, phoneNumber, role, studentID, grade, lastYearGradeAvg, payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     */
 
 
+        JDBC_Utils.setPrst(sql);
 
 
+        try {
+                JDBC_Utils.getPrst().setString(1, person.getName());
+                JDBC_Utils.getPrst().setString(2, person.getSurName());
+                JDBC_Utils.getPrst().setString(3, person.getPassword());
+                JDBC_Utils.getPrst().setString(4, person.getAddress());
+                JDBC_Utils.getPrst().setString(5,person.getPhoneNumber());
+                JDBC_Utils.getPrst().setString(6, String.valueOf(person.getRole()));
+                JDBC_Utils.getPrst().setInt(7,person.getStudentID());
+                JDBC_Utils.getPrst().setString(8, String.valueOf(person.getGrade()));
+                JDBC_Utils.getPrst().setDouble(9,person.getLastYearGradeAvg());
+                JDBC_Utils.getPrst().setDouble(10,person.getPayment());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            JDBC_Utils.getPrst().executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            }catch (SQLException e){
+                System.err.println(e.getMessage());
+            }
+        }
 
 
 
@@ -304,7 +318,9 @@ public class StudentRepository implements SameRepoOperations<Student>{
         //Husnu Sen 166- 266
     }
 
+
     //Caner Unal 270- 320
+
     @Override
     public void removeRepoSomeoneInfo(Student person) {
 
@@ -567,9 +583,13 @@ public class StudentRepository implements SameRepoOperations<Student>{
 
     public void updateNoteInfo(Student person, int note){}
 
-    public void updateSuccessDegreeInfo(Student person, SuccessDegree successDegree){}
+    public void updateSuccessDegreeInfo(Student person, Lessons lessons, SuccessDegree successDegree){}
+
+
+    
 
     // Zehra Erol 526 - 626
+
     @Override
     public void getRepoSomeoneInfo(int id) {
 
