@@ -9,7 +9,7 @@ public class ReportRepository {
 
 
 
-
+        String dersSorgusu = "Select lesson_name,std_name,std_surName,studentNote From  ";
 
 
 
@@ -115,9 +115,9 @@ public class ReportRepository {
 
 
 
-
+    //Seval Senturk  119 - 219
     public void getClassSuccess(Grades grades) {
-//Seval Senturk  119 - 219
+
 
 
 

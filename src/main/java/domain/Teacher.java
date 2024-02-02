@@ -6,8 +6,9 @@ public class Teacher extends Person{
 
     private  int teacherID;
 
-    public Teacher(int teacherId, String tchrName, String tchrSurName, String password, String address, String phoneNumber, String role, double salary, String branch) {
-    }
+
+    private Lessons lesson;
+
 
     public double getSalary() {
         return salary;
@@ -33,6 +34,15 @@ public class Teacher extends Person{
         this.teacherID = teacherID;
     }
 
+
+    public Lessons getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lessons lesson) {
+        this.lesson = lesson;
+    }
+
     public Teacher(String name, String surName, String password, String address, String phoneNumber,
                    UserRol role, double salary, String branch, int teacherID) {
         super(name, surName, password, address, phoneNumber, role);
@@ -41,6 +51,15 @@ public class Teacher extends Person{
         this.teacherID = teacherID;
     }
 
-    public Teacher() {
+    public Teacher() {}
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "salary=" + salary +
+                ", branch='" + branch + '\'' +
+                ", teacherID=" + teacherID +
+                '}';
+
     }
 }

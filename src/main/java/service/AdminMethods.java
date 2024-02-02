@@ -1,5 +1,6 @@
 package service;
 
+import controller.SchoolManagementSystem;
 import domain.Admins;
 import repository.AdminRepository;
 
@@ -14,9 +15,9 @@ public class AdminMethods implements Login<Admins>{
         this.adminRepository = adminRepository;
     }
 
+    // Mustafa Ubeyde Kayhan 17 -  67
     @Override
     public Admins find(int id) {
-        // Mustafa Ubeyde Kayhan 17 -  67
         //burada AdminRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
         //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
 
@@ -67,9 +68,10 @@ public class AdminMethods implements Login<Admins>{
         // Mustafa Ubeyde Kayhan 7 -  57
     }
 
+    //Omer Faruk Osman Oglu 70 - 170
     @Override
     public void login() {
-/*Omer Faruk Osman Oglu 70 - 170
+/*
 1. burada yoneticiden id alinacak.
 2. daha sonra yukaridaki find methodu cagrilacak.
 3. return olarak gelen obje null degilse sifre sorulacak.
@@ -78,7 +80,42 @@ public class AdminMethods implements Login<Admins>{
         */
 
 
+        boolean loggedIn = false;
+        do {
+            System.out.println("Please enter your admin ID: ");
+            int adminId = scanner.nextInt();
 
+            // Find admin by ID
+            Admins admin = find(adminId);
+
+            if (admin != null) {
+                System.out.println("Please enter your password: ");
+                String password = scanner.next();
+
+                // Check if the entered password matches
+                if (admin.getPassword().equals(password)) {
+                    // Login successful
+                    loggedIn = true;
+                    System.out.println("Login successful!");
+                    // Call adminPage method of SchoolManagementSystem class
+                    SchoolManagementSystem schoolManagementSystem=new SchoolManagementSystem();
+                    schoolManagementSystem.adminPage();
+                } else {
+                    System.out.println("Incorrect password. Do you want to continue (Y/N)?");
+                    String choice = scanner.next();
+                    if (!choice.equalsIgnoreCase("Y")) {
+                        loggedIn = true; // Exit loop if choice is not "Y"
+                    }
+                }
+            } else {
+                System.out.println("Admin not found. Do you want to continue (Y/N)?");
+                String choice = scanner.next();
+                if (!choice.equalsIgnoreCase("Y")) {
+                    loggedIn = true; // Exit loop if choice is not "Y"
+                }
+            }
+        } while (!loggedIn);
+    }
 
 
 
@@ -169,4 +206,4 @@ public class AdminMethods implements Login<Admins>{
 
         //Omer Faruk Osman Oglu 60 - 160
     }
-}
+
