@@ -1,6 +1,12 @@
 package repository;
 
 import config.JDBC_Utils;
+
+import domain.Student;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import domain.Grades;
 import domain.Lessons;
 import domain.Student;
@@ -13,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class FinanceRepository {
 
@@ -243,6 +250,41 @@ public class FinanceRepository {
     public void getRepoPaymentTrackingInfo(){
         //tum ogrencilerin odemesi gereken tutar, odedigi tutar ve kalan tutar gosterilecek
         //buna iliskin sorgu yazilacak
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
+
+        String query="SELECT studentID,std_name, std_surName, payment, totalPrice FROM t_student";
+        System.out.println("====================PAYMENT TRACKING INFO OF ALL STUDENTS================");
+
+        try {
+            ResultSet resultSet=JDBC_Utils.getSt().executeQuery(query);
+            int leftPrice= resultSet.getInt("totalPrice")-resultSet.getInt("payment");
+
+            while (resultSet.next()){
+                System.out.println("Id : "+resultSet.getInt("id"));
+                System.out.println("Name : "+resultSet.getString("std_name"));
+                System.out.println("Surname : "+resultSet.getString("std_surname"));
+                System.out.println("Payment : "+resultSet.getInt("payment"));
+                System.out.println("TotalPrice : "+resultSet.getInt("totalPrice"));
+                if (leftPrice>0){
+                    System.out.println("LeftPrice : "+leftPrice);
+                }else{
+                    System.out.println("LeftPrice : "+leftPrice+" -->All payments are completed");
+                }
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
 
 
 

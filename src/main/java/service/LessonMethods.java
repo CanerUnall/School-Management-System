@@ -1,6 +1,11 @@
 package service;
 
+
+import config.JDBC_Utils;
+import domain.Attendance;
+
 import config.Scanner_Utils;
+
 import domain.Classes;
 import domain.LessonNames;
 import domain.Lessons;
@@ -8,7 +13,14 @@ import domain.Student;
 import repository.LessonsRepository;
 import repository.StudentRepository;
 
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+
+import java.util.List;
+
 import java.util.Scanner;
 
 public class LessonMethods {
@@ -517,6 +529,46 @@ public class LessonMethods {
     //Semra Zengin 528 - 578
     public void showStudentAttendance(Student student){
         //ogrenci uzerinden ogrencinin devamsizlik yaptigi gunlerin tarihleri ve ders isimleri yazdirilacak.
+
+
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
+        String query="SELECT * FROM t_attendance WHERE studentID="+student.getStudentID();
+        System.out.println("Student ID: " + student.getStudentID());
+        System.out.println("Student Name: " + student.getName() + " " + student.getSurName());
+
+        System.out.println("Attendance History:");
+        System.out.println("-------------------");
+         try {
+             ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
+             while (resultSet.next()){
+                 System.out.println("Lesson : "+resultSet.getString("lesson_name"));
+                 System.out.println("Date : "+resultSet.getString("date"));
+             }
+
+         } catch (SQLException e) {
+             System.err.println(e.getMessage());
+         }finally {
+             try {
+                 JDBC_Utils.getSt().close();
+                 JDBC_Utils.getCon().close();
+
+             } catch (SQLException e) {
+                 System.err.println(e.getMessage());
+             }
+         }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

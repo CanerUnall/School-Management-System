@@ -1,10 +1,21 @@
 package controller;
 
+import config.Scanner_Utils;
 import domain.Admins;
 import domain.Student;
 import domain.Teacher;
+
 import repository.*;
+
+import repository.AdminRepository;
+import repository.StudentRepository;
+import repository.TeacherRepository;
+import service.AdminMethods;
+
 import service.StudentMethods;
+import service.TeacherMethods;
+
+import java.util.Scanner;
 
 public class SchoolManagementSystem {
 
@@ -131,7 +142,50 @@ public class SchoolManagementSystem {
          * yonetici olarak giris yap (admin login methodu burada cagrilacak)
          * cikis
          * */
+        Scanner scanner=new Scanner(System.in);
+        Scanner_Utils.intScanner(scanner);
 
+        StudentRepository studentRepository=new StudentRepository();
+        StudentMethods studentMethods=new StudentMethods(scanner, studentRepository);
+
+        TeacherRepository teacherRepository=new TeacherRepository();
+        TeacherMethods teacherMethods=new TeacherMethods(teacherRepository, scanner);
+
+        AdminRepository adminRepository=new AdminRepository();
+        AdminMethods adminMethods=new AdminMethods(scanner, adminRepository);
+
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("========= Welcome to School Management System =========");
+            System.out.println( "1. Student Operations\n" +
+                    "2. Teacher Operations\n" +
+                    "3. Admin Operations\n" +
+                    "0. Exit\n" +
+                    "Enter your choice : ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    studentMethods.login();
+                    break;
+                case 2:
+                    teacherMethods.login();
+                    break;
+                case 3:
+                    adminMethods.login();
+                    break;
+                case 0:
+                    exit = true;
+                    System.out.println("Good bye...");
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again");
+                    break;
+            }
+        }
 
 
 

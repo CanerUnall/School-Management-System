@@ -218,7 +218,7 @@ public class FinanceMethods {
     public void showPaymentTrackingTable(){
         //FinanceRepository clasindan getRepoPaymentTrackingInfo methodu cagrilacak
 
-
+        financeRepository.getRepoPaymentTrackingInfo();
 
 
 

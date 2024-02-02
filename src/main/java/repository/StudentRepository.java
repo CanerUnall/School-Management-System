@@ -1,9 +1,14 @@
 package repository;
 
+import config.JDBC_Utils;
 import domain.Grades;
 import domain.Student;
 import domain.SuccessDegree;
+import domain.UserRol;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class StudentRepository implements SameRepoOperations<Student>{
@@ -641,8 +646,53 @@ public class StudentRepository implements SameRepoOperations<Student>{
     //Semra Zengin 628 - 728
     public List<Student> getAllStudents(){
 
-        return null;
 
+//Semra Zengin 628 - 728
+
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
+
+        List<Student> allStudents=new ArrayList<>();
+
+        String query="SELECT * FROM t_student";
+        System.out.println("====================ALL STUDENTS================");
+
+        try {
+            ResultSet resultSet=JDBC_Utils.getSt().executeQuery(query);
+
+            while (resultSet.next()){
+                Student student = new Student();
+
+                student.setStudentID(resultSet.getInt("id"));
+                student.setName(resultSet.getString("std_name"));
+                student.setSurName(resultSet.getString("std_surname"));
+                student.setRole(UserRol.STUDENT);
+                student.setAddress(resultSet.getString("address"));
+                student.setPhoneNumber(resultSet.getString("phoneNumber"));
+                student.setLastYearGradeAvg(resultSet.getInt("lastYearGradeAvg"));
+                student.setPayment(resultSet.getInt("payment"));
+                student.setTotalPrice(resultSet.getInt("totalPrice"));
+                student.setLessonCredit(resultSet.getInt("lessonCredit"));
+                Grades grade = Grades.valueOf(resultSet.getString("grade"));
+                student.setGrade(grade);
+
+                allStudents.add(student);
+
+
+            }
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+        return allStudents;
 
 
 
