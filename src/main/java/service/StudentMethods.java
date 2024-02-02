@@ -4,6 +4,7 @@ import config.Scanner_Utils;
 import domain.Lessons;
 import domain.Student;
 import domain.SuccessDegree;
+import exceptions.StudentNotFoundException;
 import repository.StudentRepository;
 
 import java.util.Scanner;
@@ -21,25 +22,24 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
         //burada StudentRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
         //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
-        return null;
+      //  return null;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            Student foundStudent = studentRepository.find(id);
+            try {
+                if (foundStudent != null) {
+                    System.out.println("---------------------------------------------");
+                    System.out.println(foundStudent);
+                    System.out.println("---------------------------------------------");
+                    return foundStudent;
+                } else {
+                    throw new StudentNotFoundException("Student not found by id : " + id);
+                }
+            }catch (StudentNotFoundException e){
+                System.out.println(e.getMessage());
+            }
+            return null;
+//---------------------------
 
 
 

@@ -1,10 +1,16 @@
 package repository;
 
+import config.JDBC_Utils;
 import domain.Grades;
 import domain.Student;
 import domain.SuccessDegree;
+import exceptions.StudentNotFoundException;
 
+import java.sql.*;
 import java.util.List;
+
+import static config.JDBC_Utils.con;
+import static config.JDBC_Utils.prst;
 
 public class StudentRepository implements SameRepoOperations<Student>{
 
@@ -60,38 +66,53 @@ public class StudentRepository implements SameRepoOperations<Student>{
 // Cihan Guler 9-59
     }
 
-    @Override
-    public Student find(int id) {
+    //@Override
+   // public Student find(int id) {
         //Ersagun Eryildiz 62-162
         //buradan girilen idye gore dbden ogrenci bilgileri alinacak ve obje olusturulup return edilecek
 
-        return null;
+     //   return null;
+
+        //----------------------------------------------------------------------
+        @Override
+        public Student find (int id) {
+            JDBC_Utils.setConnection();
+            JDBC_Utils.setStatement();
+            String query= ("SELECT * FROM t_students WHERE id=" +id);
+            System.out.println("================FOUND STUDENT===================");
+            try {
+                ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
+
+                    Student student = new Student();
+
+                    System.out.println("Id: " + resultSet.getInt("id"));
+                    System.out.println("Name: " + resultSet.getString("std_name"));
+                    System.out.println("Surname: " + resultSet.getString("std_surName"));
+                    System.out.println("Role: " + resultSet.getString("role"));
+                    System.out.println("Address: " + resultSet.getString("address"));
+                    System.out.println("PhoneNumber: " + resultSet.getInt("phoneNumber"));
+                    System.out.println("Grade: " + resultSet.getInt("grade"));
+                    System.out.println("Age: " + resultSet.getInt("age"));
+                    System.out.println("LastYearGradeAvg: " + resultSet.getInt("lastYearGradeAvg"));
+                    System.out.println("Payment: " + resultSet.getInt("payment"));
+                    System.out.println("TotalPrice: " + resultSet.getInt("totalPrice"));
+                    System.out.println("LessonCredit: " + resultSet.getInt("lessonCredit"));
+                    return student;
 
 
+                } catch (SQLException e) {
+                    System.err.println(e.getMessage());
+                } finally {
+                try {
+                    JDBC_Utils.getSt().close();
+                    JDBC_Utils.getCon().close();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                } catch (SQLException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+            return null;
+//-------------------------------------------------------------------------
 
 
 

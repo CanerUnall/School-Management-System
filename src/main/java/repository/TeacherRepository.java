@@ -426,27 +426,32 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 // choice 1 ise adres, 2 ise brans, 3 ise maas update edilsin
 
 
+        /*if (person != null) {
+            int choice = 1; // Güncelleme seçeneği (1: Adres, 2: Branş, 3: Maaş)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            switch (choice) {
+                case 1:
+                    person.setAddress(address);
+                    System.out.println("Updated address information: " + address);
+                    break;
+                case 2:
+                   // Branch branch = new Branch();
+                    branch.setBranch(branch);
+                    System.out.println("Updated branch information: " + branch);
+                    break;
+                case 3:
+                    //Salary salary = new Salary();
+                    salary.setSalary(salary);
+                    System.out.println("Updated salary information: " +salary);
+                    break;
+                default:
+                    System.out.println("Invalid option!");
+                    break;
+            }
+        } else {
+            System.out.println("Invalid teacher information!");
+        }
+    }*/
 
 
 
