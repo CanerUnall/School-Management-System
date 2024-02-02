@@ -6,6 +6,8 @@ import java.util.List;
 
 public class LessonsRepository {
 
+
+
     //Omer Faruk Osmanoglu 9 - 109
     public void createLessonsTable(){
       /*

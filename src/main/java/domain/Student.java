@@ -19,8 +19,12 @@ public class Student extends Person {
     private HashMap<Integer, Attendance> historyAttendance = new HashMap<>();
 
     public Student(String name, String surName, String password, String address, String phoneNumber,
-                   UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment, HashMap<Integer,
-            Lessons> allLessons, HashMap<Integer, Attendance> historyAttendance) {
+                   UserRol role, int studentID,
+                   Grades grade,
+                   double lastYearGradeAvg,
+                   double payment,
+                   HashMap<Integer, Lessons> allLessons,
+                   HashMap<Integer, Attendance> historyAttendance) {
         super(name, surName, password, address, phoneNumber, role);
         this.studentID = studentID;
         this.grade = grade;

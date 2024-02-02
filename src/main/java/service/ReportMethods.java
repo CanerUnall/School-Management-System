@@ -1,8 +1,8 @@
 package service;
 
-import domain.SuccessDegree;
+import config.Scanner_Utils;
+import domain.Grades;
 import repository.ReportRepository;
-
 import java.util.Scanner;
 
 public class ReportMethods {
@@ -117,47 +117,27 @@ public class ReportMethods {
     }
 
     //Seval Senturk  119 - 219
-    public void showClassSuccess(SuccessDegree successDegree) {
-    //SuccessDegree enumlarini kullanacaksin
-        //tüm öğrencileri sınıf sınıf çağıracağız
+    public void showClassSuccess() {
+    /*
+        burada once kullanıcıya hangı sınıfın basarısını gormek ıstedıgını soracaksınız
+        daha sonra aldıgınız cevaba ıstınaden ReportReposıtory classındaki getClassSuccess methodunu
+        parametreli olarak cagiracaksiniz
+        */
 
-        switch (successDegree) {
-            case A:
-                System.out.println("Sınıf başarısı: Mükemmel");
-                break;
-            case B:
-                System.out.println("Sınıf başarısı: İyi");
-                break;
-            case C:
-                System.out.println("Sınıf başarısı: Orta");
-                break;
-            case D:
-                System.out.println("Sınıf başarısı: Geçer");
-                break;
-            case F:
-                System.out.println("Sınıf başarısı: Başarısız");
-                break;
-            default:
-                System.out.println("Geçersiz değer");
-                break;
+        System.out.println("Hangi sınıfın başarısını görmek istiyorsunuz..");
+        String selectedClass=scanner.nextLine();
+
+        try {
+            // Kullanıcının girdiği sınıf ismini Grades enum değerine dönüştürüyoruz
+            Grades selectedGrade = Grades.valueOf(selectedClass);
+
+            reportRepository.getClassSuccess(selectedGrade);
+
+        } catch (IllegalArgumentException e) {
+            System.err.println("Geçersiz sınıf ismi. Lütfen geçerli bir sınıf ismi giriniz.");
+        } finally {
+            scanner.close();
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
