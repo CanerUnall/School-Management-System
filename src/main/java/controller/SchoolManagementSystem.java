@@ -1,11 +1,16 @@
 package controller;
 
+
+
 import config.Scanner_Utils;
 import domain.Admins;
+
 import domain.Student;
 import domain.Teacher;
 
 import repository.*;
+
+
 
 import repository.AdminRepository;
 import repository.StudentRepository;
@@ -16,6 +21,7 @@ import service.StudentMethods;
 import service.TeacherMethods;
 
 import java.util.Scanner;
+
 
 public class SchoolManagementSystem {
 
@@ -565,9 +571,14 @@ public class SchoolManagementSystem {
         //Emrah Kaya 327 -477
     }
 
+
+    public  void adminPage(){
+        /* Cihan Guler 479 - 679
+
     //Cihan Guler 479 - 679
     static void adminPage(Admins admins){
         /*
+
          * yonetici ahmet hosgeldin
          * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
          * 1. TUM OGRENCI BILGILERI

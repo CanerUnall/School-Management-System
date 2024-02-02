@@ -1,8 +1,6 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Student extends Person {
 
@@ -19,7 +17,19 @@ public class Student extends Person {
     private int lessonCredit;
     private HashMap<Integer, Lessons> allLessons ;
 
+
+    private Integer percentDiscount=1;
+
+    public Integer getPercentDiscount() {
+        return percentDiscount;
+    }
+
+    public void setPercentDiscount() {
+        this.percentDiscount=percentDiscount;
+    }
+
     private HashMap<Integer, Attendance> historyAttendance;
+
 
     public int getStudentID() {
         return studentID;
@@ -117,6 +127,9 @@ public class Student extends Person {
         this.thisYearGradeAvg = 0;
         this.percentDiscount=1;
 
+    }
+
+
   
   
     @Override
@@ -132,6 +145,7 @@ public class Student extends Person {
                 ", allLessons=" + allLessons +
                 ", historyAttendance=" + historyAttendance +
                 '}';
+
 
     }
 }
