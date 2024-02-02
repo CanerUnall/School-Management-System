@@ -68,16 +68,16 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         //Ersagun Eryildiz 17-67
     }
 
+    //Gaukhar Ergin 70-170
     @Override
     public void login() {
-/* Gaukhar Ergin 70-170
-
-1. burada ogrenciden ogrenci id alinacak.
-2. daha sonra yukaridaki find methodu cagrilacak.
-3. return olarak gelen obje null degilse sifre sorulacak.
-4. sifre dogru ise SchoolManagementSystem clasindaki studentPage methodu burada cagrilacak.
-5. sifre yanlis ise yanlis oldugu soylenecek ve devam etmek / cikis yapmak isteyip istemedigi sorulacak ona gore dongu devam edecek.
-        */
+        /*
+        1. burada ogrenciden ogrenci id alinacak.
+        2. daha sonra yukaridaki find methodu cagrilacak.
+        3. return olarak gelen obje null degilse sifre sorulacak.
+        4. sifre dogru ise SchoolManagementSystem clasindaki studentPage methodu burada cagrilacak.
+        5. sifre yanlis ise yanlis oldugu soylenecek ve devam etmek / cikis yapmak isteyip istemedigi sorulacak ona gore dongu devam edecek.
+         */
 
 
 
@@ -478,11 +478,19 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         // Seval Senturk 328 - 480
     }
 
+    // Zehra Erol 482 - 532
     @Override
     public void getSomeoneInfo(int id) {
-        // Zehra Erol 482 - 532
-/*1. once ogrencinin id alinacak
+
+        /*
+        1. once ogrencinin id alinacak
+
         2. StudentRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
+
+        System.out.println("Öğrencinin id'sini giriniz...");//ilk olarak 
+         id=scanner.nextInt();
+
+        studentRepository.getRepoSomeoneInfo(id);
 
 
 
@@ -530,9 +538,9 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 // Zehra Erol 482 - 532
     }
-    public void updateStudentNote(){
 
-        //Hanife Ocak 534 - 584
+    //Hanife Ocak 534 - 584
+    public void updateStudentNote(){
                 /*
         1. once ogrencinin id alinacak
         2. StudentMethods icindeki find methodu ile o ogrenci bulunacak
@@ -582,10 +590,8 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
     }
 
+    // Husnu Sen 586 - 686
     public SuccessDegree setAndReturnSuccessDegree(Student student, Lessons lessons,int not){
-
-       // Husnu Sen 586 - 686
-
 
         // StudentRepository clasindaki updateRepoSomeoneInfo methodu choice 5 olarak cagrilarak
 
@@ -684,9 +690,9 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         // Husnu Sen 586 - 686
     }
 
+    //Omer Faruk Osmanoglu 688 - 788
     public void setStudentPrice(Student student, double lastYearGradeAvg){
 
-//Omer Faruk Osmanoglu 688 - 788
         //ogrencinin toplam odeyecegi miktar set edilmis olacak
         //kac puan araligina ne kadar indirim yapilacagini bu methodu yazan arkadas takdir edecek.
         //bu method yardimci method olarak ogrenci kaydi yapilirken cagrilacak.
@@ -785,6 +791,5 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 //Omer Faruk Osmanoglu 688 - 788
     }
-
 
 }

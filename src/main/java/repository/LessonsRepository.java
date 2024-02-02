@@ -6,18 +6,28 @@ import domain.Lessons;
 import domain.Student;
 import domain.Teacher;
 
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import java.sql.Statement;
+
 import java.util.List;
+
+import static config.JDBC_Utils.*;
 
 public class LessonsRepository {
 
+
     TeacherRepository tRepo=new TeacherRepository();
 
+
+  
+    //Omer Faruk Osmanoglu 9 - 109
+
     public void createLessonsTable(){
-//Omer Faruk Osmanoglu 9 - 109
       /*
       burada tum dersler kaydedilecek
 
@@ -111,15 +121,11 @@ public class LessonsRepository {
 
 
 
-
-
-
-
         //Omer Faruk Osmanoglu 9 - 109
     }
 
+    //Mustafa Ubeyde Kayhan 111 -  211
     public void  addRepoLessons(Lessons lessons){
-        //Mustafa Ubeyde Kayhan 111 -  211
         // ilgili dersi if not exist ile dbye kayit edecek
 
 
@@ -220,7 +226,8 @@ public class LessonsRepository {
         //Mustafa Ubeyde Kayhan 111 - 211
     }
 
-    //RUMEYSA
+
+    //Caner Unal //RUMEYSA
     public List<Lessons> getAllLessons(){
 
         //dbdeki tum dersleri getirecek ve br liste ekleyecek daha sonra o listi return edecek
@@ -272,11 +279,14 @@ public class LessonsRepository {
 
         return null;
     }
+  
+  
+  
+  
 
-
-
-//RUMEYSA
-
+  
+    
+    //RUMEYSA
     public void addLessonStudent(Student student,Lessons lesson) {
 
         JDBC_Utils.setConnection();
@@ -318,4 +328,9 @@ public class LessonsRepository {
 
 
     }
+
+
+
+}
+
 

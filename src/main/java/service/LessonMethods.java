@@ -22,7 +22,7 @@ public class LessonMethods {
 
     public void addAllLesson(){
         //Mustafa Ubeyde Kayhan 19 -  119
-//ogretmenleri derslere atamak icin TeacherMethods clasindaki getAllTeacher methodu cagrilacak
+      //ogretmenleri derslere atamak icin TeacherMethods clasindaki getAllTeacher methodu cagrilacak
         //burada LessonName enumlari kullanilarak tum dersler olusturulacak ve eger list bos ise allLessons listine eklenecek
         //burada kullanilacak dongu icinden LessonRepository clasindaki addAllLessonsRepo methodu cagrilacak
 
@@ -123,8 +123,8 @@ public class LessonMethods {
     }
 
 
+    //Omer Faruk Osmanoglu 122 - 222
     public void studentSchedule(Student student) {
-        //Omer Faruk Osmanoglu 122 - 222
         //ogrenci uzerinden tum dersleri cagirip ona gore takvimi olusturabilirsin
         //burada hafta icleri icin birer list olustursun
 
@@ -225,9 +225,9 @@ public class LessonMethods {
         //Omer Faruk Osmanoglu 122 - 222
     }
 
+    //Hanife Ocak 224 - 324
     public void resultLesson(Student student){
-        //Hanife Ocak 224 - 324
-//student objesi uzerinden ders notlarini yazdir.
+     //student objesi uzerinden ders notlarini yazdir.
 
 
 
@@ -327,8 +327,9 @@ public class LessonMethods {
         //Hanife Ocak 224 - 324
     }
 
-    public void selectLesson(Student student) {
-        //Rumeysa Dagtekin 326 526
+    //Rumeysa Dagtekin 326 526
+    public void selectLesson(Student student){
+
 //burada ogrenci ders secerken LessonsRepository clasindan getAllLessons methodu cagrilacak
 // ve tum ders bilgileri bir liste eklenecek daha sonra switch/case ile ders secimi yaptirilacak
 
@@ -513,6 +514,10 @@ public class LessonMethods {
 //Semra Zengin 528 - 578
     }
 
+    //Semra Zengin 528 - 578
+    public void showStudentAttendance(Student student){
+        //ogrenci uzerinden ogrencinin devamsizlik yaptigi gunlerin tarihleri ve ders isimleri yazdirilacak.
+
 
 
 
@@ -551,6 +556,14 @@ public class LessonMethods {
         System.out.println("");
 
         System.out.println("Please select the class you want to view the schedule for :");
+
+
+    //Rumeysa Dagtekin 580 - 680
+    public void allClassesSchedule(){
+
+        //buna dair simdilik bir yol haritasi hazirlayamadim.
+    //TODO lutfen herkes bunu nasil yapacagimizi dusunsun
+        /*for (Student each:classes.getAllStudents()){
 
 
 

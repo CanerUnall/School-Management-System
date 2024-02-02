@@ -14,6 +14,13 @@ public class Classes {
 
     private final int capacity;
 
+    public Classes(List<Teacher> allTeachers, List<Student> allStudents, Grades grade) {
+        this.allTeachers = allTeachers;
+        this.allStudents = allStudents;
+        this.grade = grade;
+        this.capacity=20;
+    }
+
     public List<Teacher> getAllTeachers() {
         return allTeachers;
     }
@@ -50,11 +57,14 @@ public class Classes {
         return capacity;
     }
 
-    public Classes(List<Teacher> allTeachers, List<Student> allStudents, Grades grade) {
-        this.allTeachers = allTeachers;
-        this.allStudents = allStudents;
-        this.grade = grade;
-        this.capacity=20;
+    @Override
+    public String toString() {
+        return "Classes{" +
+                "allTeachers=" + allTeachers +
+                ", allStudents=" + allStudents +
+                ", grade=" + grade +
+                ", capacity=" + capacity +
+                '}';
     }
 
 

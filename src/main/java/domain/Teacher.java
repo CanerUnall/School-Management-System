@@ -6,6 +6,7 @@ public class Teacher extends Person{
 
     private  int teacherID;
 
+
     private Lessons lesson;
 
     public double getSalary() {
@@ -32,6 +33,7 @@ public class Teacher extends Person{
         this.teacherID = teacherID;
     }
 
+
     public Lessons getLesson() {
         return lesson;
     }
@@ -48,6 +50,15 @@ public class Teacher extends Person{
         this.teacherID = teacherID;
     }
 
-    public Teacher() {
+    public Teacher() {}
+
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "salary=" + salary +
+                ", branch='" + branch + '\'' +
+                ", teacherID=" + teacherID +
+                '}';
+
     }
 }
