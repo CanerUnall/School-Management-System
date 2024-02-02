@@ -54,6 +54,7 @@ public class JDBC_Utils {
         return con;
     }
 
+
     }
 
     public static PreparedStatement getPrst() {
@@ -61,3 +62,6 @@ public class JDBC_Utils {
     }
 
 }
+
+
+

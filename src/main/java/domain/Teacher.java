@@ -9,6 +9,7 @@ public class Teacher extends Person{
 
     private Lessons lesson;
 
+
     public double getSalary() {
         return salary;
     }
