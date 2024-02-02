@@ -50,5 +50,15 @@ public class JDBC_Utils {
 
     }
 
+    public static Connection getCon() {
+        return con;
+    }
 
+    public static Statement getSt() {
+        return st;
+    }
+
+    public static PreparedStatement getPrst() {
+        return prst;
+    }
 }
