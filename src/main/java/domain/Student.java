@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Student extends Person {
+
+    private Integer percentDiscount;
+
     private int studentID;
     private Grades grade;
     private double lastYearGradeAvg;
@@ -17,6 +20,9 @@ public class Student extends Person {
     private HashMap<Integer, Lessons> allLessons = new HashMap<>();
 
     private HashMap<Integer, Attendance> historyAttendance = new HashMap<>();
+
+    public Student(String studentName, String studentSurname, String password, String address, String phonenumber, UserRol userRole, int stdId, Grades grades, Double lastYearGradeAvg, Double payment) {
+    }
 
 
     public int getStudentID() {
@@ -92,6 +98,14 @@ public class Student extends Person {
         this.historyAttendance = historyAttendance;
     }
 
+    public Integer getPercentDiscount() {
+        return percentDiscount;
+    }
+
+    public void setPercentDiscount(Integer percentDiscount) {
+        this.percentDiscount = percentDiscount;
+    }
+
     public Student(String name, String surName, String password, String address, String phoneNumber,
                    UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment, HashMap<Integer,
             Lessons> allLessons, HashMap<Integer, Attendance> historyAttendance) {
@@ -105,6 +119,7 @@ public class Student extends Person {
         this.lessonCredit = 20;
         this.totalPrice = 0;
         this.thisYearGradeAvg = 0;
+        this.percentDiscount=1;
     }
 
     public Student() {

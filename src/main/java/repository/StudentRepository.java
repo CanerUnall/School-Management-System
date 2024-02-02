@@ -16,6 +16,7 @@ public class StudentRepository implements SameRepoOperations<Student>{
 
         tablo ismi = t_student
 
+        std_id
         std_name,
         std_surName
         password

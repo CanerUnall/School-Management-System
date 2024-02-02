@@ -56,4 +56,6 @@ public class Classes {
         this.grade = grade;
         this.capacity=20;
     }
+
+
 }

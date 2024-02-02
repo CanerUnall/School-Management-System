@@ -13,9 +13,12 @@ public class FinanceMethods {
 
         //Cihan Guler  12 - 112
 
-
         //gelir tablosu gosterilecek
         //FinanceRepository clasindan getRepoIncomeInfo methodu cagrilacak
+
+        System.out.println("*** Income Table ***");
+        System.out.println();
+        financeRepository.getRepoIncomeInfo();
 
 
 

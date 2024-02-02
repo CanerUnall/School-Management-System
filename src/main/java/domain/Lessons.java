@@ -10,6 +10,7 @@ public class Lessons {
     private Integer studentNote;
     private String day;
 
+
     private SuccessDegree lessonSuccessDegree;
 
     public SuccessDegree getLessonSuccessDegree() {

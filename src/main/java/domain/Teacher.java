@@ -6,6 +6,8 @@ public class Teacher extends Person{
 
     private  int teacherID;
 
+    private Lessons lesson;
+
     public double getSalary() {
         return salary;
     }
@@ -28,6 +30,14 @@ public class Teacher extends Person{
 
     public void setTeacherID(int teacherID) {
         this.teacherID = teacherID;
+    }
+
+    public Lessons getLesson() {
+        return lesson;
+    }
+
+    public void setLesson(Lessons lesson) {
+        this.lesson = lesson;
     }
 
     public Teacher(String name, String surName, String password, String address, String phoneNumber,
