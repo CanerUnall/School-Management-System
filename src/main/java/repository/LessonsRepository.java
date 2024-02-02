@@ -2,7 +2,10 @@ package repository;
 
 import domain.Lessons;
 
+import java.sql.Statement;
 import java.util.List;
+
+import static config.JDBC_Utils.*;
 
 public class LessonsRepository {
 
@@ -27,10 +30,6 @@ public class LessonsRepository {
       lesson_day
       studentID foreign key olarak eklenecek
 */
-
-
-
-
 
 
 
