@@ -93,15 +93,14 @@ public class Student extends Person {
     }
 
     public Student(String name, String surName, String password, String address, String phoneNumber,
-                   UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment, HashMap<Integer,
-            Lessons> allLessons, HashMap<Integer, Attendance> historyAttendance) {
+                   UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment) {
         super(name, surName, password, address, phoneNumber, role);
         this.studentID = studentID;
         this.grade = grade;
         this.lastYearGradeAvg = lastYearGradeAvg;
         this.payment = payment;
-        this.allLessons = allLessons;
-        this.historyAttendance = historyAttendance;
+       this.allLessons = new HashMap<>();
+       this.historyAttendance =new HashMap<>();
         this.lessonCredit = 20;
         this.totalPrice = 0;
         this.thisYearGradeAvg = 0;
