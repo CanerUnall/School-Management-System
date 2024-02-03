@@ -286,15 +286,16 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         /*
         1. once silinecek ogretmenin id alinacak
         2. TeacherMethods icindeki find methodu ile o ogretmen bulunacak
-        3. daha sonra TeacherRepository clasindaki removeRepoSomeoneInfo methodu cagrilarak teacher silinecek
+
+        3. daha sonra TeacherRepository clasindaki removeRepoSomeoneInfo methodu cagrilarak öğretmen silinecek
+
 
          */
 
-
-
-
-
-
+        System.out.println("Silinecek Öğretmenin id'sini Giriniz");//ilk olarak kullanıcıdan silinecek öğretmenin id'sini alalım
+        int id=scanner.nextInt();// aldığımız id'yi scanner ekleyelim
+        Teacher foundedTeacher=find(id);//teacher tipinde  foundedTeacher field oluşturuyoruz ve silinecek hocayı find methodu bu field'a eşitliyoruz
+        teacherRepository.removeRepoSomeoneInfo(foundedTeacher);// teacher repository den aldığımız removeRepoSomeoneInfo methodu ile siliyoruz.
 
 
 
