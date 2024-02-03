@@ -26,10 +26,10 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
 
         try {
+
             Teacher foundTeacher = teacherRepository.find(id);
-            if (
-                    foundTeacher!= null
-            ){
+
+            if (foundTeacher!= null){
                 System.out.println(foundTeacher);
                 return foundTeacher;
             }else {

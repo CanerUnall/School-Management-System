@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class Student extends Person {
 
-    private Integer percentDiscount;
 
     private int studentID;
     private Grades grade;
@@ -15,17 +14,20 @@ public class Student extends Person {
 
     private double totalPrice;
     private int lessonCredit;
-    private HashMap<Integer, Lessons> allLessons ;
+    private HashMap<Integer, Lessons> allLessons;
 
-    private Integer percentDiscount=1;
+    private Integer percentDiscount = 1;
 
-    public Integer getPercentDiscount() {
-        return percentDiscount;
+    public Student() {
 
     }
 
+    public Integer getPercentDiscount() {
+        return percentDiscount;
+    }
+
     public void setPercentDiscount() {
-        this.percentDiscount=percentDiscount;
+        this.percentDiscount = percentDiscount;
     }
 
     private HashMap<Integer, Attendance> historyAttendance;
@@ -105,14 +107,6 @@ public class Student extends Person {
     }
 
 
-    public Integer getPercentDiscount() {
-        return percentDiscount;
-    }
-
-    public void setPercentDiscount(Integer percentDiscount) {
-        this.percentDiscount = percentDiscount;
-    }
-
     public Student(String name, String surName, String password, String address, String phoneNumber,
                    UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment) {
         super(name, surName, password, address, phoneNumber, role);
@@ -125,11 +119,11 @@ public class Student extends Person {
         this.lessonCredit = 20;
         this.totalPrice = 0;
         this.thisYearGradeAvg = 0;
-        this.percentDiscount=1;
+        this.percentDiscount = 1;
 
     }
 
-  
+
     @Override
     public String toString() {
         return "Student{" +
@@ -146,4 +140,6 @@ public class Student extends Person {
 
 
     }
+
+
 }

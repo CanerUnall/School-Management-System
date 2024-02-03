@@ -99,7 +99,7 @@ public class AdminMethods implements Login<Admins>{
                     System.out.println("Login successful!");
                     // Call adminPage method of SchoolManagementSystem class
                     SchoolManagementSystem schoolManagementSystem=new SchoolManagementSystem();
-                    schoolManagementSystem.adminPage();
+                    schoolManagementSystem.adminPage(admin);
                 } else {
                     System.out.println("Incorrect password. Do you want to continue (Y/N)?");
                     String choice = scanner.next();

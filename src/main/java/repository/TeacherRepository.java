@@ -13,11 +13,11 @@ import java.util.Optional;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TeacherRepository implements SameRepoOperations<Teacher>{
+public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
     // Umut Ayaz 10 -110
-    public void createTeacherTable(){
+    public void createTeacherTable() {
       /*  bu methodun query si yazilirken if not exist kullanilacak
 
 
@@ -39,29 +39,29 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
         JDBC_Utils.setConnection();
         JDBC_Utils.setStatement();
 
-                String sql = "CREATE TABLE IF NOT EXISTS t_teacher ("
-                        + "teacherID INT PRIMARY KEY AUTO_INCREMENT,"
+        String sql = "CREATE TABLE IF NOT EXISTS t_teacher ("
+                + "teacherID INT PRIMARY KEY AUTO_INCREMENT,"
 
-                        + "tchr_name VARCHAR(15),"
+                + "tchr_name VARCHAR(15),"
 
-                        + "tchr_surName VARCHAR(15),"
+                + "tchr_surName VARCHAR(15),"
 
-                        + "password VARCHAR(12),"
+                + "password VARCHAR(12),"
 
-                        + "address VARCHAR(85),"
+                + "address VARCHAR(85),"
 
-                        + "phoneNumber VARCHAR(15),"
+                + "phoneNumber VARCHAR(15),"
 
-                        + "role VARCHAR(20),"
+                + "role VARCHAR(20),"
 
-                        + "salary REAL,"
+                + "salary REAL,"
 
-                        + "branch VARCHAR(30))";
+                + "branch VARCHAR(30))";
         try {
             JDBC_Utils.getSt().executeUpdate(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             try {
                 JDBC_Utils.getSt().close();
                 JDBC_Utils.getCon().close();
@@ -73,98 +73,61 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 
 
         System.out.println("t_teacher tablosu");
-            }
+    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // Umut Ayaz 10 -110
+    // Umut Ayaz 10 -110
     @Override
     public Teacher find(int id) {
         // Umut Ayaz 113-213
 
-                {
+        {
 
-                    JDBC_Utils.setConnection();
+            JDBC_Utils.setConnection();
 
-                    Teacher teacher = null;
+            Teacher teacher = null;
 
 
+            try {
 
-                    try {
+                String sql = "SELECT * FROM t_teacher WHERE teacherID = ?";
+                JDBC_Utils.setPrst(sql);
 
-                        String sql = "SELECT * FROM t_teacher WHERE teacherID = ?";
-                        JDBC_Utils.setPrst(sql);
+                JDBC_Utils.getPrst().setInt(1, id);
 
-                        JDBC_Utils.getPrst().setInt(1, id);
+                ResultSet resultSet = JDBC_Utils.getPrst().executeQuery();
 
-                       ResultSet resultSet = JDBC_Utils.getPrst().executeQuery();
+                if (resultSet.next()) {
+                    teacher = new Teacher(
 
-                        if (resultSet.next()) {
-                            teacher = new Teacher(
-
-                                    resultSet.getString("tchr_name"),
-                                    resultSet.getString("tchr_surName"),
-                                    resultSet.getString("password"),
-                                    resultSet.getString("address"),
-                                    resultSet.getString("phoneNumber"),
-                                    UserRol.TEACHER,
-                                    resultSet.getDouble("salary"),
-                                    resultSet.getString("branch"),
-                                    resultSet.getInt("teacherID")
-                            );
-                        }
-                    } catch (SQLException e) {
-                        System.out.println(e.getMessage());
-                    } finally {try {
-                        JDBC_Utils.getPrst().close();
-                        JDBC_Utils.getCon().close();
-                    } catch (SQLException e) {
-                        System.out.println(e.getMessage());
-                    }
-                        return teacher;
-
-                    //String name, String surName, String password, String address, String phoneNumber,
-                        //                   UserRol role, double salary, String branch, int teacherID
-
-                    }
+                            resultSet.getString("tchr_name"),
+                            resultSet.getString("tchr_surName"),
+                            resultSet.getString("password"),
+                            resultSet.getString("address"),
+                            resultSet.getString("phoneNumber"),
+                            UserRol.TEACHER,
+                            resultSet.getDouble("salary"),
+                            resultSet.getString("branch"),
+                            resultSet.getInt("teacherID")
+                    );
                 }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                try {
+                    JDBC_Utils.getPrst().close();
+                    JDBC_Utils.getCon().close();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+                return teacher;
+
+                //String name, String surName, String password, String address, String phoneNumber,
+                //                   UserRol role, double salary, String branch, int teacherID
+
             }
+        }
+    }
 
 
 
@@ -189,15 +152,6 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 
 
 
-
-
-
-
-    // Umut Ayaz 113-213
-    @Override
-    public Teacher find(int id) {
-
-        return null;
 
 
 
@@ -866,4 +820,4 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
         return null;
     }   //Umut Ayaz
     //728- 828 arasi tum ogretmenleri get edecek methodu yaz Caner Unal
-            }
+}
