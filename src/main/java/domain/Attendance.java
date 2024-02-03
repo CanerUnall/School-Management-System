@@ -8,6 +8,14 @@ public class Attendance {
 
     private Date date;
 
+    public Attendance() {
+    }
+
+    public Attendance(Lessons lesson, Date date) {
+        this.lesson = lesson;
+        this.date = date;
+    }
+
     public Lessons getLesson() {
         return lesson;
     }
@@ -24,6 +32,11 @@ public class Attendance {
         this.date = date;
     }
 
-    public Attendance() {
+    @Override
+    public String toString() {
+        return "Attendance{" +
+                "lesson=" + lesson +
+                ", date=" + date +
+                '}';
     }
 }
