@@ -1,6 +1,5 @@
 package service;
 
-import config.Scanner_Utils;
 import domain.Teacher;
 import exceptions.TeacherNotFoundException;
 import repository.TeacherRepository;
@@ -17,8 +16,7 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         this.scanner = scanner;
     }
 
-    // Umut Ayaz 18 -68
-
+    //TODO  Umut Ayaz 18 -68
     @Override
     public Teacher find(int id) {
 
@@ -66,14 +64,10 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
 
 
-
-
-
-
         // Umut Ayaz 18 -68
     }
 
-    //Rumeysa Dagtekin 71 - 171
+    //TODO Rumeysa Dagtekin 71 - 171
     @Override
     public void login() {
     /*
@@ -176,7 +170,7 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         //Rumeysa Dagtekin 71 - 171
     }
 
-    //Mustafa Ubeyde Kayhan 174- 274
+    //TODO Mustafa Ubeyde Kayhan 174- 274
     @Override
     public void addSomeoneInfo() {
     /*
@@ -280,7 +274,7 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         //Mustafa Ubeyde Kayhan 174- 274
     }
 
-    //Gaukhar Ergin 277 - 377
+    //TODO Gaukhar Ergin 277 - 377
     @Override
     public void removeSomeoneInfo() {
         /*
@@ -379,13 +373,10 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
 
 
-
-
-
         //Gaukhar Ergin 277 - 377
     }
 
-    //Ersagun Eryildiz 380 - 580
+    //TODO Ersagun Eryildiz 380 - 580
     @Override
     public void updateSomeoneInfo() {
 
@@ -589,7 +580,7 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         //Ersagun Eryildiz  380 - 580
     }
 
-    // Seval Senturk 583 - 683
+    //TODO  Seval Senturk 583 - 683
     @Override
     public void getSomeoneInfo(int id) {
 
@@ -694,7 +685,7 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 // Seval Senturk 583 - 683
     }
 
-    // Umut Ayaz 686 - 786
+    //TODO  Umut Ayaz 686 - 786
     public List<Teacher> getAllTeacher(){
 
         

@@ -9,7 +9,7 @@ public class FinanceMethods {
         this.financeRepository = financeRepository;
     }
 
-    //Rumeysa Dagtekin
+    //TODO Rumeysa Dagtekin
     public void showIncomeTable(){
 
         //gelir tablosu gosterilecek
@@ -113,7 +113,7 @@ public class FinanceMethods {
         //Cihan Guler  12 - 112
     }
 
-    //Emrah Kaya 114 - 214 //BURAYI BASKASINA VERECEGIZ
+    //TODO Emrah Kaya 114 - 214 //BURAYI BASKASINA VERECEGIZ
     public void showExpenseTable(){
         //gider tablosu gosterilecek
         //FinanceRepository clasindan getRepoExpenseInfo  methodu cagrilacak
@@ -214,7 +214,7 @@ public class FinanceMethods {
     }
 
 
-    //Semra Zengin  216 - 316
+    //TODO Semra Zengin  216 - 316
     public void showPaymentTrackingTable(){
         //FinanceRepository clasindan getRepoPaymentTrackingInfo methodu cagrilacak
 

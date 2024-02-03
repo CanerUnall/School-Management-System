@@ -1,30 +1,23 @@
 package service;
 
-
 import config.JDBC_Utils;
-
 import config.Scanner_Utils;
 import domain.Lessons;
 import domain.Student;
 import repository.LessonsRepository;
 import repository.StudentRepository;
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-
 import java.util.Scanner;
 public class LessonMethods {
     private final LessonsRepository lessonsRepository;
     private final Scanner scanner;
-
     public LessonMethods(LessonsRepository lessonsRepository, Scanner scanner) {
         this.lessonsRepository = lessonsRepository;
         this.scanner = scanner;
     }
-
+    //TODO Mustafa Ubeyde Kayhan 19 -  119
     public void addAllLesson() {
         //Mustafa Ubeyde Kayhan 19 -  119
         //ogretmenleri derslere atamak icin TeacherMethods clasindaki getAllTeacher methodu cagrilacak
@@ -34,28 +27,303 @@ public class LessonMethods {
         //daha sonra LessonsRepository clasindaki addRepoLessons methodunu cagiracak ve bu dersleri dbye kayit edecek
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Mustafa Ubeyde Kayhan 19 -  119
     }
 
 
-    //Omer Faruk Osmanoglu 122 - 222
+    //TODO Omer Faruk Osmanoglu 122 - 222
     public void studentSchedule(Student student) {
         //ogrenci uzerinden tum dersleri cagirip ona gore takvimi olusturabilirsin
         //burada hafta icleri icin birer list olustursun
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Omer Faruk Osmanoglu 122 - 222
     }
 
-    //Hanife Ocak 224 - 324
+    //TODO Hanife Ocak 224 - 324
     public void resultLesson(Student student) {
         //student objesi uzerinden ders notlarini yazdir.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         //Hanife Ocak 224 - 324
     }
 
-    //Rumeysa Dagtekin 326 526
+    //TODO Rumeysa Dagtekin 326 526
     public void selectLesson(Student student) {
 
 //burada ogrenci ders secerken LessonsRepository clasindan getAllLessons methodu cagrilacak
@@ -155,6 +423,95 @@ public class LessonMethods {
         System.out.println("Your course selection process has been completed.");
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Rumeysa Dagtekin 326 526}
     }
 
@@ -168,8 +525,7 @@ public class LessonMethods {
 
     }
 
-
-    //Semra Zengin 528 - 578
+    //TODO Semra Zengin 528 - 578
     public void showStudentAttendance(Student student) {
         //ogrenci uzerinden ogrencinin devamsizlik yaptigi gunlerin tarihleri ve ders isimleri yazdirilacak.
 
@@ -204,8 +560,23 @@ public class LessonMethods {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-    //Rumeysa Dagtekin 580 - 680
+    //TODO Rumeysa Dagtekin 580 - 680
     public void allClassesSchedule() {
         //Rumeysa Dagtekin 580 - 680
         //buna dair simdilik bir yol haritasi hazirlayamadim.

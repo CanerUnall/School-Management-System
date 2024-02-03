@@ -1,19 +1,10 @@
 package service;
 
-
 import config.Scanner_Utils;
 import domain.Grades;
-
-
-
-import config.Scanner_Utils;
-
 import domain.SuccessDegree;
-
-
 import repository.ReportRepository;
 import java.util.Scanner;
-
 public class ReportMethods {
     private final Scanner scanner;
     private final ReportRepository reportRepository;
@@ -21,10 +12,9 @@ public class ReportMethods {
     public ReportMethods(Scanner scanner, ReportRepository reportRepository) {
         this.scanner = scanner;
         this.reportRepository = reportRepository;
-
     }
 
-    //Husnu Sen 17 -117
+    //TODO Husnu Sen 17 -117
     public void showLessonSuccess() {
         //derse gore basariyi yazdiracak.
         // mat, fen
@@ -88,10 +78,45 @@ public class ReportMethods {
         } else System.out.println("Lütfen geçerli bir ders no giriniz");
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Husnu Sen 17 -117
     }
 
-    //Seval Senturk  119 - 219
+    //TODO Seval Senturk  119 - 219
     public void showClassSuccess() {
 
         //SuccessDegree enumlarini kullanacaksin
@@ -143,21 +168,260 @@ public class ReportMethods {
             }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Seval Senturk  119 - 219
         }
 
-        //Caner unal
-        public void showStudentSuccess() {
+    //TODO Caner Unal 221-321
+    public void showStudentSuccess() {
             //secilen ogrencinin once tum ders basarilari gosterilsin daha sonra genel ortalamaasi gosterilsin
-        }
 
-        //Caner unal
-        public void showStudentRank() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        }
+    //TODO Caner Unal 323-423
+     public void showStudentRank() {
 
             //ogrencinin genel ortalamasina gore siralamasi gozuksun
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         }
 
 
-    }
+}
 
 

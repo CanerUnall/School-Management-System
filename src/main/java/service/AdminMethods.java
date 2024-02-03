@@ -15,7 +15,7 @@ public class AdminMethods implements Login<Admins>{
         this.adminRepository = adminRepository;
     }
 
-    // Mustafa Ubeyde Kayhan 17 -  67
+    //TODO  Mustafa Ubeyde Kayhan 17 -  67
     @Override
     public Admins find(int id) {
         //burada AdminRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
@@ -63,12 +63,10 @@ public class AdminMethods implements Login<Admins>{
 
 
 
-
-
         // Mustafa Ubeyde Kayhan 7 -  57
     }
 
-    //Omer Faruk Osman Oglu 70 - 170
+    //TODO Omer Faruk Osman Oglu 70 - 170
     @Override
     public void login() {
 /*
@@ -115,95 +113,62 @@ public class AdminMethods implements Login<Admins>{
                 }
             }
         } while (!loggedIn);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Omer Faruk Osman Oglu 60 - 160
     }
 

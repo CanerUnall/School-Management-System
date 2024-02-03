@@ -1,33 +1,21 @@
 package repository;
-
-
 import config.JDBC_Utils;
 import domain.Grades;
 import domain.Lessons;
 import domain.Student;
 import domain.SuccessDegree;
-
-
 import java.sql.SQLException;
 import java.util.List;
-
-
 import domain.UserRol;
-
 import java.sql.ResultSet;
-
 import java.util.ArrayList;
-
-
 public class StudentRepository implements SameRepoOperations<Student> {
 
-    // Cihan Guler 9-59
+    //TODO  Cihan Guler 14-75
     public void createStudentTable() {
-
         /*
         bu methodun query si yazilirken if not exist kullanilacak
         studentID bu pk olacak
-
         tablo ismi = t_student
 
         std_id
@@ -44,7 +32,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
         lessonCredit
 
         */
-
 
         JDBC_Utils jdbc_utils = new JDBC_Utils();
 
@@ -77,10 +64,18 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.out.println(e.getMessage());
             }
         }
+
+
+
+
+
+
+
+
     }
 
 
-    //Ersagun Eryildiz 62-162
+    //TODO Ersagun Eryildiz 78-178
     @Override
     public Student find(int id) {
 
@@ -127,14 +122,67 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
         return null;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
-    //Ersagun Eryildiz 62-162
 
 
-@Override
-public void addRepoSomeoneInfo(Student person) {
-        /*//Husnu Sen 166- 266
+    //TODO Husnu Sen 182- 282
+    @Override
+    public void addRepoSomeoneInfo(Student person) {
+        /*//
 
 
     //Husnu Sen 166- 266
@@ -181,14 +229,63 @@ public void addRepoSomeoneInfo(Student person) {
     }
 
 
-    //Husnu Sen 166- 266
+
+    //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
-//Caner Unal 270- 320
+    //TODO Caner Unal 285- 335
 
-@Override
-public void removeRepoSomeoneInfo(Student person) {
+    @Override
+    public void removeRepoSomeoneInfo(Student person) {
 
         /*
         burada parametreden gelen objeye gore direkt olarak ogrenciyi silmek icin gerekli sorgu yazilacak ve ogrenci silinecek
@@ -196,50 +293,343 @@ public void removeRepoSomeoneInfo(Student person) {
         */
 
 
-    //Caner Unal 270- 320
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
-//Seval Senturk 323 - 523
-@Override
-public void updateAdressInfo(Student person, String adress) {
+    //TODO Seval Senturk 337 - 537
+    @Override
+    public void updateAdressInfo(Student person, String adress) {
     // choice 1 ise Adres, 2 ise sınıf, 3 ise ucret, 4 ise notu,  5 ise basari durumu update edecek sekilde yazilsin
     //choice gore islemler switch case ile duzenlenecek
     //   her bir case durumunda degistirilecek olan bilgi ve yerine yazilacak bilgi burada sorulacak
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Seval Senturk 323 - 523
 } //anlamadım ??? :((((
+    //TODO Seval Senturk 337 - 537
+    public void updateClassInfo(Student person, Grades grades) {
+    }
+    //TODO Seval Senturk 337 - 537
+    public void updateFeeInfo(Student person, Double fee) {
+    }
+    //TODO Seval Senturk 337 - 537
+    public void updateNoteInfo(Student person, int note) {
+    }
+    //TODO Seval Senturk 337 - 537
+    public void updateSuccessDegreeInfo(Student person, Lessons lessons, SuccessDegree successDegree) {
+    }
 
-public void updateClassInfo(Student person, Grades grades) {
-}
 
-public void updateFeeInfo(Student person, Double fee) {
-}
+    //TODO  Zehra Erol 526 - 626
 
-public void updateNoteInfo(Student person, int note) {
-}
-
-public void updateSuccessDegreeInfo(Student person, Lessons lessons, SuccessDegree successDegree) {
-}
-
-
-// Zehra Erol 526 - 626
-
-@Override
-public void getRepoSomeoneInfo(int id) {
+    @Override
+    public void getRepoSomeoneInfo(int id) {
 
 //burada verilen id ye gore ogrenci bulmak icin StudentRepository icindeki find methodu kullanilacak
 // daha sonra o ogrencinin verileri ekrana yazdirilacak
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Zehra Erol 526 - 626
 }
 
-//Semra Zengin 628 - 728
-public List<Student> getAllStudents() {
+    //TODO Semra Zengin 628 - 728
+    public List<Student> getAllStudents() {
 
 
-//Semra Zengin 628 - 728
+    //Semra Zengin 628 - 728
 
     JDBC_Utils.setConnection();
     JDBC_Utils.setStatement();
@@ -288,7 +678,5 @@ public List<Student> getAllStudents() {
 
 
     //Semra Zengin 628 - 728
-}
     }
-
-
+}
