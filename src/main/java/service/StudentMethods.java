@@ -477,17 +477,14 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         // Seval Senturk 328 - 480
     }
 
+
+
     //TODO  Zehra Erol 482 - 532
     @Override
     public void getSomeoneInfo(int id) {
 
         /*
-        1. once ogrencinin id alinacak
-
-        2. StudentRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
-
-        System.out.println("Öğrencinin id'sini giriniz...");//ilk olarak 
-         id=scanner.nextInt();
+        1. StudentRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
 
         studentRepository.getRepoSomeoneInfo(id);
 
@@ -528,8 +525,11 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 
 
-// Zehra Erol 482 - 532
-    }
+
+
+
+// Zehra Erol
+}
 
     //TODO Hanife Ocak 534 - 584
     public void updateStudentNote(){
