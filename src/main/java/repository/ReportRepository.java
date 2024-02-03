@@ -1,16 +1,13 @@
 package repository;
-
 import config.JDBC_Utils;
 import domain.Grades;
 import domain.Student;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 public class ReportRepository {
-
+    //TODO Husnu Sen 8 -108
     public void getLessonSuccess(String lessonName) {
 
 
@@ -115,7 +112,10 @@ public class ReportRepository {
     }
 
 
-    //Seval Senturk  119 - 219
+
+
+
+    //TODO Seval Senturk  119 - 219
     public List<Double> getClassSuccess(Grades grades) {
         /*ReportRepository icin
         Burada paramatreden gelen sınıfa gore sorgu yazip o siniftaki ogrencileri bulacaksiniz
@@ -215,29 +215,210 @@ public class ReportRepository {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
         //Seval Senturk  119 - 219
     }
 
 
-
+    //TODO Caner Unal 222 - 322
     public void getStudentSuccess(Student student) {
         //secilen ogrencinin once tum ders basarilari gosterilsin daha sonra genel ortalamaasi gosterilsin
-    }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+    //TODO Caner Unal 323-423
     public void getStudentRank(Student student) {
         //ogrencinin genel ortalamasina gore siralamasi gozuksun
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 }

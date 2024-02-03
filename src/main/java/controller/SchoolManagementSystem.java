@@ -19,11 +19,9 @@ import service.TeacherMethods;
 
 public class SchoolManagementSystem {
 
-
     private Scanner scanner = new Scanner(System.in);
     private ClassesRepository classesRepository = new ClassesRepository();
     private ClassesMethods classesMethods = new ClassesMethods(classesRepository, scanner);
-
 
     private StudentRepository studentRepository = new StudentRepository();
 
@@ -40,22 +38,66 @@ public class SchoolManagementSystem {
 
     private FinanceRepository financeRepository = new FinanceRepository();
     private FinanceMethods financeMethods = new FinanceMethods(financeRepository);
-
+    private AdminRepository adminRepository = new AdminRepository();
+    private AdminMethods adminMethods = new AdminMethods(scanner, adminRepository);
 
     static {
 
         //burada db ile alakali create methodlarindan birkaci cagrilsin.
     }
 
-    // Omer Faruk Osmanoglu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //TODO Omer Faruk Osmanoglu
+    public void threads() {
+
+        // Omer Faruk Osmanoglu
         /*
         2 adet thread olusturulacak
         ilk thread icinde db ile alakali create methodlarinin gerisi cagrilsin.
         ikinci thread de ise bizim uygulamamizin starti buradan baslasin
          */
-    public void threads() {
-        // Omer Faruk Osmanoglu
-
 
         Thread secondThread = new Thread(() -> {
             AdminRepository adminRepository = new AdminRepository();
@@ -78,8 +120,7 @@ public class SchoolManagementSystem {
 
     }
 
-
-    //Semra Zengin 123-223
+    //TODO Semra Zengin 123-223
     void homePage() {
         // kullanicinin ana sayfada gormesi gerekenleri bir dongu ile yazdir.
         /*ogrenci olarak giris yap (ogrenci login  methodu burada cagrilacak)
@@ -87,17 +128,6 @@ public class SchoolManagementSystem {
          * yonetici olarak giris yap (admin login methodu burada cagrilacak)
          * cikis
          * */
-        Scanner scanner = new Scanner(System.in);
-        Scanner_Utils.intScanner(scanner);
-
-        StudentRepository studentRepository = new StudentRepository();
-        StudentMethods studentMethods = new StudentMethods(scanner, studentRepository);
-
-        TeacherRepository teacherRepository = new TeacherRepository();
-        TeacherMethods teacherMethods = new TeacherMethods(teacherRepository, scanner);
-
-        AdminRepository adminRepository = new AdminRepository();
-        AdminMethods adminMethods = new AdminMethods(scanner, adminRepository);
 
         boolean exit = false;
 
@@ -133,10 +163,66 @@ public class SchoolManagementSystem {
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Semra Zengin 123-223
     }
 
-    //Hanife Ocak 225-325
+    //TODO Hanife Ocak 225-325
     void studentPage(Student student) {
         /*
         * ogrenci ahmet hosgeldin
@@ -190,10 +276,55 @@ public class SchoolManagementSystem {
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         //Hanife Ocak 225-325
     }
 
-    //Emrah Kaya 327 -477
+    //TODO Caner Unal 327 -477
     void teacherPage(Teacher teacher) {
         /*
          * ogretmen ahmet hosgeldin
@@ -225,10 +356,127 @@ public class SchoolManagementSystem {
          * */
 
 
-        //Emrah Kaya 327 -477
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //Caner Unal 327 -477
     }
 
-
+    //TODO Cihan Guler 479 - sona kadar
     public void adminPage(Admins admins) {
         /* Cihan Guler 479 - 679
 

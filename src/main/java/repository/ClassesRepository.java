@@ -1,14 +1,10 @@
 package repository;
-
 import domain.Grades;
 import config.JDBC_Utils;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 public class ClassesRepository {
-
-    // Hanife Ocak 6-106
+    //TODO Hanife Ocak 6-106
     public void getAllClassNotes(Grades grades) {
         //tum ogrenciler arasindan grade=1 veya 2 olani suzecek
         //sout ile ekrana yazdir
@@ -106,80 +102,10 @@ public class SinifIslemleri {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Hanife Ocak 6-106
     }
 
-    //Seval Senturk 109 - 209
+    //TODO Seval Senturk 109 - 209
     public void getAllClassInfo(Grades grades) {
 
         // JDBC bağlantısını aç
@@ -218,102 +144,69 @@ public class SinifIslemleri {
                 System.err.println("Error : " + e.getMessage());
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Seval Senturk 109 - 209
 
 
 }

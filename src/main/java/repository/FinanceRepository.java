@@ -1,24 +1,17 @@
 package repository;
 
 import config.JDBC_Utils;
-
 import domain.Lessons;
 import domain.Student;
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-
 public class FinanceRepository {
 
-
-    //Cihan Guler-Rumeysa Dagtekin  5 - 105
+    //TODO Rumeysa Dagtekin  15 - 115
     public void getRepoIncomeInfo(){
 
         //burada tum ogrencilerin cagrilacak ve bir dongu baslatilacak
@@ -118,27 +111,10 @@ public class FinanceRepository {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //Cihan Guler  5 - 105
     }
 
-    //Emrah Kaya 107 - 207 BURAYI BASKASI ALACAK
+    //TODO Emrah Kaya 117 - 217 BURAYI BASKASI ALACAK
     public void getRepoExpenseInfo(){
         //burada ise tum ogretmenlerin ucretleri gider olarak gosterilecek
         //buna ilislik sorgu yazilacak
@@ -237,10 +213,10 @@ public class FinanceRepository {
 
 
 
-        //Emrah Kaya 107 - 207
+        //Emrah Kaya 107 - 217
     }
 
-    //Semra Zengin  209 - 309
+    //TODO  Semra Zengin  219 - 319
     public void getRepoPaymentTrackingInfo(){
         //tum ogrencilerin odemesi gereken tutar, odedigi tutar ve kalan tutar gosterilecek
         //buna iliskin sorgu yazilacak

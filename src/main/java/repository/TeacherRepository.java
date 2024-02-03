@@ -1,22 +1,13 @@
 package repository;
-
 import config.JDBC_Utils;
 import domain.Teacher;
 import domain.UserRol;
-
-import java.sql.*;
 import java.util.List;
-import java.util.Optional;
-
-
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 public class TeacherRepository implements SameRepoOperations<Teacher> {
 
-
-    // Umut Ayaz 10 -110
+    //TODO  Umut Ayaz 10 -110
     public void createTeacherTable() {
       /*  bu methodun query si yazilirken if not exist kullanilacak
 
@@ -73,10 +64,53 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
         System.out.println("t_teacher tablosu");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
-    // Umut Ayaz 10 -110
+    //TODO  Umut Ayaz 113-213
     @Override
     public Teacher find(int id) {
         // Umut Ayaz 113-213
@@ -127,137 +161,61 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Umut Ayaz 113-213
-
-
-    //Mustafa Ubeyde Kayhan 216- 2316
+    //TODO Mustafa Ubeyde Kayhan 216- 316
     @Override
     public void addRepoSomeoneInfo(Teacher person) {
-
-
-
 
 
 
@@ -357,11 +315,11 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
         // Mustafa Ubeyde Kayhan 216- 316
     }
 
-    //Gaukhar Ergin 320 420
+
+
+    //TODO Gaukhar Ergin 320 420
     @Override
     public void removeRepoSomeoneInfo(Teacher person) {
-
-
 
 
 
@@ -461,11 +419,16 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 // Gaukhar Ergin 320 420
     }
 
-    //Ersagun Eryildiz 423 - 623
+
+    //TODO Ersagun Eryildiz 423 - 623
     @Override
     public void updateAdressInfo(Teacher person, String adress) {
 
+
+
+
 // choice 1 ise adres, 2 ise brans, 3 ise maas update edilsin
+
 
 
         /*if (person != null) {
@@ -649,36 +612,18 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         //Ersagun Eryildiz 423 - 623
     }
-
+    //TODO Ersagun Eryildiz 423 - 623
     public void updateBranchInfo(Teacher person, String branch) {
 
     }
-
+    //TODO Ersagun Eryildiz 423 - 623
     public void updateSalaryInfo(Teacher person, double salary) {
 
     }
 
-    // Seval Senturk 626 - 726
+    //TODO  Seval Senturk 626 - 726
     @Override
     public void getRepoSomeoneInfo(int id) {
 
@@ -776,48 +721,13 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Seval Senturk 626 - 726
 
     }
+
+    //TODO Umut Ayaz 728 ve devami
     public List<Teacher> getAllTeacher(){
         return null;
-    }   //Umut Ayaz
+    }
     //728- 828 arasi tum ogretmenleri get edecek methodu yaz Caner Unal
 }

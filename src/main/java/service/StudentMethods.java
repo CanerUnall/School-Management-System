@@ -1,29 +1,22 @@
 package service;
 
 import config.Scanner_Utils;
-
-
 import domain.*;
-import controller.SchoolManagementSystem;
-
 import domain.Lessons;
 import domain.Student;
 import domain.SuccessDegree;
 import exceptions.StudentNotFoundException;
-
 import repository.StudentRepository;
-
 import java.util.Scanner;
-
-
 public class StudentMethods implements Login<Student>, SameOperations  {
     private final Scanner scanner;
     private final StudentRepository studentRepository;
-
     public StudentMethods(Scanner scanner, StudentRepository studentRepository) {
         this.scanner = scanner;
         this.studentRepository = studentRepository;
     }
+
+    //TODO Ersagun Eryildiz 17-67
     @Override
     public Student find(int id) {
         //Ersagun Eryildiz 17-67
@@ -74,8 +67,8 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 
 
-    //Gaukhar Ergin 70-170
-n
+    //TODO Gaukhar Ergin 70-170
+
     @Override
     public void login() {
         /*
@@ -113,13 +106,11 @@ n
                     }
                 }
 
-                }
-                while (!girisBasarili) ;
+            } while (!girisBasarili) ;
 
 
 
-}
-
+        }
 
 
 
@@ -176,9 +167,9 @@ n
 
 
     // Gaukhar Ergin 70-170
-    }
+}
 
-
+    //TODO Husnu Sen 174- 274
     @Override
     public void addSomeoneInfo() {
 //Husnu Sen 174- 274
@@ -281,7 +272,7 @@ n
 
 //Husnu Sen 174- 274
     }
-
+    //TODO Caner Unal 277- 327
     @Override
     public void removeSomeoneInfo() {
         //Caner Unal 277- 327
@@ -334,6 +325,7 @@ n
 
         //Caner Unal 277- 327
     }
+    //TODO  Seval Senturk 328 - 478
     @Override
     public void updateSomeoneInfo() {
         // Seval Senturk 328 - 478
@@ -482,12 +474,10 @@ n
 
 
 
-
-
         // Seval Senturk 328 - 480
     }
 
-    // Zehra Erol 482 - 532
+    //TODO  Zehra Erol 482 - 532
     @Override
     public void getSomeoneInfo(int id) {
 
@@ -538,17 +528,10 @@ n
 
 
 
-
-
-
-
-
-
-
 // Zehra Erol 482 - 532
     }
 
-    //Hanife Ocak 534 - 584
+    //TODO Hanife Ocak 534 - 584
     public void updateStudentNote(){
                 /*
         1. once ogrencinin id alinacak
@@ -599,7 +582,7 @@ n
 
     }
 
-    // Husnu Sen 586 - 686
+    //TODO  Husnu Sen 586 - 686
     public SuccessDegree setAndReturnSuccessDegree(Student student, Lessons lessons,int not){
 
 
@@ -699,37 +682,11 @@ n
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // Husnu Sen 586 - 686
     }
 
-    //Omer Faruk Osmanoglu 688 - 788
-    public void setStudentPrice(Student student, double lastYearGradeAvg){
+    //TODO Omer Faruk Osmanoglu 688 - 788
+    public void setStudentPercentDiscount(Student student, double lastYearGradeAvg){
 
     //student.setPercentDiscount(); method ismi degisecek unutma
 //Omer Faruk Osmanoglu 688 - 788
