@@ -1,14 +1,11 @@
 package repository;
 import config.JDBC_Utils;
-import domain.Grades;
-import domain.Lessons;
-import domain.Student;
-import domain.SuccessDegree;
+import domain.*;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import domain.UserRol;
 import exceptions.StudentNotFoundException;
-
 import java.sql.ResultSet;
 import java.util.ArrayList;
 public class StudentRepository implements SameRepoOperations<Student> {
@@ -646,7 +643,8 @@ public class StudentRepository implements SameRepoOperations<Student> {
         while (resultSet.next()) {
             Student student = new Student();
 
-            student.setStudentID(resultSet.getInt("id"));
+            int id= resultSet.getInt("id");
+            student.setStudentID(id);
             student.setName(resultSet.getString("std_name"));
             student.setSurName(resultSet.getString("std_surname"));
             student.setRole(UserRol.STUDENT);
@@ -656,13 +654,38 @@ public class StudentRepository implements SameRepoOperations<Student> {
             student.setPayment(resultSet.getInt("payment"));
             student.setTotalPrice(resultSet.getInt("totalPrice"));
             student.setLessonCredit(resultSet.getInt("lessonCredit"));
+            student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
             Grades grade = Grades.valueOf(resultSet.getString("grade"));
             student.setGrade(grade);
+
+//            String query2="SELECT * FROM t_attendance t WHERE t.studentID== "+id;//studentID t_attendance tablosunda fk pldugu icin bu id'li ogrencinin attendance'sini getir dedik
+//            ResultSet resultSet2=JDBC_Utils.getSt().executeQuery(query2);
+//            Attendance attendance=new Attendance();
+//            HashMap<Integer, Attendance> historyAttendance=new HashMap<>();
+//            while (resultSet2.next()){
+//                attendance.setDate(resultSet2.getDate("date"));
+//                attendance.setLesson(resultSet2.getString("lesson_name"));
+//            }
+//            historyAttendance.put(id,attendance);
+//            student.setHistoryAttendance(historyAttendance);
+//
+//
+//            String query3="SELECT * FROM t_lessons l WHERE l.studentID== "+id;
+//            ResultSet resultSet3=JDBC_Utils.getSt().executeQuery(query3);
+//            Lessons lesson=new Lessons();
+//            HashMap<Integer, Lessons> lessonsOfStudent=new HashMap<>();
+//            while (resultSet3.next()){
+//                lesson.setName(resultSet3.getString("lesson_name"));
+//            }
+//            historyAttendance.put(id,attendance);
+//            student.setHistoryAttendance(historyAttendance);
+
 
             allStudents.add(student);
 
 
         }
+        //yeni bir statemnt uzeriden
 
     } catch (SQLException e) {
         System.err.println(e.getMessage());
