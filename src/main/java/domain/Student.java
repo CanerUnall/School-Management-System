@@ -26,8 +26,8 @@ public class Student extends Person {
         return percentDiscount;
     }
 
-    public void setPercentDiscount() {
-        this.percentDiscount = percentDiscount;
+    public void setPercentDiscount(Integer discount) {
+        this.percentDiscount = discount;
     }
 
     private HashMap<Integer, Attendance> historyAttendance;

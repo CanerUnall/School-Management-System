@@ -699,98 +699,13 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         //bu method yardimci method olarak ogrenci kaydi yapilirken cagrilacak.
         //student.setPercentDiscount();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if(lastYearGradeAvg>90){
+        student.setPercentDiscount(20);
+    } else if (lastYearGradeAvg>80) {
+        student.setPercentDiscount(10);
+    } else if (lastYearGradeAvg>70) {
+        student.setPercentDiscount(5);
+    }
 
 
 
