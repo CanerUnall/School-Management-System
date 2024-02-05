@@ -1,5 +1,6 @@
 package service;
 
+import config.Scanner_Utils;
 import controller.SchoolManagementSystem;
 import domain.Admins;
 import repository.AdminRepository;
@@ -81,7 +82,7 @@ public class AdminMethods implements Login<Admins>{
         boolean loggedIn = false;
         do {
             System.out.println("Please enter your admin ID: ");
-            int adminId = scanner.nextInt();
+            int adminId = Scanner_Utils.intScanner(scanner);
 
             // Find admin by ID
             Admins admin = find(adminId);
@@ -99,25 +100,20 @@ public class AdminMethods implements Login<Admins>{
                     SchoolManagementSystem schoolManagementSystem=new SchoolManagementSystem();
                     schoolManagementSystem.adminPage(admin);
                 } else {
-                    System.out.println("Incorrect password. Do you want to continue (Y/N)?");
+                    System.out.println("Incorrect password. Do you want to exit (Y/N)?");
                     String choice = scanner.next();
                     if (!choice.equalsIgnoreCase("Y")) {
                         loggedIn = true; // Exit loop if choice is not "Y"
                     }
                 }
             } else {
-                System.out.println("Admin not found. Do you want to continue (Y/N)?");
+                System.out.println("Admin not found. Do you want to exit (Y/N)?");
                 String choice = scanner.next();
                 if (!choice.equalsIgnoreCase("Y")) {
                     loggedIn = true; // Exit loop if choice is not "Y"
                 }
             }
         } while (!loggedIn);
-
-
-
-
-
 
 
 
