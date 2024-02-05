@@ -2,6 +2,7 @@ package service;
 
 import config.JDBC_Utils;
 import config.Scanner_Utils;
+import domain.Attendance;
 import domain.Lessons;
 import domain.Student;
 import repository.LessonsRepository;
@@ -530,30 +531,18 @@ public class LessonMethods {
         //ogrenci uzerinden ogrencinin devamsizlik yaptigi gunlerin tarihleri ve ders isimleri yazdirilacak.
 
 
-        JDBC_Utils.setConnection();
-        JDBC_Utils.setStatement();
-        String query = "SELECT * FROM t_attendance WHERE studentID=" + student.getStudentID();
         System.out.println("Student ID: " + student.getStudentID());
         System.out.println("Student Name: " + student.getName() + " " + student.getSurName());
 
         System.out.println("Attendance History:");
         System.out.println("-------------------");
-        try {
-            ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
-            while (resultSet.next()) {
-                System.out.println("Lesson : " + resultSet.getString("lesson_name"));
-                System.out.println("Date : " + resultSet.getString("date"));
-            }
 
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        } finally {
-            try {
-                JDBC_Utils.getSt().close();
-                JDBC_Utils.getCon().close();
+        if (student.getHistoryAttendance().values()==null){ //historyAttendance map'indeki value'ler Attendance data type'inda date ve lesson bilgisini tutmakta
+            System.out.println("The student attended all the lessons.");//attendance null ise ogrencinin devamsizligi yoktur
+        }else{
+            for (Attendance attendance: student.getHistoryAttendance().values()){
+                System.out.println(attendance);//toString vardi zaten
 
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
             }
         }
 
