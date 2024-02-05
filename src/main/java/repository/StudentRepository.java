@@ -187,7 +187,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
         /*//
 
 
-    //Husnu Sen 166- 266
+    //Husnu Sen 166-266 eski aralık ?
     @Override
     public void addRepoSomeoneInfo(Student person) {
     /*
