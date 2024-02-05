@@ -2,15 +2,20 @@ package service;
 
 import config.JDBC_Utils;
 import config.Scanner_Utils;
+
 import domain.Attendance;
+
+import domain.Classes;
+import domain.Grades;
+
 import domain.Lessons;
 import domain.Student;
 import repository.LessonsRepository;
 import repository.StudentRepository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 public class LessonMethods {
     private final LessonsRepository lessonsRepository;
     private final Scanner scanner;
@@ -118,8 +123,6 @@ public class LessonMethods {
 
 //Mustafa Ubeyde Kayhan 19 -  119
     }
-
-
     //TODO Omer Faruk Osmanoglu 122 - 222
     public void studentSchedule(Student student) {
         //ogrenci uzerinden tum dersleri cagirip ona gore takvimi olusturabilirsin
@@ -216,12 +219,11 @@ public class LessonMethods {
 
 
 
-
-
-
         //Omer Faruk Osmanoglu 122 - 222
-    }
 
+
+
+}
     //TODO Hanife Ocak 224 - 324
     public void resultLesson(Student student) {
         //student objesi uzerinden ders notlarini yazdir.
@@ -571,13 +573,7 @@ public class LessonMethods {
         //buna dair simdilik bir yol haritasi hazirlayamadim.
 
 
-        //bu sekilde sinif sinif ders takvimi yazdirilacak
-
-        System.out.println("*** Classes ***");
-        System.out.println();
-        System.out.println("");
-
-        System.out.println("Please select the class you want to view the schedule for :");
+        // bu sekilde sinif sinif ders takvimi yazdirilacak
 
 
     }

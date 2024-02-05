@@ -8,6 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static config.JDBC_Utils.setConnection;
+import static config.JDBC_Utils.setStatement;
+
+
 public class LessonsRepository {
     TeacherRepository tRepo=new TeacherRepository();
 
@@ -31,38 +36,33 @@ public class LessonsRepository {
       studentID foreign key olarak eklenecek
 */
 
+        setConnection();
+        setStatement();
+
+        String createLessonsTable = "CREATE TABLE IF NOT EXISTS t_lessons (lessonID integer PRIMARY KEY AUTO_INCREMENT," +
+                "lesson_name varchar(25)" +
+                "teacherID integer foreign key" +
+                "lessonCredit integer" +
+                "lessonFee real" +
+                "studentNote integer" +
+                "lesson_day varchar(25)" +
+                "studentID  integer foreign key)";
 
 
 
+        try {
+            JDBC_Utils.getSt().executeUpdate(createLessonsTable);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 
@@ -216,8 +216,8 @@ public class LessonsRepository {
 
         //dbdeki tum dersleri getirecek ve br liste ekleyecek daha sonra o listi return edecek
 
-        JDBC_Utils.setConnection();
-        JDBC_Utils.setStatement();
+        setConnection();
+        setStatement();
 
         String getAllLessons = "SELECT (lesson_name,lessonCredit,lessonFee,lesson_day,teacherID) FROM t_lessons";
         ResultSet result = null;
@@ -273,7 +273,7 @@ public class LessonsRepository {
     //TODO RUMEYSA
     public void addLessonStudent(Student student,Lessons lesson) {
 
-        JDBC_Utils.setConnection();
+        setConnection();
         String sql = "INSERT INTO t_lessons (lesson_name, teacherID,lessonCredit,lessonFee,studentNote,lesson_day,studentID) VALUES (?,?,?,?,?,?,?)";
           JDBC_Utils.setPrst(sql);
 
