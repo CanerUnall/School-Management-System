@@ -1,10 +1,10 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Student extends Person {
+
+
     private int studentID;
     private Grades grade;
     private double lastYearGradeAvg;
@@ -14,31 +14,24 @@ public class Student extends Person {
 
     private double totalPrice;
     private int lessonCredit;
-    private HashMap<Integer, Lessons> allLessons = new HashMap<>();
+    private HashMap<Integer, Lessons> allLessons;
 
-    private HashMap<Integer, Attendance> historyAttendance = new HashMap<>();
-
-    public Student(String name, String surName, String password, String address, String phoneNumber,
-                   UserRol role, int studentID,
-                   Grades grade,
-                   double lastYearGradeAvg,
-                   double payment,
-                   HashMap<Integer, Lessons> allLessons,
-                   HashMap<Integer, Attendance> historyAttendance) {
-        super(name, surName, password, address, phoneNumber, role);
-        this.studentID = studentID;
-        this.grade = grade;
-        this.lastYearGradeAvg = lastYearGradeAvg;
-        this.payment = payment;
-        this.allLessons = allLessons;
-        this.historyAttendance = historyAttendance;
-        this.lessonCredit = 20;
-        this.totalPrice = 0;
-        this.thisYearGradeAvg = 0;
-    }
+    private Integer percentDiscount = 1;
 
     public Student() {
+
     }
+
+    public Integer getPercentDiscount() {
+        return percentDiscount;
+    }
+
+    public void setPercentDiscount(Integer discount) {
+        this.percentDiscount = discount;
+    }
+
+    private HashMap<Integer, Attendance> historyAttendance;
+
 
     public int getStudentID() {
         return studentID;
@@ -113,6 +106,24 @@ public class Student extends Person {
         this.historyAttendance = historyAttendance;
     }
 
+
+    public Student(String name, String surName, String password, String address, String phoneNumber,
+                   UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment) {
+        super(name, surName, password, address, phoneNumber, role);
+        this.studentID = studentID;
+        this.grade = grade;
+        this.lastYearGradeAvg = lastYearGradeAvg;
+        this.payment = payment;
+        this.allLessons = new HashMap<>();
+        this.historyAttendance = new HashMap<>();
+        this.lessonCredit = 20;
+        this.totalPrice = 0;
+        this.thisYearGradeAvg = 0;
+        this.percentDiscount = 1;
+
+    }
+
+
     @Override
     public String toString() {
         return "Student{" +
@@ -126,5 +137,9 @@ public class Student extends Person {
                 ", allLessons=" + allLessons +
                 ", historyAttendance=" + historyAttendance +
                 '}';
+
+
     }
+
+
 }

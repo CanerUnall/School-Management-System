@@ -15,10 +15,10 @@ public class Scanner_Utils {
         }
     }
 
-    public static int doubleScanner(Scanner scanner) {
+    public static double doubleScanner(Scanner scanner) {
         while (true) {
             try {
-                return Math.abs(scanner.nextInt());
+                return Math.abs(scanner.nextDouble());
             } catch (InputMismatchException e) {
                 System.err.println("Error: Please Enter a Valid Double Value.");
                 scanner.nextLine();

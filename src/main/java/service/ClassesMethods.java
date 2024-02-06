@@ -13,7 +13,7 @@ public class ClassesMethods {
         this.scanner = scanner;
     }
 
-    //Hanife Ocak 16-116
+    //TODO Hanife Ocak 16-116
     public void showAllClassNotes(){
         //burada once hangi sinifin notlarini gormek istedigi sorulacak
         //daha sonra hangi dersin notlarini gormek istedigi sorulacak
@@ -116,7 +116,7 @@ public class ClassesMethods {
         // Hanife Ocak 6-106
     }
 
-    //Seval Senturk 119 - 219
+    //TODO Seval Senturk 119 - 219
     public void showAllStudentInfo(){
 
         /*once hangi sinifa ait ogrencilerin bilgilerini gormek istedigini sorsun
