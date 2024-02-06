@@ -1,6 +1,9 @@
 package repository;
 import config.JDBC_Utils;
 import domain.*;
+
+import java.util.Date;
+
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
@@ -74,6 +77,9 @@ public class StudentRepository implements SameRepoOperations<Student> {
     }
 
 
+
+
+
     //TODO Ersagun Eryildiz 78-178
     @Override
     public Student find(int id) {
@@ -93,24 +99,57 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
             Student student = new Student();
 
-            System.out.println("Id: " + resultSet.getInt("id"));
-            System.out.println("Name: " + resultSet.getString("std_name"));
-            System.out.println("Surname: " + resultSet.getString("std_surName"));
-            System.out.println("Role: " + resultSet.getString("role"));
-            System.out.println("Address: " + resultSet.getString("address"));
-            System.out.println("PhoneNumber: " + resultSet.getInt("phoneNumber"));
-            System.out.println("Grade: " + resultSet.getInt("grade"));
-            System.out.println("Age: " + resultSet.getInt("age"));
-            System.out.println("LastYearGradeAvg: " + resultSet.getInt("lastYearGradeAvg"));
-            System.out.println("Payment: " + resultSet.getInt("payment"));
-            System.out.println("TotalPrice: " + resultSet.getInt("totalPrice"));
-            System.out.println("LessonCredit: " + resultSet.getInt("lessonCredit"));
+            while (resultSet.next()){
+
+            student.setStudentID(resultSet.getInt("student_Id"));
+            student.setName(resultSet.getString("std_name"));
+            student.setSurName(resultSet.getString("std_surName"));
+            student.setRole(UserRol.STUDENT);
+            student.setAddress(resultSet.getString("address"));
+            student.setPhoneNumber(resultSet.getString("phoneNumber"));
+            student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
+            student.setLastYearGradeAvg(resultSet.getDouble("lastYearGradeAvg"));
+            student.setPayment(resultSet.getDouble("payment"));
+            student.setTotalPrice(resultSet.getInt("totalPrice"));
+            student.setLessonCredit(resultSet.getInt("lessonCredit"));
+
+            Grades grade = Grades.valueOf(resultSet.getString("grade"));
+            student.setGrade(grade);
+
+            //PercentDiscount percentDiscount = PercentDiscount.valueOf(resultSet.getString("percentDiscount"));
+            //student.setPercentDiscount(percentDiscount);
+
+            //student.setHistoryAttendance(resultSet.getString("historyAttandance"));
+                
+            // student.setAllLessons(resultSet.getInt("id"));
+
+        }
+
+            String studentAllLesson= "SELECT * FROM t_attendance WHERE std_id=" + student.getStudentID();
+            ResultSet resultSet1= JDBC_Utils.getSt().executeQuery(studentAllLesson);
+            HashMap<Integer, Attendance> attend = new HashMap<>();
+            LessonsRepository lessonsRepository = new LessonsRepository();
+            List<Lessons> allLessons = lessonsRepository.getAllLessons();
+
+            while(resultSet1.next()){
+                Attendance att= new Attendance();
+
+                for (Lessons lessons:allLessons){
+                    if (lessons.getName().name().equals(resultSet1.getString("lesson_name"))){
+                        att.setLesson(lessons);
+                    }
+                }
+
+                att.setDate(resultSet1.getDate("date"));
+                attend.put(student.getStudentID(),att);
+            }
+            student.setHistoryAttendance(attend);
+
             return student;
 
-
-        } catch (SQLException e) {
+        }   catch (SQLException e) {
             System.err.println(e.getMessage());
-        } finally {
+        }   finally {
             try {
                 JDBC_Utils.getSt().close();
                 JDBC_Utils.getCon().close();
@@ -119,62 +158,29 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-        return null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return null;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

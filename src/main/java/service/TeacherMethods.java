@@ -382,53 +382,52 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
         /*
         1. once ogretmenin id alinacak
-        2. TeacherMethods icindeki find methodu ile o ogrenci bulunacak
+        2. TeacherMethods icindeki find methodu ile o ogretmen bulunacak
         3. daha sonra update edilecek islem sorulacak
-        4. TeacherRepository clasindaki updateRepoSomeoneInfo methodu cagrilarak ogrenci bilgisii update edilecek
+        4. TeacherRepository clasindaki updateRepoSomeoneInfo methodu cagrilarak ogretmen bilgisii update edilecek
         choice 1 ise Adres, 2 ise brans, 3 ise ucret
          */
 
+            System.out.println(" Enter the teacher's id: ");
+            int id=scanner.nextInt();// aldığımız id'yi scanner ekleyelim
+            Teacher foundTeacher=teacherRepository.find(id);
+
+            if (foundTeacher != null) {
 
 
+                // 3. Güncellenecek işlemi sor
+                System.out.println("Select update information: ");
+                System.out.println("1. Address");
+                System.out.println("2. Branch");
+                System.out.println("3. Salary");
+                int choice = scanner.nextInt();
 
+                // 4. TeacherRepository sınıfındaki updateRepoSomeoneInfo metodunu çağırarak öğretmen bilgisini güncelle
+                scanner.nextLine();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                switch (choice) {
+                    case 1:
+                        System.out.println("Enter new address:");
+                        String newAddress = scanner.nextLine();
+                        teacherRepository.updateAdressInfo(foundTeacher,newAddress);
+                        break;
+                    case 2:
+                        System.out.println("Enter new branch:");
+                        String newBranch = scanner.nextLine();
+                        teacherRepository.updateBranchInfo(foundTeacher,newBranch);
+                        break;
+                    case 3:
+                        System.out.println("Enter new salary:");
+                        double newSalary = scanner.nextDouble();
+                        teacherRepository.updateSalaryInfo(foundTeacher,newSalary);
+                        break;
+                    default:
+                        System.out.println("Invalid choice!");
+                        break;
+                }
+            } else {
+                System.out.println("Not teacher found!.");
+            }
 
 
 
@@ -688,7 +687,7 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
     //TODO  Umut Ayaz 686 - 786
     public List<Teacher> getAllTeacher(){
 
-        
+
 
 
 
