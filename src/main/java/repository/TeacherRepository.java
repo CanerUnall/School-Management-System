@@ -422,206 +422,206 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
     //TODO Ersagun Eryildiz 423 - 623
     @Override
-    public void updateAdressInfo(Teacher person, String adress) {
+    public void updateAdressInfo(Teacher teacher, String address) {
 
+    JDBC_Utils.setConnection();
+    String sql = "UPDATE t_teacher SET address = ? WHERE teacherID = ? ";
+    JDBC_Utils.setPrst(sql);
 
+        try {
+            JDBC_Utils.getPrst().setString(1,address);
+            JDBC_Utils.getPrst().setInt(2,teacher.getTeacherID());
+            JDBC_Utils.getPrst().executeUpdate();
 
-
-// choice 1 ise adres, 2 ise brans, 3 ise maas update edilsin
-
-
-
-        /*if (person != null) {
-            int choice = 1; // Güncelleme seçeneği (1: Adres, 2: Branş, 3: Maaş)
-
-            switch (choice) {
-                case 1:
-                    person.setAddress(address);
-                    System.out.println("Updated address information: " + address);
-                    break;
-                case 2:
-                   // Branch branch = new Branch();
-                    branch.setBranch(branch);
-                    System.out.println("Updated branch information: " + branch);
-                    break;
-                case 3:
-                    //Salary salary = new Salary();
-                    salary.setSalary(salary);
-                    System.out.println("Updated salary information: " +salary);
-                    break;
-                default:
-                    System.out.println("Invalid option!");
-                    break;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
             }
-        } else {
-            System.out.println("Invalid teacher information!");
+
         }
-    }*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
         //Ersagun Eryildiz 423 - 623
-    }
+
     //TODO Ersagun Eryildiz 423 - 623
     public void updateBranchInfo(Teacher person, String branch) {
+        JDBC_Utils.setConnection();
+        String sql = "UPDATE t_teacher SET branch = ? WHERE teacherID = ? ";
+        JDBC_Utils.setPrst(sql);
+
+
+        try {
+            JDBC_Utils.getPrst().setString(1,branch);
+            JDBC_Utils.getPrst().setInt(2,person.getTeacherID());
+            JDBC_Utils.getPrst().executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
 
     }
+
+
+
     //TODO Ersagun Eryildiz 423 - 623
     public void updateSalaryInfo(Teacher person, double salary) {
 
+        JDBC_Utils.setConnection();
+        String sql = "UPDATE t_teacher SET salary = ? WHERE teacherID = ? ";
+        JDBC_Utils.setPrst(sql);
+
+
+        try {
+            JDBC_Utils.getPrst().setDouble(1,salary);
+            JDBC_Utils.getPrst().setInt(2, person.getTeacherID());
+            JDBC_Utils.getPrst().executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //TODO  Seval Senturk 626 - 726
     @Override
