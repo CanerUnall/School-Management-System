@@ -477,17 +477,14 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         // Seval Senturk 328 - 480
     }
 
+
+
     //TODO  Zehra Erol 482 - 532
     @Override
     public void getSomeoneInfo(int id) {
 
         /*
-        1. once ogrencinin id alinacak
-
-        2. StudentRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
-
-        System.out.println("Öğrencinin id'sini giriniz...");//ilk olarak 
-         id=scanner.nextInt();
+        1. StudentRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
 
         studentRepository.getRepoSomeoneInfo(id);
 
@@ -528,8 +525,11 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 
 
-// Zehra Erol 482 - 532
-    }
+
+
+
+// Zehra Erol
+}
 
     //TODO Hanife Ocak 534 - 584
     public void updateStudentNote(){
@@ -619,7 +619,7 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         }
 
 
-        return null;
+      return null;
 
 
 
@@ -699,98 +699,13 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         //bu method yardimci method olarak ogrenci kaydi yapilirken cagrilacak.
         //student.setPercentDiscount();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    if(lastYearGradeAvg>90){
+        student.setPercentDiscount(20);
+    } else if (lastYearGradeAvg>80) {
+        student.setPercentDiscount(10);
+    } else if (lastYearGradeAvg>70) {
+        student.setPercentDiscount(5);
+    }
 
 
 

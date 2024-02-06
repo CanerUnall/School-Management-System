@@ -2,10 +2,13 @@ package repository;
 import config.JDBC_Utils;
 import domain.*;
 
-import java.sql.SQLException;
 import java.util.Date;
+
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import domain.UserRol;
+import exceptions.StudentNotFoundException;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 public class StudentRepository implements SameRepoOperations<Student> {
@@ -187,7 +190,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
         /*//
 
 
-    //Husnu Sen 166- 266
+    //Husnu Sen 166-266 eski aralık ?
     @Override
     public void addRepoSomeoneInfo(Student person) {
     /*
@@ -524,22 +527,47 @@ public class StudentRepository implements SameRepoOperations<Student> {
     public void updateSuccessDegreeInfo(Student person, Lessons lessons, SuccessDegree successDegree) {
     }
 
-
     //TODO  Zehra Erol 526 - 626
-
     @Override
     public void getRepoSomeoneInfo(int id) {
 
 //burada verilen id ye gore ogrenci bulmak icin StudentRepository icindeki find methodu kullanilacak
 // daha sonra o ogrencinin verileri ekrana yazdirilacak
 
+        Student foundedStudent = find(id);
 
+        // JDBC bağlantısını aç
 
+        JDBC_Utils.setConnection();
 
+        String sql = "SELECT * FROM t_student WHERE id = ?";
 
+        JDBC_Utils.setPrst(sql);
 
+        try {
+            JDBC_Utils.getPrst().setInt(1, foundedStudent.getStudentID());
+            ResultSet resultSet = JDBC_Utils.getPrst().executeQuery();
 
+            if (resultSet.next()) {
+                System.out.print(" Student ID : " + resultSet.getInt("studentID"));
+                System.out.print(" Name : " + resultSet.getString("firstName"));
+                System.out.print(" Last Name : " + resultSet.getString("lastName"));
+                System.out.print(" Address : " + resultSet.getString("address"));
+                System.out.print(" Phone Number : " + resultSet.getString("phoneNumber"));
+                System.out.print(" Student AVG : " + resultSet.getDouble("thisYearGradeAvg"));
+                System.out.println();
 
+            }
+        } catch (SQLException e) {
+            throw new StudentNotFoundException("Aradığınız id'li öğrenci bulunamamıştır.");
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println("Error : " + e.getMessage());
+            }
+        }
 
 
 
@@ -596,36 +624,10 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
 
+        
 
+    }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Zehra Erol 526 - 626
-}
 
     //TODO Semra Zengin 628 - 728
     public List<Student> getAllStudents() {
@@ -647,7 +649,8 @@ public class StudentRepository implements SameRepoOperations<Student> {
         while (resultSet.next()) {
             Student student = new Student();
 
-            student.setStudentID(resultSet.getInt("id"));
+            int id= resultSet.getInt("id");
+            student.setStudentID(id);
             student.setName(resultSet.getString("std_name"));
             student.setSurName(resultSet.getString("std_surname"));
             student.setRole(UserRol.STUDENT);
@@ -657,13 +660,38 @@ public class StudentRepository implements SameRepoOperations<Student> {
             student.setPayment(resultSet.getInt("payment"));
             student.setTotalPrice(resultSet.getInt("totalPrice"));
             student.setLessonCredit(resultSet.getInt("lessonCredit"));
+            student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
             Grades grade = Grades.valueOf(resultSet.getString("grade"));
             student.setGrade(grade);
+
+//            String query2="SELECT * FROM t_attendance t WHERE t.studentID== "+id;//studentID t_attendance tablosunda fk pldugu icin bu id'li ogrencinin attendance'sini getir dedik
+//            ResultSet resultSet2=JDBC_Utils.getSt().executeQuery(query2);
+//            Attendance attendance=new Attendance();
+//            HashMap<Integer, Attendance> historyAttendance=new HashMap<>();
+//            while (resultSet2.next()){
+//                attendance.setDate(resultSet2.getDate("date"));
+//                attendance.setLesson(resultSet2.getString("lesson_name"));
+//            }
+//            historyAttendance.put(id,attendance);
+//            student.setHistoryAttendance(historyAttendance);
+//
+//
+//            String query3="SELECT * FROM t_lessons l WHERE l.studentID== "+id;
+//            ResultSet resultSet3=JDBC_Utils.getSt().executeQuery(query3);
+//            Lessons lesson=new Lessons();
+//            HashMap<Integer, Lessons> lessonsOfStudent=new HashMap<>();
+//            while (resultSet3.next()){
+//                lesson.setName(resultSet3.getString("lesson_name"));
+//            }
+//            historyAttendance.put(id,attendance);
+//            student.setHistoryAttendance(historyAttendance);
+
 
             allStudents.add(student);
 
 
         }
+        //yeni bir statemnt uzeriden
 
     } catch (SQLException e) {
         System.err.println(e.getMessage());

@@ -12,12 +12,8 @@ public class ReportRepository {
 
 
 
-        String dersSorgusu = "Select lesson_name,std_name,std_surName,studentNote From  ";
-
-
-
-
-
+        String dersSorgusu = "Select lesson_name,std_name,std_surName,studentNote From t_lessons l LEFT JOIN t_student s " +
+                " ON  l.studentID = s.std_id";
 
 
 
