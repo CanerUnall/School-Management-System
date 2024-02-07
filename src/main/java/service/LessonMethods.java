@@ -2,15 +2,21 @@ package service;
 
 import config.JDBC_Utils;
 import config.Scanner_Utils;
+
+import domain.Attendance;
+
 import domain.Classes;
+import domain.Grades;
+
+
 import domain.Lessons;
 import domain.Student;
 import repository.LessonsRepository;
 import repository.StudentRepository;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
+
 public class LessonMethods {
     private final LessonsRepository lessonsRepository;
     private final Scanner scanner;
@@ -118,69 +124,63 @@ public class LessonMethods {
 
 //Mustafa Ubeyde Kayhan 19 -  119
     }
-
-
     //TODO Omer Faruk Osmanoglu 122 - 222
     public void studentSchedule(Student student) {
         //ogrenci uzerinden tum dersleri cagirip ona gore takvimi olusturabilirsin
         //burada hafta icleri icin birer list olustursun
 
 
+        List<Lessons> monday = new ArrayList<>();
+        List<Lessons> tuesday = new ArrayList<>();
+        List<Lessons> wednesday = new ArrayList<>();
+        List<Lessons> thursday = new ArrayList<>();
+        List<Lessons> friday = new ArrayList<>();
+
+        for (Lessons lesson : student.getAllLessons().values()) {
+            switch (lesson.getDay()) {
+                case "Monday":
+                    monday.add(lesson);
+                    break;
+                case "Tuesday":
+                    tuesday.add(lesson);
+                    break;
+                case "Wednesday":
+                    wednesday.add(lesson);
+                    break;
+                case "Thursday":
+                    thursday.add(lesson);
+                    break;
+                case "Friday":
+                    friday.add(lesson);
+                    break;
+                default:
+                    System.out.println("non-valid day");
+                    break;
+            }
+        }
+
+        System.out.println("Lessons of Monday:");
+        for (Lessons lesson : monday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Tuesday:");
+        for (Lessons lesson : tuesday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Wednesday:");
+        for (Lessons lesson : wednesday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Thursday:");
+        for (Lessons lesson : thursday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Friday:");
+        for (Lessons lesson : friday) {
+            System.out.println(lesson.getName().name());
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 
@@ -220,8 +220,10 @@ public class LessonMethods {
 
 
         //Omer Faruk Osmanoglu 122 - 222
-    }
 
+
+
+}
     //TODO Hanife Ocak 224 - 324
     public void resultLesson(Student student) {
         //student objesi uzerinden ders notlarini yazdir.
@@ -530,30 +532,18 @@ public class LessonMethods {
         //ogrenci uzerinden ogrencinin devamsizlik yaptigi gunlerin tarihleri ve ders isimleri yazdirilacak.
 
 
-        JDBC_Utils.setConnection();
-        JDBC_Utils.setStatement();
-        String query = "SELECT * FROM t_attendance WHERE studentID=" + student.getStudentID();
         System.out.println("Student ID: " + student.getStudentID());
         System.out.println("Student Name: " + student.getName() + " " + student.getSurName());
 
         System.out.println("Attendance History:");
         System.out.println("-------------------");
-        try {
-            ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
-            while (resultSet.next()) {
-                System.out.println("Lesson : " + resultSet.getString("lesson_name"));
-                System.out.println("Date : " + resultSet.getString("date"));
-            }
 
-        } catch (SQLException e) {
-            System.err.println(e.getMessage());
-        } finally {
-            try {
-                JDBC_Utils.getSt().close();
-                JDBC_Utils.getCon().close();
+        if (student.getHistoryAttendance().values()==null){ //historyAttendance map'indeki value'ler Attendance data type'inda date ve lesson bilgisini tutmakta
+            System.out.println("The student attended all the lessons.");//attendance null ise ogrencinin devamsizligi yoktur
+        }else{
+            for (Attendance attendance: student.getHistoryAttendance().values()){
+                System.out.println(attendance);//toString vardi zaten
 
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
             }
         }
 
@@ -582,6 +572,7 @@ public class LessonMethods {
         //buna dair simdilik bir yol haritasi hazirlayamadim.
 
 
+
         //bu sekilde sinif sinif ders takvimi yazdirilacak
 
         System.out.println("*** Classes ***");
@@ -589,6 +580,7 @@ public class LessonMethods {
 
 
         System.out.println("Please select the class you want to view the schedule for :");
+
 
 
     }
