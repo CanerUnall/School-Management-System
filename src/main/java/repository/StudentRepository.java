@@ -1,21 +1,26 @@
 package repository;
+import config.JDBC_Utils;
+import domain.*;
 
-import domain.Grades;
-import domain.Student;
-import domain.SuccessDegree;
+import java.util.Date;
 
+import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import domain.UserRol;
+import exceptions.StudentNotFoundException;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+public class StudentRepository implements SameRepoOperations<Student> {
 
-public class StudentRepository implements SameRepoOperations<Student>{
-
-    public void createStudentTable(){
+    //TODO  Cihan Guler 14-75
+    public void createStudentTable() {
         /*
-        // Cihan Guler 9-59
         bu methodun query si yazilirken if not exist kullanilacak
         studentID bu pk olacak
-
         tablo ismi = t_student
 
+        std_id
         std_name,
         std_surName
         password
@@ -30,6 +35,37 @@ public class StudentRepository implements SameRepoOperations<Student>{
 
         */
 
+        JDBC_Utils jdbc_utils = new JDBC_Utils();
+
+        JDBC_Utils.setConnection();//DB ile bağlantı kurmak için  Connection
+        JDBC_Utils.setStatement();//Sorgu oluşturmak için Statement
+        //JDBC_Utils.setPrst();//Belki parametreli sorgular oluşturmak için PreparedStatement
+        try {
+            JDBC_Utils.getSt().executeUpdate("CREATE TABLE IF NOT EXISTS t_student(" +
+                    "studentId SERIAL UNIQUE," +
+                    "std_name VARCHAR(50) NOT NULL CHECK(LENGTH(name)>0)," +
+                    "std_surName VARCHAR(50) NOT NULL CHECK(LENGTH(name)>0)," +
+                    "password VARCHAR(30) NOT NULL CHECK(LENGTH(password)>8)," +
+                    "emails VARCHAR(30) NOT NULL CHECK(LENGTH(emails)>0)," +
+                    "address VARCHAR(50) NOT NULL," +
+                    "phone_number INT NOT NULL," +
+                    "role," +
+                    "grade INT CHECK(age>=0)," +
+                    "lastYearGradeAvg INT CHECK(age>=0)," +
+                    "payment INT," +
+                    "totalPrice INT," +
+                    "balanc");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
 
 
@@ -38,241 +74,226 @@ public class StudentRepository implements SameRepoOperations<Student>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Cihan Guler 9-59
     }
 
+
+
+
+
+    //TODO Ersagun Eryildiz 78-178
     @Override
     public Student find(int id) {
-        //Ersagun Eryildiz 62-162
+
         //buradan girilen idye gore dbden ogrenci bilgileri alinacak ve obje olusturulup return edilecek
 
-        return null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Ersagun Eryildiz 62-162
+        //   return null;
+
+        //----------------------------------------------------------------------
+
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
+        String query = ("SELECT * FROM t_students WHERE id=" + id);
+        System.out.println("================FOUND STUDENT===================");
+        try {
+            ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
+
+            Student student = new Student();
+
+            while (resultSet.next()){
+
+            student.setStudentID(resultSet.getInt("student_Id"));
+            student.setName(resultSet.getString("std_name"));
+            student.setSurName(resultSet.getString("std_surName"));
+            student.setRole(UserRol.STUDENT);
+            student.setAddress(resultSet.getString("address"));
+            student.setPhoneNumber(resultSet.getString("phoneNumber"));
+            student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
+            student.setLastYearGradeAvg(resultSet.getDouble("lastYearGradeAvg"));
+            student.setPayment(resultSet.getDouble("payment"));
+            student.setTotalPrice(resultSet.getInt("totalPrice"));
+            student.setLessonCredit(resultSet.getInt("lessonCredit"));
+
+            Grades grade = Grades.valueOf(resultSet.getString("grade"));
+            student.setGrade(grade);
+
+            //PercentDiscount percentDiscount = PercentDiscount.valueOf(resultSet.getString("percentDiscount"));
+            //student.setPercentDiscount(percentDiscount);
+
+            //student.setHistoryAttendance(resultSet.getString("historyAttandance"));
+                
+            // student.setAllLessons(resultSet.getInt("id"));
+
+        }
+
+            String studentAllLesson= "SELECT * FROM t_attendance WHERE std_id=" + student.getStudentID();
+            ResultSet resultSet1= JDBC_Utils.getSt().executeQuery(studentAllLesson);
+            HashMap<Integer, Attendance> attend = new HashMap<>();
+            LessonsRepository lessonsRepository = new LessonsRepository();
+            List<Lessons> allLessons = lessonsRepository.getAllLessons();
+
+            while(resultSet1.next()){
+                Attendance att= new Attendance();
+
+                for (Lessons lessons:allLessons){
+                    if (lessons.getName().name().equals(resultSet1.getString("lesson_name"))){
+                        att.setLesson(lessons);
+                    }
+                }
+
+                att.setDate(resultSet1.getDate("date"));
+                attend.put(student.getStudentID(),att);
+            }
+            student.setHistoryAttendance(attend);
+
+            return student;
+
+        }   catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }   finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+            return null;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //TODO Husnu Sen 182- 282
     @Override
     public void addRepoSomeoneInfo(Student person) {
-/*//Husnu Sen 166- 266
+        /*//
 
-burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak ve kayit yapilacak
+
+    //Husnu Sen 166-266 eski aralık ?
+    @Override
+    public void addRepoSomeoneInfo(Student person) {
+    /*
+
+    burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak ve kayit yapilacak
+
+
+        burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak ve kayit yapilacak
 
 
 */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Husnu Sen 166- 266
+    JDBC_Utils.setConnection();
+    String sql = "INSERT INTO students (name, surName, password, address, phoneNumber, role, studentID, grade, lastYearGradeAvg, payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+
+    JDBC_Utils.setPrst(sql);
+
+
+    try {
+        JDBC_Utils.getPrst().setString(1, person.getName());
+        JDBC_Utils.getPrst().setString(2, person.getSurName());
+        JDBC_Utils.getPrst().setString(3, person.getPassword());
+        JDBC_Utils.getPrst().setString(4, person.getAddress());
+        JDBC_Utils.getPrst().setString(5, person.getPhoneNumber());
+        JDBC_Utils.getPrst().setString(6, String.valueOf(person.getRole()));
+        JDBC_Utils.getPrst().setInt(7, person.getStudentID());
+        JDBC_Utils.getPrst().setString(8, String.valueOf(person.getGrade()));
+        JDBC_Utils.getPrst().setDouble(9, person.getLastYearGradeAvg());
+        JDBC_Utils.getPrst().setDouble(10, person.getPayment());
+
+        JDBC_Utils.getPrst().executeUpdate();
+    } catch (SQLException e) {
+        System.err.println(e.getMessage());
+    } finally {
+        try {
+            JDBC_Utils.getPrst().close();
+            JDBC_Utils.getCon().close();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
     }
+
+
+
+    //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+    //TODO Caner Unal 285- 335
 
     @Override
     public void removeRepoSomeoneInfo(Student person) {
-        //Caner Unal 270- 320
- /*
-        burada parametreden gelen objeye gore direkt olarak ogrenciyi silmek icin gerekli sorgu yazilacak ve ogrenci silinecek
 
+        /*
+        burada parametreden gelen objeye gore direkt olarak ogrenciyi silmek icin gerekli sorgu yazilacak ve ogrenci silinecek
 
         */
 
@@ -316,44 +337,14 @@ burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak
 
 
 
+}
 
-
-        //Caner Unal 270- 320
-    }
-
+    //TODO Seval Senturk 337 - 537
     @Override
     public void updateAdressInfo(Student person, String adress) {
-        // Seval Senturk 323 - 523
-        // choice 1 ise Adres, 2 ise sınıf, 3 ise ucret, 4 ise notu,  5 ise basari durumu update edecek sekilde yazilsin
-        //choice gore islemler switch case ile duzenlenecek
-        //   her bir case durumunda degistirilecek olan bilgi ve yerine yazilacak bilgi burada sorulacak
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // choice 1 ise Adres, 2 ise sınıf, 3 ise ucret, 4 ise notu,  5 ise basari durumu update edecek sekilde yazilsin
+    //choice gore islemler switch case ile duzenlenecek
+    //   her bir case durumunda degistirilecek olan bilgi ve yerine yazilacak bilgi burada sorulacak
 
 
 
@@ -522,24 +513,61 @@ burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak
 
 
 // Seval Senturk 323 - 523
+} //anlamadım ??? :((((
+    //TODO Seval Senturk 337 - 537
+    public void updateClassInfo(Student person, Grades grades) {
     }
-    public void updateClassInfo(Student person, Grades grades){}
-    public void updateFeeInfo(Student person, Double fee){}
-    public void updateNoteInfo(Student person, int note){}
-    public void updateSuccessDegreeInfo(Student person, SuccessDegree successDegree){}
+    //TODO Seval Senturk 337 - 537
+    public void updateFeeInfo(Student person, Double fee) {
+    }
+    //TODO Seval Senturk 337 - 537
+    public void updateNoteInfo(Student person, int note) {
+    }
+    //TODO Seval Senturk 337 - 537
+    public void updateSuccessDegreeInfo(Student person, Lessons lessons, SuccessDegree successDegree) {
+    }
+
+    //TODO  Zehra Erol 526 - 626
     @Override
     public void getRepoSomeoneInfo(int id) {
-        // Zehra Erol 526 - 626
+
 //burada verilen id ye gore ogrenci bulmak icin StudentRepository icindeki find methodu kullanilacak
 // daha sonra o ogrencinin verileri ekrana yazdirilacak
 
+        Student foundedStudent = find(id);
 
+        // JDBC bağlantısını aç
 
+        JDBC_Utils.setConnection();
 
+        String sql = "SELECT * FROM t_student WHERE id = ?";
 
+        JDBC_Utils.setPrst(sql);
 
+        try {
+            JDBC_Utils.getPrst().setInt(1, foundedStudent.getStudentID());
+            ResultSet resultSet = JDBC_Utils.getPrst().executeQuery();
 
+            if (resultSet.next()) {
+                System.out.print(" Student ID : " + resultSet.getInt("studentID"));
+                System.out.print(" Name : " + resultSet.getString("firstName"));
+                System.out.print(" Last Name : " + resultSet.getString("lastName"));
+                System.out.print(" Address : " + resultSet.getString("address"));
+                System.out.print(" Phone Number : " + resultSet.getString("phoneNumber"));
+                System.out.print(" Student AVG : " + resultSet.getDouble("thisYearGradeAvg"));
+                System.out.println();
 
+            }
+        } catch (SQLException e) {
+            throw new StudentNotFoundException("Aradığınız id'li öğrenci bulunamamıştır.");
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println("Error : " + e.getMessage());
+            }
+        }
 
 
 
@@ -596,138 +624,89 @@ burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak
 
 
 
+        
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Zehra Erol 526 - 626
     }
 
-    public List<Student> getAllStudents(){
-//Semra Zengin 628 - 728
-        return null;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Semra Zengin 628 - 728
+    //TODO Semra Zengin 628 - 728
+    public List<Student> getAllStudents() {
+
+
+    //Semra Zengin 628 - 728
+
+    JDBC_Utils.setConnection();
+    JDBC_Utils.setStatement();
+
+    List<Student> allStudents = new ArrayList<>();
+
+    String query = "SELECT * FROM t_student";
+    System.out.println("====================ALL STUDENTS================");
+
+    try {
+        ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
+
+        while (resultSet.next()) {
+            Student student = new Student();
+
+            int id= resultSet.getInt("id");
+            student.setStudentID(id);
+            student.setName(resultSet.getString("std_name"));
+            student.setSurName(resultSet.getString("std_surname"));
+            student.setRole(UserRol.STUDENT);
+            student.setAddress(resultSet.getString("address"));
+            student.setPhoneNumber(resultSet.getString("phoneNumber"));
+            student.setLastYearGradeAvg(resultSet.getInt("lastYearGradeAvg"));
+            student.setPayment(resultSet.getInt("payment"));
+            student.setTotalPrice(resultSet.getInt("totalPrice"));
+            student.setLessonCredit(resultSet.getInt("lessonCredit"));
+            student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
+            Grades grade = Grades.valueOf(resultSet.getString("grade"));
+            student.setGrade(grade);
+
+//            String query2="SELECT * FROM t_attendance t WHERE t.studentID== "+id;//studentID t_attendance tablosunda fk pldugu icin bu id'li ogrencinin attendance'sini getir dedik
+//            ResultSet resultSet2=JDBC_Utils.getSt().executeQuery(query2);
+//            Attendance attendance=new Attendance();
+//            HashMap<Integer, Attendance> historyAttendance=new HashMap<>();
+//            while (resultSet2.next()){
+//                attendance.setDate(resultSet2.getDate("date"));
+//                attendance.setLesson(resultSet2.getString("lesson_name"));
+//            }
+//            historyAttendance.put(id,attendance);
+//            student.setHistoryAttendance(historyAttendance);
+//
+//
+//            String query3="SELECT * FROM t_lessons l WHERE l.studentID== "+id;
+//            ResultSet resultSet3=JDBC_Utils.getSt().executeQuery(query3);
+//            Lessons lesson=new Lessons();
+//            HashMap<Integer, Lessons> lessonsOfStudent=new HashMap<>();
+//            while (resultSet3.next()){
+//                lesson.setName(resultSet3.getString("lesson_name"));
+//            }
+//            historyAttendance.put(id,attendance);
+//            student.setHistoryAttendance(historyAttendance);
+
+
+            allStudents.add(student);
+
+
+        }
+        //yeni bir statemnt uzeriden
+
+    } catch (SQLException e) {
+        System.err.println(e.getMessage());
+    } finally {
+        try {
+            JDBC_Utils.getSt().close();
+            JDBC_Utils.getCon().close();
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+    }
+    return allStudents;
+
+
+    //Semra Zengin 628 - 728
     }
 }

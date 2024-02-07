@@ -8,6 +8,18 @@ public class Person {
     private String phoneNumber;
     UserRol role;
 
+    public Person(String name, String surName, String password, String address, String phoneNumber, UserRol role) {
+        this.name = name;
+        this.surName = surName;
+        this.password = password;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.role = role;
+    }
+
+    public Person() {
+    }
+
     public String getName() {
         return name;
     }
@@ -56,15 +68,15 @@ public class Person {
         this.role = role;
     }
 
-    public Person(String name, String surName, String password, String address, String phoneNumber, UserRol role) {
-        this.name = name;
-        this.surName = surName;
-        this.password = password;
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.role = role;
-    }
-
-    public Person() {
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", surName='" + surName + '\'' +
+                ", password='" + password + '\'' +
+                ", address='" + address + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", role=" + role +
+                '}';
     }
 }
