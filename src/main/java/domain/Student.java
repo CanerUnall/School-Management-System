@@ -26,8 +26,8 @@ public class Student extends Person {
         return percentDiscount;
     }
 
-    public void setPercentDiscount() {
-        this.percentDiscount = percentDiscount;
+    public void setPercentDiscount(Integer discount) {
+        this.percentDiscount = discount;
     }
 
     private HashMap<Integer, Attendance> historyAttendance;
@@ -105,7 +105,6 @@ public class Student extends Person {
     public void setHistoryAttendance(HashMap<Integer, Attendance> historyAttendance) {
         this.historyAttendance = historyAttendance;
     }
-
 
     public Student(String name, String surName, String password, String address, String phoneNumber,
                    UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment) {
