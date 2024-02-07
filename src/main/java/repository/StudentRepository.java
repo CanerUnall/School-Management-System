@@ -66,12 +66,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
-
-
     }
 
 
@@ -94,57 +88,57 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
             Student student = new Student();
 
-            while (resultSet.next()){
+            while (resultSet.next()) {
 
-            student.setStudentID(resultSet.getInt("student_Id"));
-            student.setName(resultSet.getString("std_name"));
-            student.setSurName(resultSet.getString("std_surName"));
-            student.setRole(UserRol.STUDENT);
-            student.setAddress(resultSet.getString("address"));
-            student.setPhoneNumber(resultSet.getString("phoneNumber"));
-            student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
-            student.setLastYearGradeAvg(resultSet.getDouble("lastYearGradeAvg"));
-            student.setPayment(resultSet.getDouble("payment"));
-            student.setTotalPrice(resultSet.getInt("totalPrice"));
-            student.setLessonCredit(resultSet.getInt("lessonCredit"));
+                student.setStudentID(resultSet.getInt("student_Id"));
+                student.setName(resultSet.getString("std_name"));
+                student.setSurName(resultSet.getString("std_surName"));
+                student.setRole(UserRol.STUDENT);
+                student.setAddress(resultSet.getString("address"));
+                student.setPhoneNumber(resultSet.getString("phoneNumber"));
+                student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
+                student.setLastYearGradeAvg(resultSet.getDouble("lastYearGradeAvg"));
+                student.setPayment(resultSet.getDouble("payment"));
+                student.setTotalPrice(resultSet.getInt("totalPrice"));
+                student.setLessonCredit(resultSet.getInt("lessonCredit"));
 
-            Grades grade = Grades.valueOf(resultSet.getString("grade"));
-            student.setGrade(grade);
+                Grades grade = Grades.valueOf(resultSet.getString("grade"));
+                student.setGrade(grade);
 
-            //PercentDiscount percentDiscount = PercentDiscount.valueOf(resultSet.getString("percentDiscount"));
-            //student.setPercentDiscount(percentDiscount);
+                //PercentDiscount percentDiscount = PercentDiscount.valueOf(resultSet.getString("percentDiscount"));
+                //student.setPercentDiscount(percentDiscount);
 
-            //student.setHistoryAttendance(resultSet.getString("historyAttandance"));
-                
-            // student.setAllLessons(resultSet.getInt("id"));
+                //student.setHistoryAttendance(resultSet.getString("historyAttandance"));
 
-        }
+                // student.setAllLessons(resultSet.getInt("id"));
 
-            String studentAllLesson= "SELECT * FROM t_attendance WHERE std_id=" + student.getStudentID();
-            ResultSet resultSet1= JDBC_Utils.getSt().executeQuery(studentAllLesson);
+            }
+
+            String studentAllLesson = "SELECT * FROM t_attendance WHERE std_id=" + student.getStudentID();
+            ResultSet resultSet1 = JDBC_Utils.getSt().executeQuery(studentAllLesson);
             HashMap<Integer, Attendance> attend = new HashMap<>();
             LessonsRepository lessonsRepository = new LessonsRepository();
             List<Lessons> allLessons = lessonsRepository.getAllLessons();
 
-            while(resultSet1.next()){
-                Attendance att= new Attendance();
+            while (resultSet1.next()) {
+                Attendance att = new Attendance();
 
-                for (Lessons lessons:allLessons){
-                    if (lessons.getName().name().equals(resultSet1.getString("lesson_name"))){
+                for (Lessons lessons : allLessons) {
+                    if (lessons.getName().name().equals(resultSet1.getString("lesson_name"))) {
                         att.setLesson(lessons);
                     }
                 }
 
                 att.setDate(resultSet1.getDate("date"));
-                attend.put(student.getStudentID(),att);
+                attend.put(student.getStudentID(), att);
             }
             student.setHistoryAttendance(attend);
 
             return student;
 
-        }   catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }   finally {
+        } finally {
             try {
                 JDBC_Utils.getSt().close();
                 JDBC_Utils.getCon().close();
@@ -153,30 +147,42 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-            return null;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return null;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
 
 
     //TODO Husnu Sen 182- 282
@@ -197,92 +203,46 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
 */
-    JDBC_Utils.setConnection();
-    String sql = "INSERT INTO students (name, surName, password, address, phoneNumber, role, studentID, grade, lastYearGradeAvg, payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        JDBC_Utils.setConnection();
+        String sql = "INSERT INTO students (name, surName, password, address, phoneNumber, role, studentID, grade, lastYearGradeAvg, payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
-    JDBC_Utils.setPrst(sql);
+        JDBC_Utils.setPrst(sql);
 
 
-    try {
-        JDBC_Utils.getPrst().setString(1, person.getName());
-        JDBC_Utils.getPrst().setString(2, person.getSurName());
-        JDBC_Utils.getPrst().setString(3, person.getPassword());
-        JDBC_Utils.getPrst().setString(4, person.getAddress());
-        JDBC_Utils.getPrst().setString(5, person.getPhoneNumber());
-        JDBC_Utils.getPrst().setString(6, String.valueOf(person.getRole()));
-        JDBC_Utils.getPrst().setInt(7, person.getStudentID());
-        JDBC_Utils.getPrst().setString(8, String.valueOf(person.getGrade()));
-        JDBC_Utils.getPrst().setDouble(9, person.getLastYearGradeAvg());
-        JDBC_Utils.getPrst().setDouble(10, person.getPayment());
-
-        JDBC_Utils.getPrst().executeUpdate();
-    } catch (SQLException e) {
-        System.err.println(e.getMessage());
-    } finally {
         try {
-            JDBC_Utils.getPrst().close();
-            JDBC_Utils.getCon().close();
+            JDBC_Utils.getPrst().setString(1, person.getName());
+            JDBC_Utils.getPrst().setString(2, person.getSurName());
+            JDBC_Utils.getPrst().setString(3, person.getPassword());
+            JDBC_Utils.getPrst().setString(4, person.getAddress());
+            JDBC_Utils.getPrst().setString(5, person.getPhoneNumber());
+            JDBC_Utils.getPrst().setString(6, String.valueOf(person.getRole()));
+            JDBC_Utils.getPrst().setInt(7, person.getStudentID());
+            JDBC_Utils.getPrst().setString(8, String.valueOf(person.getGrade()));
+            JDBC_Utils.getPrst().setDouble(9, person.getLastYearGradeAvg());
+            JDBC_Utils.getPrst().setDouble(10, person.getPayment());
+
+            JDBC_Utils.getPrst().executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
+
+
+        //
+
+
     }
 
 
-
-    //
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
     //TODO Caner Unal 285- 335
+
     @Override
     public void removeRepoSomeoneInfo(Student person) {
 
@@ -292,6 +252,100 @@ public class StudentRepository implements SameRepoOperations<Student> {
         */
 
 
+    }
+
+    //TODO Seval Senturk 337 - 537
+    @Override
+    public void updateAdressInfo(Student person, String adress) {
+        // choice 1 ise Adres, 2 ise sınıf, 3 ise ucret, 4 ise notu,  5 ise basari durumu update edecek sekilde yazilsin
+        //choice gore islemler switch case ile duzenlenecek
+        //   her bir case durumunda degistirilecek olan bilgi ve yerine yazilacak bilgi burada sorulacak
+
+
+// Seval Senturk 323 - 523
+    } //anlamadım ??? :((((
+
+    //TODO Seval Senturk 337 - 537
+    public void updateClassInfo(Student person, Grades grades) {
+    }
+
+    //TODO Seval Senturk 337 - 537
+    public void updateFeeInfo(Student person, Double fee) {
+    }
+
+    //TODO Seval Senturk 337 - 537
+    public void updateNoteInfo(Student person, int note) {
+    }
+
+    //TODO Seval Senturk 337 - 537
+    public void updateSuccessDegreeInfo(Student person, Lessons lessons, SuccessDegree successDegree) {
+    }
+
+    //TODO  Zehra Erol 526 - 626
+    @Override
+    public void getRepoSomeoneInfo(int id) {
+
+//burada verilen id ye gore ogrenci bulmak icin StudentRepository icindeki find methodu kullanilacak
+// daha sonra o ogrencinin verileri ekrana yazdirilacak
+
+        Student foundedStudent = find(id);
+
+
+        // JDBC bağlantısını aç
+
+        JDBC_Utils.setConnection();
+
+        String sql = "SELECT * FROM t_student WHERE id = ?";
+
+        JDBC_Utils.setPrst(sql);
+
+        try {
+            JDBC_Utils.getPrst().setInt(1, foundedStudent.getStudentID());
+            ResultSet resultSet = JDBC_Utils.getPrst().executeQuery();
+
+            if (resultSet.next()) {
+                System.out.print(" Student ID : " + resultSet.getInt("studentID"));
+                System.out.print(" Name : " + resultSet.getString("firstName"));
+                System.out.print(" Last Name : " + resultSet.getString("lastName"));
+                System.out.print(" Address : " + resultSet.getString("address"));
+                System.out.print(" Phone Number : " + resultSet.getString("phoneNumber"));
+                System.out.print(" Student AVG : " + resultSet.getDouble("thisYearGradeAvg"));
+                System.out.println();
+
+            }
+        } catch (SQLException e) {
+            throw new StudentNotFoundException("Aradığınız id'li öğrenci bulunamamıştır.");
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println("Error : " + e.getMessage());
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //TODO Caner Unal 285- 335
+    @Override
+    public void removeRepoSomeoneInfo(Student person) {
 
 
 
@@ -327,6 +381,15 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
 
+
+
+        
+
+    }
+
+
+
+// Zehra Erol 526 - 626
 
 
 
@@ -337,6 +400,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
     //TODO Seval Senturk 337 - 537
     @Override
     public void updateAdressInfo(Student person, String adress) {
+
 
         JDBC_Utils.setConnection();
 
@@ -367,166 +431,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -567,69 +471,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -677,68 +518,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     //TODO Seval Senturk 744 - 842
@@ -774,68 +553,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -879,90 +596,14 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     //TODO  Zehra Erol 946 - 1046
     @Override
     public void getRepoSomeoneInfo(int id) {
 
-//burada verilen id ye gore ogrenci bulmak icin StudentRepository icindeki find methodu kullanilacak
-// daha sonra o ogrencinin verileri ekrana yazdirilacak
 
-        Student foundedStudent = find(id);
 
-        // JDBC bağlantısını aç
-
-        JDBC_Utils.setConnection();
-
-        String sql = "SELECT * FROM t_student WHERE id = ?";
-
-        JDBC_Utils.setPrst(sql);
-
-        try {
-            JDBC_Utils.getPrst().setInt(1, foundedStudent.getStudentID());
-            ResultSet resultSet = JDBC_Utils.getPrst().executeQuery();
 
             if (resultSet.next()) {
                 System.out.print(" Student ID : " + resultSet.getInt("std_id"));
@@ -1041,85 +682,133 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
 
-        
+ 
 
-    }
 
     //TODO Semra Zengin 1048-1148
     public List<Student> getAllStudents() {
-
-    JDBC_Utils.setConnection();
-    JDBC_Utils.setStatement();
-
-    List<Student> allStudents = new ArrayList<>();
-
-    String query = "SELECT * FROM t_student";
-    System.out.println("====================ALL STUDENTS================");
-
-    try {
-        ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
-
-        while (resultSet.next()) {
-            Student student = new Student();
-
-            int id= resultSet.getInt("id");
-            student.setStudentID(id);
-            student.setName(resultSet.getString("std_name"));
-            student.setSurName(resultSet.getString("std_surname"));
-            student.setRole(UserRol.STUDENT);
-            student.setAddress(resultSet.getString("address"));
-            student.setPhoneNumber(resultSet.getString("phoneNumber"));
-            student.setLastYearGradeAvg(resultSet.getInt("lastYearGradeAvg"));
-            student.setPayment(resultSet.getInt("payment"));
-            student.setTotalPrice(resultSet.getInt("totalPrice"));
-            student.setLessonCredit(resultSet.getInt("lessonCredit"));
-            student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
-            Grades grade = Grades.valueOf(resultSet.getString("grade"));
-            student.setGrade(grade);
-
-//            String query2="SELECT * FROM t_attendance t WHERE t.studentID== "+id;//studentID t_attendance tablosunda fk pldugu icin bu id'li ogrencinin attendance'sini getir dedik
-//            ResultSet resultSet2=JDBC_Utils.getSt().executeQuery(query2);
-//            Attendance attendance=new Attendance();
-//            HashMap<Integer, Attendance> historyAttendance=new HashMap<>();
-//            while (resultSet2.next()){
-//                attendance.setDate(resultSet2.getDate("date"));
-//                attendance.setLesson(resultSet2.getString("lesson_name"));
-//            }
-//            historyAttendance.put(id,attendance);
-//            student.setHistoryAttendance(historyAttendance);
-//
-//
-//            String query3="SELECT * FROM t_lessons l WHERE l.studentID== "+id;
-//            ResultSet resultSet3=JDBC_Utils.getSt().executeQuery(query3);
-//            Lessons lesson=new Lessons();
-//            HashMap<Integer, Lessons> lessonsOfStudent=new HashMap<>();
-//            while (resultSet3.next()){
-//                lesson.setName(resultSet3.getString("lesson_name"));
-//            }
-//            historyAttendance.put(id,attendance);
-//            student.setHistoryAttendance(historyAttendance);
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
 
 
-            allStudents.add(student);
+        List<Student> allStudents = new ArrayList<>();
 
+        String query = "SELECT * FROM t_student";
+        System.out.println("====================ALL STUDENTS================");
 
-        }
-        //yeni bir statemnt uzeriden
-
-    } catch (SQLException e) {
-        System.err.println(e.getMessage());
-    } finally {
         try {
-            JDBC_Utils.getSt().close();
-            JDBC_Utils.getCon().close();
+            ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
+
+
+            while (resultSet.next()) {
+                Student student = new Student();
+
+                int id = resultSet.getInt("id");
+                student.setStudentID(id);
+                student.setName(resultSet.getString("std_name"));
+                student.setSurName(resultSet.getString("std_surname"));
+                student.setRole(UserRol.STUDENT);
+                student.setAddress(resultSet.getString("address"));
+                student.setPhoneNumber(resultSet.getString("phoneNumber"));
+                student.setLastYearGradeAvg(resultSet.getInt("lastYearGradeAvg"));
+                student.setPayment(resultSet.getInt("payment"));
+                student.setTotalPrice(resultSet.getInt("totalPrice"));
+                student.setLessonCredit(resultSet.getInt("lessonCredit"));
+                student.setThisYearGradeAvg(resultSet.getDouble("thisYearGradeAvg"));
+
+                Grades grade = Grades.valueOf(resultSet.getString("grade"));
+                student.setGrade(grade);
+
+                HashMap<Integer, Attendance> historyAttendance = new HashMap<>();
+                student.setHistoryAttendance(historyAttendance);
+                HashMap<Integer, Lessons> allLessons = new HashMap<>();
+                student.setAllLessons(allLessons);
+
+                allStudents.add(student);
+
+            }
+        }catch (SQLException ex) {
+            throw new RuntimeException(ex);
+        }
+
+
+        String query2 = "SELECT * FROM t_attendance ";//devamsizlik tablosundaki herseyi getiren sorgu
+        ResultSet resultSet2 = null;
+        try {
+            resultSet2 = JDBC_Utils.getSt().executeQuery(query2);
+            Attendance attendance = new Attendance();
+            Lessons lessons=new Lessons();
+            LessonsRepository lessonsRepository=new LessonsRepository();
+
+            while (resultSet2.next()) {
+                attendance.setDate(resultSet2.getDate("date"));
+                LessonNames lessonNames=LessonNames.valueOf(resultSet2.getString("lesson_name"));//hangi dersten devamsizlik oldugunu bulmak icin
+                //LessonsNames enum turunde oldugu icin valueOf() kullandik garanti olsun verilen deger ile enum degeri ayni olsun diye
+
+                for(Lessons lesson: lessonsRepository.getAllLessons()) {
+                    if (lesson.getName().equals(lessonNames)) {//db'deki devamsizlik tablosundan gelen lessonNames ile allLessonsdaki handi ders eslesmisse;
+                        attendance.setLesson(lessons);//o dersi attendance objesine set ettik
+
+                        int id = resultSet2.getInt("studentID");//db'den studentID'yi getirdik
+
+                        for (Student student : allStudents) {
+                            if (student.getStudentID() == id) {//db'deki id ile allStudentdaki hangi ogrenci eslesmisse;
+                                student.getHistoryAttendance().put(id, attendance);//o ogrencinin historyAttendance'si Map'ine id ve attendace'yi ekledik
+                            }
+                        }
+                    }
+                }
+        }
+            }catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
+
+        String query3 = "SELECT * FROM t_lessons ";//lesson tablosundan herseyi getiren sorgu
+        ResultSet resultSet3 = null;
+        try {
+            resultSet3 = JDBC_Utils.getSt().executeQuery(query3);
+            Teacher teacher=new Teacher();//her lesson'in teacher'i oldugu icin Teacher'dan injeksion yaptik
+            Lessons lessons=new Lessons();
+            TeacherRepository teacherRepository=new TeacherRepository();
+            while (resultSet3.next()) {//lesson tablosundan bilgileri alip lessons'a set ettik
+                lessons.setName(LessonNames.valueOf(resultSet3.getString("lesson_name")));
+                lessons.setLessonCredit(resultSet3.getInt("lessonCredit"));
+                lessons.setLessonFee(resultSet3.getDouble("lessonFee"));
+                lessons.setStudentNote(resultSet3.getInt("studentNote"));
+                lessons.setDay(resultSet3.getString("lesson_day"));
+                //lessons.setLessonSuccessDegree(resultSet3.);
+                int teacherId=resultSet3.getInt("teacherID");
+
+
+                for(Teacher teachers: teacherRepository.getAllTeacher()){
+                    if (teachers.getTeacherID()==teacherId){
+                        lessons.setTeacher(teachers);
+
+                        int id=resultSet3.getInt("studentID");
+
+                        for (Student student: allStudents){
+                            if (student.getStudentID()==id){
+                                student.getAllLessons().put(id,lessons);
+                            }
+                        }
+                    }
+                }
+            }
+        } catch (SQLException e) {
+        System.err.println(e.getMessage());
+        } finally {
+            try {
+        JDBC_Utils.getSt().close();
+        JDBC_Utils.getCon().close();
 
         } catch (SQLException e) {
-            System.err.println(e.getMessage());
+        System.err.println(e.getMessage());
         }
-    }
-    return allStudents;
+        }
+        return allStudents;
 
 
-    //Semra Zengin 628 - 728
-    }
+        //Semra Zengin 628 - 728
+
+        }
 }
