@@ -322,13 +322,10 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 
 
-
-
-
         //Caner Unal 277- 327
     }
 
-    //TODO  Seval Senturk 328 - 478
+    //TODO  Seval Senturk 328 - 480
     @Override
     public void updateSomeoneInfo() {
 /*
@@ -353,15 +350,15 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Yeni adresi giriniz: ");
+                    System.out.println("Please Enter New Adress : ");
                     String newAddress = scanner.nextLine();
                     studentToUpdate.setAddress(newAddress);
                     studentRepository.updateAdressInfo(studentToUpdate, newAddress);
                     break;
                 case 2:
-                    System.out.println("Yeni Sınıfı Giriniz :");
+                    System.out.println("Please Enter New Grade :");
                     for (Grades grades : Grades.values()) {
-                        System.out.println(grades.ordinal() + 1 + ". " + grades.name());
+                        System.out.println(grades.name());
                     }
                     int gradeChoice = Scanner_Utils.intScanner(scanner);
                     Grades newGrade = Grades.values()[gradeChoice - 1];
@@ -430,92 +427,6 @@ public class StudentMethods implements Login<Student>, SameOperations  {
             } else{
                 System.out.println("The Student you were looking for with " + studentId + " could not be found");
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

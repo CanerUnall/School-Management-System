@@ -74,6 +74,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
     }
 
+
     //TODO Ersagun Eryildiz 78-178
     @Override
     public Student find(int id) {
@@ -177,6 +178,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
     }
 
+
     //TODO Husnu Sen 182- 282
     @Override
     public void addRepoSomeoneInfo(Student person) {
@@ -277,9 +279,8 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
 
-
-
 }
+
 
     //TODO Caner Unal 285- 335
     @Override
@@ -331,7 +332,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
 
-
 }
 
     //TODO Seval Senturk 337 - 537
@@ -340,7 +340,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
         JDBC_Utils.setConnection();
 
-        String sql = "UPDATE t_student SET address=? WHERE studentID=?";
+        String sql = "UPDATE t_student SET address=? WHERE std_id=?";
 
         JDBC_Utils.setPrst(sql);
 
@@ -353,11 +353,11 @@ public class StudentRepository implements SameRepoOperations<Student> {
             int affectedRows = JDBC_Utils.getPrst().executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("Öğrenci Adres Bilgisi Güncellendi !...");
+                System.out.println("Updated Student Address Information !...");
             }
 
         } catch (SQLException e) {
-            throw new StudentNotFoundException("Öğrenci Adres Bilgisi Güncellenemedi: " + e.getMessage());
+            System.err.println("Error : " + e.getMessage());
         } finally {
 
             try {
@@ -367,6 +367,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
+
 
 
 
@@ -540,7 +541,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
         JDBC_Utils.setConnection();
 
-        String sql = "UPDATE t_student SET grade=? WHERE studentID=?";
+        String sql = "UPDATE t_student SET grade=? WHERE std_id=?";
 
         JDBC_Utils.setPrst(sql);
 
@@ -552,11 +553,11 @@ public class StudentRepository implements SameRepoOperations<Student> {
             int affectedRows = JDBC_Utils.getPrst().executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("Öğrenci Sınıf Bilgisi Güncellendi !...");
+                System.out.println("Updated Student Grade Information !...");
             }
 
         } catch (SQLException e) {
-            throw new StudentNotFoundException("Öğrenci Sınıf Bilgisi Güncellenemedi: " + e.getMessage());
+            System.err.println("Error : " + e.getMessage());
         } finally {
 
             try {
@@ -638,13 +639,12 @@ public class StudentRepository implements SameRepoOperations<Student> {
     }
 
 
-
     //TODO Seval Senturk 642 - 742
     public void updateFeeInfo(Student person, Double payment) { //readbl olması için Double arguman değiştirildi
 
         JDBC_Utils.setConnection();
 
-        String sql = "UPDATE t_student SET payment=? WHERE studentID=?";
+        String sql = "UPDATE t_student SET payment=? WHERE std_id=?";
 
         JDBC_Utils.setPrst(sql);
 
@@ -657,11 +657,11 @@ public class StudentRepository implements SameRepoOperations<Student> {
             int affectedRows = JDBC_Utils.getPrst().executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("Öğrenci Ücret Bilgisi Güncellendi !...");
+                System.out.println("Updated Student Payment Information !...");
             }
 
         } catch (SQLException e) {
-            throw new StudentNotFoundException("Öğrenci Ücret Bilgisi Güncellenemedi: " + e.getMessage());
+            System.err.println("Error : " + e.getMessage());
         } finally {
 
             try {
@@ -746,7 +746,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
         JDBC_Utils.setConnection();
 
-        String sql = "UPDATE t_lessons SET studentNote=? WHERE studentID=? AND lessonName=?";
+        String sql = "UPDATE t_lessons SET studentNote=? WHERE std_id=? AND lesson_name=?";
 
         JDBC_Utils.setPrst(sql);
 
@@ -760,11 +760,11 @@ public class StudentRepository implements SameRepoOperations<Student> {
             int affectedRows = JDBC_Utils.getPrst().executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("Ders Notu Güncellendi !...");
+                System.out.println("Updated Student Lesson Note !...");
             }
 
         } catch (SQLException e) {
-            System.out.printf("Ders notu güncellenemedi...!", e.getMessage());
+            System.err.println("Error : " + e.getMessage());
         } finally {
 
             try {
@@ -774,35 +774,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -876,7 +847,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
         JDBC_Utils.setConnection();
 
-        String sql = "UPDATE t_lessons SET successDegree=? WHERE studentID=? AND lessonName=?";
+        String sql = "UPDATE t_lessons SET successDegree=? WHERE studentID=? AND lesson_name=?";
 
         JDBC_Utils.setPrst(sql);
 
@@ -890,11 +861,11 @@ public class StudentRepository implements SameRepoOperations<Student> {
             int affectedRows = JDBC_Utils.getPrst().executeUpdate();
 
             if (affectedRows > 0) {
-                System.out.println("Başarı Derecesi Güncellendi !...");
+                System.out.println("Updated Student Success Degree !...");
             }
 
         } catch (SQLException e) {
-            throw new StudentNotFoundException("Başarı Derecesi Güncellenemedi:  "  + e.getMessage());
+            System.err.println("Error : " + e.getMessage());
         } finally {
 
             try {
@@ -904,37 +875,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1025,17 +965,17 @@ public class StudentRepository implements SameRepoOperations<Student> {
             ResultSet resultSet = JDBC_Utils.getPrst().executeQuery();
 
             if (resultSet.next()) {
-                System.out.print(" Student ID : " + resultSet.getInt("studentID"));
-                System.out.print(" Name : " + resultSet.getString("firstName"));
-                System.out.print(" Last Name : " + resultSet.getString("lastName"));
+                System.out.print(" Student ID : " + resultSet.getInt("std_id"));
+                System.out.print(" Name : " + resultSet.getString("std_name"));
+                System.out.print(" Last Name : " + resultSet.getString("std_surName"));
                 System.out.print(" Address : " + resultSet.getString("address"));
                 System.out.print(" Phone Number : " + resultSet.getString("phoneNumber"));
-                System.out.print(" Student AVG : " + resultSet.getDouble("thisYearGradeAvg"));
+                System.out.print(" Student AVG : " + resultSet.getDouble("lastYearGradeAvg"));
                 System.out.println();
 
             }
         } catch (SQLException e) {
-            throw new StudentNotFoundException("Aradığınız id'li öğrenci bulunamamıştır.");
+            throw new StudentNotFoundException("The student with the ID you are looking for was not found !...");
         } finally {
             try {
                 JDBC_Utils.getPrst().close();
