@@ -125,22 +125,22 @@ public class ReportMethods {
 
         switch (successDegree) {
             case A:
-                System.out.println("Sınıf başarısı: Mükemmel");
+                System.out.println("Class success: Excellent");
                 break;
             case B:
-                System.out.println("Sınıf başarısı: İyi");
+                System.out.println("Class success: Good");
                 break;
             case C:
-                System.out.println("Sınıf başarısı: Orta");
+                System.out.println("Class success: Average");
                 break;
             case D:
-                System.out.println("Sınıf başarısı: Geçer");
+                System.out.println("Class success: Pass");
                 break;
             case F:
-                System.out.println("Sınıf başarısı: Başarısız");
+                System.out.println("Class success: Fail");
                 break;
             default:
-                System.out.println("Geçersiz değer");
+                System.out.println("Invalid value");
                 break;
         }
     /*
@@ -151,7 +151,7 @@ public class ReportMethods {
 
 
 
-            System.out.println("Hangi sınıfın başarısını görmek istiyorsunuz..");
+            System.out.println("Which class do you want to see success?");
             String selectedClass = scanner.nextLine();
 
             try {
@@ -161,7 +161,7 @@ public class ReportMethods {
                 reportRepository.getClassSuccess(selectedGrade);
 
             } catch (IllegalArgumentException e) {
-                System.err.println("Geçersiz sınıf ismi. Lütfen geçerli bir sınıf ismi giriniz.");
+                System.err.println("Invalid grade name. Please enter a valid grade name.");
             } finally {
                 scanner.close();
 

@@ -2,16 +2,15 @@ package repository;
 import config.JDBC_Utils;
 import domain.Teacher;
 import domain.UserRol;
-import java.util.List;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;;
+
 public class TeacherRepository implements SameRepoOperations<Teacher> {
 
     //TODO  Umut Ayaz 10 -110
     public void createTeacherTable() {
       /*  bu methodun query si yazilirken if not exist kullanilacak
-
-
+>>>>>>> main
 
     public static void createTeacherTable() {
 // // Umut Ayaz 10 -110
@@ -107,10 +106,20 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
 
+
+
+
+
+
+
+            // Umut Ayaz 10 -110
+
+
     }
 
 
     //TODO  Umut Ayaz 113-213
+
     @Override
     public Teacher find(int id) {
         // Umut Ayaz 113-213

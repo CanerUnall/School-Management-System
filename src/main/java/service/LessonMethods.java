@@ -129,58 +129,57 @@ public class LessonMethods {
         //burada hafta icleri icin birer list olustursun
 
 
+        List<Lessons> monday = new ArrayList<>();
+        List<Lessons> tuesday = new ArrayList<>();
+        List<Lessons> wednesday = new ArrayList<>();
+        List<Lessons> thursday = new ArrayList<>();
+        List<Lessons> friday = new ArrayList<>();
+
+        for (Lessons lesson : student.getAllLessons().values()) {
+            switch (lesson.getDay()) {
+                case "Monday":
+                    monday.add(lesson);
+                    break;
+                case "Tuesday":
+                    tuesday.add(lesson);
+                    break;
+                case "Wednesday":
+                    wednesday.add(lesson);
+                    break;
+                case "Thursday":
+                    thursday.add(lesson);
+                    break;
+                case "Friday":
+                    friday.add(lesson);
+                    break;
+                default:
+                    System.out.println("non-valid day");
+                    break;
+            }
+        }
+
+        System.out.println("Lessons of Monday:");
+        for (Lessons lesson : monday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Tuesday:");
+        for (Lessons lesson : tuesday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Wednesday:");
+        for (Lessons lesson : wednesday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Thursday:");
+        for (Lessons lesson : thursday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Friday:");
+        for (Lessons lesson : friday) {
+            System.out.println(lesson.getName().name());
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 
