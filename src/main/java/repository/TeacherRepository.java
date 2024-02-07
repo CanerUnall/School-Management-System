@@ -3,15 +3,9 @@ package repository;
 import config.JDBC_Utils;
 import domain.Teacher;
 import domain.UserRol;
-
 import java.sql.*;
-import java.util.List;
-import java.util.Optional;
-
-
+import java.util.List;;
 public class TeacherRepository implements SameRepoOperations<Teacher>{
-
-
 
     public static void createTeacherTable() {
 // // Umut Ayaz 10 -110
@@ -104,7 +98,17 @@ public class TeacherRepository implements SameRepoOperations<Teacher>{
 
 
 
+
+
+
+
+
+
+
+
+
             // Umut Ayaz 10 -110
+
     @Override
     public Teacher find(int id) {
         // Umut Ayaz 113-213
