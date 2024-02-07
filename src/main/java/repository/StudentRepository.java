@@ -153,38 +153,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
     //TODO Husnu Sen 182- 282
     @Override
     public void addRepoSomeoneInfo(Student person) {
@@ -254,32 +222,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
     }
 
-    //TODO Seval Senturk 337 - 537
-    @Override
-    public void updateAdressInfo(Student person, String adress) {
-        // choice 1 ise Adres, 2 ise sınıf, 3 ise ucret, 4 ise notu,  5 ise basari durumu update edecek sekilde yazilsin
-        //choice gore islemler switch case ile duzenlenecek
-        //   her bir case durumunda degistirilecek olan bilgi ve yerine yazilacak bilgi burada sorulacak
-
-
-// Seval Senturk 323 - 523
-    } //anlamadım ??? :((((
-
-    //TODO Seval Senturk 337 - 537
-    public void updateClassInfo(Student person, Grades grades) {
-    }
-
-    //TODO Seval Senturk 337 - 537
-    public void updateFeeInfo(Student person, Double fee) {
-    }
-
-    //TODO Seval Senturk 337 - 537
-    public void updateNoteInfo(Student person, int note) {
-    }
-
-    //TODO Seval Senturk 337 - 537
-    public void updateSuccessDegreeInfo(Student person, Lessons lessons, SuccessDegree successDegree) {
-    }
 
     //TODO  Zehra Erol 526 - 626
     @Override
@@ -325,77 +267,10 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //TODO Caner Unal 285- 335
-    @Override
-    public void removeRepoSomeoneInfo(Student person) {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-
-    }
-
-
-
 // Zehra Erol 526 - 626
 
 
-
-
-
-}
+    }
 
     //TODO Seval Senturk 337 - 537
     @Override
@@ -433,12 +308,8 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
 // Seval Senturk 323 - 523
-}
+    }
 
     //TODO Seval Senturk 539 - 640
     public void updateClassInfo(Student person, Grades grades) {
@@ -473,10 +344,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
     }
 
 
@@ -491,7 +358,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
         try {
 
-            JDBC_Utils.getPrst().setDouble(1,payment);
+            JDBC_Utils.getPrst().setDouble(1, payment);
             JDBC_Utils.getPrst().setInt(2, person.getStudentID());
 
 
@@ -514,14 +381,10 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
     }
 
     //TODO Seval Senturk 744 - 842
-    public void updateLessonNoteInfo(Student person,Lessons lesson, int note) {
+    public void updateLessonNoteInfo(Student person, Lessons lesson, int note) {
 
         JDBC_Utils.setConnection();
 
@@ -531,9 +394,9 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
         try {
 
-           JDBC_Utils.getPrst().setInt(1, note);
-           JDBC_Utils.getPrst().setInt(2, person.getStudentID());
-           JDBC_Utils.getPrst().setString(3, lesson.getName().name());
+            JDBC_Utils.getPrst().setInt(1, note);
+            JDBC_Utils.getPrst().setInt(2, person.getStudentID());
+            JDBC_Utils.getPrst().setString(3, lesson.getName().name());
 
 
             int affectedRows = JDBC_Utils.getPrst().executeUpdate();
@@ -553,7 +416,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
 
 
     } //method ismi değiştirildi
@@ -594,37 +456,9 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
     }
 
-    //TODO  Zehra Erol 946 - 1046
-    @Override
-    public void getRepoSomeoneInfo(int id) {
 
-
-
-
-            if (resultSet.next()) {
-                System.out.print(" Student ID : " + resultSet.getInt("std_id"));
-                System.out.print(" Name : " + resultSet.getString("std_name"));
-                System.out.print(" Last Name : " + resultSet.getString("std_surName"));
-                System.out.print(" Address : " + resultSet.getString("address"));
-                System.out.print(" Phone Number : " + resultSet.getString("phoneNumber"));
-                System.out.print(" Student AVG : " + resultSet.getDouble("lastYearGradeAvg"));
-                System.out.println();
-
-            }
-        } catch (SQLException e) {
-            throw new StudentNotFoundException("The student with the ID you are looking for was not found !...");
-        } finally {
-            try {
-                JDBC_Utils.getPrst().close();
-                JDBC_Utils.getCon().close();
-            } catch (SQLException e) {
-                System.err.println("Error : " + e.getMessage());
-            }
-        }
 
 
 
