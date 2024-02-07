@@ -107,14 +107,6 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
 
-
-
-
-
-
-            // Umut Ayaz 10 -110
-
-
     }
 
 
@@ -170,7 +162,6 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
             }
         }
-
 
 
 

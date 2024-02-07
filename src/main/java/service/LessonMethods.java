@@ -514,16 +514,11 @@ public class LessonMethods {
     //Bu metodu selectLesson metodunun daha clean olmasi icin yazdim.
     private void chooseLesson(int choice, Student student, List<Lessons> lessonsList, StudentRepository studentRepository) {
 
-        student.getAllLessons().put(student.getStudentID(),
-                                    lessonsList.get(choice - 1));
 
-
-        student.setTotalPrice(student.getTotalPrice() +
-                (lessonsList.get(choice - 1).getLessonFee() * student.getPercentDiscount() / 100));
-
+        student.getAllLessons().put(student.getStudentID(), lessonsList.get(choice - 1));
+        student.setTotalPrice(student.getTotalPrice() + (lessonsList.get(choice - 1).getLessonFee() * (100-student.getPercentDiscount()) / 100));
         lessonsRepository.addLessonStudent(student, lessonsList.get(choice - 1));
-
-        studentRepository.updateFeeInfo(student, lessonsList.get(choice - 1).getLessonFee() * student.getPercentDiscount() / 100);
+        studentRepository.updateFeeInfo(student, lessonsList.get(choice - 1).getLessonFee() * (100-student.getPercentDiscount()) / 100);
 
     }
 
