@@ -8,6 +8,7 @@ import domain.Attendance;
 import domain.Classes;
 import domain.Grades;
 
+
 import domain.Lessons;
 import domain.Student;
 import repository.LessonsRepository;
@@ -507,22 +508,21 @@ public class LessonMethods {
 
 
 
-
-
-
-
-
-
-
 //Rumeysa Dagtekin 326 526}
     }
 
     //Bu metodu selectLesson metodunun daha clean olmasi icin yazdim.
     private void chooseLesson(int choice, Student student, List<Lessons> lessonsList, StudentRepository studentRepository) {
 
-        student.getAllLessons().put(student.getStudentID(), lessonsList.get(choice - 1));
-        student.setTotalPrice(student.getTotalPrice() + (lessonsList.get(choice - 1).getLessonFee() * student.getPercentDiscount() / 100));
+        student.getAllLessons().put(student.getStudentID(),
+                                    lessonsList.get(choice - 1));
+
+
+        student.setTotalPrice(student.getTotalPrice() +
+                (lessonsList.get(choice - 1).getLessonFee() * student.getPercentDiscount() / 100));
+
         lessonsRepository.addLessonStudent(student, lessonsList.get(choice - 1));
+
         studentRepository.updateFeeInfo(student, lessonsList.get(choice - 1).getLessonFee() * student.getPercentDiscount() / 100);
 
     }
@@ -572,7 +572,15 @@ public class LessonMethods {
         //buna dair simdilik bir yol haritasi hazirlayamadim.
 
 
-        // bu sekilde sinif sinif ders takvimi yazdirilacak
+
+        //bu sekilde sinif sinif ders takvimi yazdirilacak
+
+        System.out.println("*** Classes ***");
+        System.out.println();
+
+
+        System.out.println("Please select the class you want to view the schedule for :");
+
 
 
     }

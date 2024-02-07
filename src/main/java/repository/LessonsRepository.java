@@ -225,7 +225,7 @@ public class LessonsRepository {
         try {
 
             result = JDBC_Utils.getSt().executeQuery(getAllLessons);
-            List<Lessons> lessonsList = null;
+            List<Lessons> lessonsList = new ArrayList<>();
             while (result.next()) {
 
                 String lessonName = result.getString("lesson_name");
@@ -239,8 +239,6 @@ public class LessonsRepository {
 
 
                 Lessons lesson = new Lessons(lName, teacher, lessonCredit, lessonFee, lessonDay); //database`den alinan veriler ile obje olusturduk
-
-                lessonsList = new ArrayList<>();
                 lessonsList.add(lesson); //list`in icerisine lesson objesini ekledik
 
 
