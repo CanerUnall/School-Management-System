@@ -52,7 +52,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
                     "lastYearGradeAvg INT CHECK(age>=0)," +
                     "payment INT," +
                     "totalPrice INT," +
-                    "balanc");
+                    "balance");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -292,25 +292,25 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
         */
 
+        JDBC_Utils.setConnection();
+        String sql = "DELETE FROM t_student WHERE std_id = ?";
+        JDBC_Utils.setPrst(sql);
 
+        try {
+            JDBC_Utils.getPrst().setInt(1,person.getStudentID());
 
+            JDBC_Utils.getPrst().executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 
@@ -516,7 +516,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
     public void updateFeeInfo(Student person, Double fee) {
     }
     //TODO Seval Senturk 337 - 537
-    public void updateNoteInfo(Student person, int note) {
+    public void updateNoteInfo(Student person,Lessons lessons, int note) {
     }
     //TODO Seval Senturk 337 - 537
     public void updateSuccessDegreeInfo(Student person, Lessons lessons, SuccessDegree successDegree) {

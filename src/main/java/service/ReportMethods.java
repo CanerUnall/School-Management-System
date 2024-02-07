@@ -2,8 +2,12 @@ package service;
 
 import config.Scanner_Utils;
 import domain.Grades;
+import domain.Lessons;
+import domain.Student;
 import domain.SuccessDegree;
 import repository.ReportRepository;
+import repository.StudentRepository;
+
 import java.util.Scanner;
 public class ReportMethods {
     private final Scanner scanner;
@@ -222,10 +226,17 @@ public class ReportMethods {
     public void showStudentSuccess() {
             //secilen ogrencinin once tum ders basarilari gosterilsin daha sonra genel ortalamaasi gosterilsin
 
-
-
-
-
+        System.out.println("Enter the ID of the student whose success you want to see.");
+        int id = Scanner_Utils.intScanner(scanner);
+        StudentRepository studentRepository = new StudentRepository();
+        StudentMethods studentMethods = new StudentMethods(scanner,studentRepository);
+        Student student = studentMethods.find(id);
+        if (student!=null) {
+            System.out.println(student.getName() +" "+student.getSurName()+" all courses and grades of the named student are as follows:");
+            for (Lessons eachLesson:student.getAllLessons().values()){
+                System.out.println(eachLesson.getName().name()+ " " + eachLesson.getStudentNote() +" "+eachLesson.getLessonSuccessDegree().name());
+            }
+        }
 
 
 

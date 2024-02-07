@@ -280,14 +280,14 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         1. once silinecek ogrencinin id alinacak
         2. StudentMethods icindeki find methodu ile o ogrenci bulunacak
         3. daha sonra StudentRepository clasindaki removeRepoSomeoneInfo methodu cagrilarak ogrenci silinecek
-         */
+        */
 
+        System.out.println("Please enter the ID of the student you want to delete.");
+        int id= Scanner_Utils.intScanner(scanner);
 
-
-
-
-
-
+        if(find(id)!=null){
+            studentRepository.removeRepoSomeoneInfo(find(id));
+        }
 
 
 

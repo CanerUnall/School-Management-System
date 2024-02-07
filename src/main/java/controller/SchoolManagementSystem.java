@@ -356,73 +356,73 @@ public class SchoolManagementSystem {
          * */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Welcome to our system..." + teacher.getName());
+        boolean running = true;
+
+        while (running) {
+            System.out.println("========= School Management System =========");
+            System.out.println("===Select the part you want to transact wit===");
+            System.out.println("1. All student information...");
+            System.out.println("2. Student Transactions");
+            System.out.println("3. Course Tracking and Selection");
+            System.out.println("4. Student Grade Tracking");
+            System.out.println("5. Teacher Information and Transactions");
+            System.out.println("6. Reporting");
+            System.out.println("0. Exit");
+            System.out.print("Please select an action: ");
+
+            int choice = Scanner_Utils.intScanner(scanner);
+            switch (choice) {
+                case 1:
+                    classesMethods.showAllStudentInfo();
+                    break;
+                case 2:
+                    studentMethods();
+                    break;
+                case 3:
+                    // 1. ders programini goster
+                    // 2. ders kredisi belirle
+                    System.out.println("1. Show syllabus.");
+                    System.out.println("2. Determine course credit.");
+                    System.out.println("Press :1 or 2 ");
+                    int choice2 = Scanner_Utils.intScanner(scanner);
+                    if (choice2 == 1) {
+                        lessonMethods.allClassesSchedule();
+                    } else if (choice2 == 2) {
+                        //ders kredisi belirle yen method hangisi bulamadım
+                    } else {
+                        System.out.println("Make a valid keystroke");
+                    }
+                    break;
+                case 4:
+                    //      1. tum sinifin notlarini gor
+                    //      2. ogrenci notunu gir/ duzenle
+                    System.out.println("Press 1 to see the lecture notes of the class.");
+                    System.out.println("Press 2 to enter the student grade and edit it.");
+                    System.out.println("Press : ");
+                    int choice3 = Scanner_Utils.intScanner(scanner);
+                    if (choice3 == 1) {
+                        classesMethods.showAllClassNotes();
+                    } else if (choice3 == 2) {
+                        studentMethods.updateStudentNote();
+                    } else {
+                        System.out.println("Make a valid keystroke");
+                    }
+                    break;
+                case 5:
+                    System.out.println(teacher);
+                    break;
+                case 6:
+                    reportMethods();
+                    break;
+                case 0:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again");
+            }
+        }
 
 
 
