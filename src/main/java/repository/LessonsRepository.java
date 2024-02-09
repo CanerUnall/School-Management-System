@@ -9,15 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 import config.JDBC_Utils;
-import domain.LessonNames;
-import domain.Lessons;
 import domain.Student;
-import domain.Teacher;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import static config.JDBC_Utils.setConnection;
+import static config.JDBC_Utils.setStatement;
+
+
 
 public class LessonsRepository {
     PreparedStatement prst;
@@ -44,38 +42,33 @@ public class LessonsRepository {
       studentID foreign key olarak eklenecek
 */
 
+        setConnection();
+        setStatement();
+
+        String createLessonsTable = "CREATE TABLE IF NOT EXISTS t_lessons (lessonID integer PRIMARY KEY AUTO_INCREMENT," +
+                "lesson_name varchar(25)" +
+                "teacherID integer foreign key" +
+                "lessonCredit integer" +
+                "lessonFee real" +
+                "studentNote integer" +
+                "lesson_day varchar(25)" +
+                "studentID  integer foreign key)";
 
 
 
+        try {
+            JDBC_Utils.getSt().executeUpdate(createLessonsTable);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 
@@ -141,30 +134,36 @@ public class LessonsRepository {
         //      studentNote
         //      lesson_day
         //      studentID foreign key olarak eklenecek
-        setConnection();
+        JDBC_Utils.setConnection();
 
-        String sql = "INSERT INTO t_lessons" +
+        String sql = "INSERT INTO IF NOT EXISTS t_lessons" +
                 "(lessonID, lesson_name, teacherID, lessonCredit, lessonFee, studentNote, lesson_day, studentID)" +
                 " VALUES (?,?,?,?,?,?,?,?)";
 
-        Lessons lessons1=new Lessons(LessonNames.TURKISH,new Teacher(),4,23.0,"Monday");
+
+        JDBC_Utils.setPrst(sql);
+
+
         try {
+           // JDBC_Utils.getPrst().setInt(1, lessons.getLessonID);
+            JDBC_Utils.getPrst().setString(2, String.valueOf(lessons.getName()));
+            JDBC_Utils.getPrst().setInt(3, lessons.getTeacher().getTeacherID());
+            JDBC_Utils.getPrst().setInt(4, lessons.getLessonCredit());
+            JDBC_Utils.getPrst().setDouble(5, lessons.getLessonFee());
+            JDBC_Utils.getPrst().setInt(6, lessons.getStudentNote());
+            JDBC_Utils.getPrst().setString(7, lessons.getDay());
+            //JDBC_Utils.getPrst().setInt(8, lessons.getStudentID);
 
-        //    prst.setString(1, lessons1.getName());
-            prst.setString(2, lessons1.getTeacher().getName());
-            prst.setInt(3, lessons1.getLessonCredit());
-            prst.setDouble(4, lessons1.getLessonFee());
-            prst.setString(5, lessons1.getDay());
 
-            prst.executeUpdate();
-
+            JDBC_Utils.getPrst().executeUpdate();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         } finally {
             try {
-                prst.close();
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
             } catch (SQLException e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
 
@@ -269,8 +268,8 @@ public class LessonsRepository {
 
         //dbdeki tum dersleri getirecek ve br liste ekleyecek daha sonra o listi return edecek
 
-        JDBC_Utils.setConnection();
-        JDBC_Utils.setStatement();
+        setConnection();
+        setStatement();
 
         String getAllLessons = "SELECT (lesson_name,lessonCredit,lessonFee,lesson_day,teacherID) FROM t_lessons";
         ResultSet result = null;
@@ -278,7 +277,7 @@ public class LessonsRepository {
         try {
 
             result = JDBC_Utils.getSt().executeQuery(getAllLessons);
-            List<Lessons> lessonsList = null;
+            List<Lessons> lessonsList = new ArrayList<>();
             while (result.next()) {
 
                 String lessonName = result.getString("lesson_name");
@@ -292,8 +291,6 @@ public class LessonsRepository {
 
 
                 Lessons lesson = new Lessons(lName, teacher, lessonCredit, lessonFee, lessonDay); //database`den alinan veriler ile obje olusturduk
-
-                lessonsList = new ArrayList<>();
                 lessonsList.add(lesson); //list`in icerisine lesson objesini ekledik
 
 
@@ -326,7 +323,7 @@ public class LessonsRepository {
     //TODO RUMEYSA
     public void addLessonStudent(Student student,Lessons lesson) {
 
-        JDBC_Utils.setConnection();
+        setConnection();
         String sql = "INSERT INTO t_lessons (lesson_name, teacherID,lessonCredit,lessonFee,studentNote,lesson_day,studentID) VALUES (?,?,?,?,?,?,?)";
           JDBC_Utils.setPrst(sql);
 

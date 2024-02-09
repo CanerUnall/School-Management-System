@@ -28,11 +28,9 @@ public class AdminRepository {
 */
         setConnection();
         setStatement();
-//String name, String surName, String password, String address, String phoneNumber,
-//                  UserRol role, double salary, String branch, int teacherID, int adminID
 
         String createTableAdmin = "CREATE TABLE IF NOT EXISTS t_admin " +
-                "(admin_id INT PRIMARY KEY," +
+                "(admin_id INT PRIMARY KEY AUTO_INCREMENT," +
                 "admin_name VARCHAR(20))," +
                 "admin_surname VARCHAR(20)" +
                 "admin_password VARCHAR(20)," +
@@ -61,62 +59,108 @@ public class AdminRepository {
         // Mustafa Ubeyde Kayhan 7 -  57
     }
 
-    public ResultSet query(String query) {
-        try {
-            return st.executeQuery(query);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public Admins find(int id) {
         setConnection();
         setStatement();
         // Mustafa Ubeyde Kayhan 61 -  161
 //buradan girilen idye gore dbden admin bilgileri alinacak ve obje olusturulup return edilecek
+
         String getAdmin = "SELECT * FROM t_admin WHERE admin_id=" + id;
-        ResultSet result = query(getAdmin);
-        //result.getString("id_number");
-        //                String cName = result.getString("name");
-        //                String password = result.getString("password");
-        //                String gender = result.getString("gender");
-        //                int age = result.getInt("age");
-        //                String email = result.getString("emails");
-        //                String adres = result.getString("cargo_address");
-        //                String cardNumber = result.getString("card_number");
-        //                String lastDate = result.getString("card_expiration_date");
-        //                String cvv = result.getString("card_cvv");
-        //                String pNumber = result.getString("phone_number");
-        // String createTableAdmin = "CREATE TABLE IF NOT EXISTS t_admin " +
-        //                "(admin_id INT PRIMARY KEY," +
-        //                "admin_name VARCHAR(20))," +
-        //                "admin_surname VARCHAR(20)" +
-        //                "admin_password VARCHAR(20)," +
-        //                "admin_address VARCHAR(50)," +
-        //                "admin_phoneNumber VARCHAR(20)," +
-        //                "admin_role VARCHAR(5)," +
-        //                "admin_salary INT," +
-        //                "admin_branch VARCHAR(20)," +
-        //                "admin_teacherID INT FOREIGN KEY REFERENCES t_teacher(teacherID))";
+        Admins admin = new Admins();
 
         try {
-            return new Admins(result.getString("admin_name"),
-                    result.getString("admin_surname"),
-                    result.getString("admin_password"),
-                    result.getString("admin_address"),
-                    result.getString("admin_phoneNumber"),
-                    UserRol.fromString(result.getString("admin_role")),
-                    result.getDouble("admin_salary"),
-                    result.getString("admin_branch"),
-                    result.getInt("admin_teacherID"),
-                    result.getInt("admin_id"));
+
+            ResultSet result = JDBC_Utils.getSt().executeQuery(getAdmin);
+
+            while (result.next()) {
+                admin.setAdminID(result.getInt("admin_id"));
+                admin.setName(result.getString("admin_name"));
+                admin.setSurName(result.getString("admin_surname"));
+                admin.setPassword(result.getString("admin_password"));
+                admin.setAddress(result.getString("admin_address"));
+                admin.setPhoneNumber(result.getString("admin_phoneNumber"));
+                admin.setRole(UserRol.ADMIN);
+                admin.setSalary(result.getDouble("admin_salary"));
+                admin.setBranch(result.getString("admin_branch"));
+                admin.setTeacherID(result.getInt("admin_teacherID"));
+
+
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AdminNotFoundException("Admin not found");
+        }finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            }catch (SQLException e){
+                System.err.println(e.getMessage());
+            }
         }
-
-
-
+        return admin;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //TODO Rumeysa Dagtekin 164 - 264
@@ -143,6 +187,33 @@ public class AdminRepository {
                     System.out.println(e.getMessage());
                 }
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             // Rumeysa Dagtekin 164 - 264

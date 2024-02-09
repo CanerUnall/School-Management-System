@@ -2,8 +2,12 @@ package service;
 
 import config.Scanner_Utils;
 import domain.Grades;
+import domain.Lessons;
+import domain.Student;
 import domain.SuccessDegree;
 import repository.ReportRepository;
+import repository.StudentRepository;
+
 import java.util.Scanner;
 public class ReportMethods {
     private final Scanner scanner;
@@ -34,52 +38,52 @@ public class ReportMethods {
 
 
         System.out.println("Seçiminiz");
-
-        // while ()
-
-        int secim = Scanner_Utils.intScanner(scanner);
+         boolean lessonChoose = false;
+        do {
 
 
-        if (secim > 0 && secim < 11) {
-            switch (secim) {
-                case 1:
-                    reportRepository.getLessonSuccess("MATHS");
-                    break;
-                case 2:
-                    reportRepository.getLessonSuccess("ENGLISH");
-                    break;
-                case 3:
-                    reportRepository.getLessonSuccess("HISTORY");
-                    break;
-                case 4:
-                    reportRepository.getLessonSuccess("TURKISH");
-                    break;
-                case 5:
-                    reportRepository.getLessonSuccess("PHYSICAL");
-                    break;
-                case 6:
-                    reportRepository.getLessonSuccess("CHEMICAL");
-                    break;
-                case 7:
-                    reportRepository.getLessonSuccess("GEOGRAPHY");
-                    break;
-                case 8:
-                    reportRepository.getLessonSuccess("IT");
-                    break;
-                case 9:
-                    reportRepository.getLessonSuccess("SPORTS");
-                    break;
-                case 10:
-                    reportRepository.getLessonSuccess("BIOLOGY");
-                    break;
-
-            }
-
-        } else System.out.println("Lütfen geçerli bir ders no giriniz");
+            int secim = Scanner_Utils.intScanner(scanner);
 
 
+            if (secim > 0 && secim < 11) {
+                switch (secim) {
+                    case 1:
+                        reportRepository.getLessonSuccess("MATHS");
+                        break;
+                    case 2:
+                        reportRepository.getLessonSuccess("ENGLISH");
+                        break;
+                    case 3:
+                        reportRepository.getLessonSuccess("HISTORY");
+                        break;
+                    case 4:
+                        reportRepository.getLessonSuccess("TURKISH");
+                        break;
+                    case 5:
+                        reportRepository.getLessonSuccess("PHYSICAL");
+                        break;
+                    case 6:
+                        reportRepository.getLessonSuccess("CHEMICAL");
+                        break;
+                    case 7:
+                        reportRepository.getLessonSuccess("GEOGRAPHY");
+                        break;
+                    case 8:
+                        reportRepository.getLessonSuccess("IT");
+                        break;
+                    case 9:
+                        reportRepository.getLessonSuccess("SPORTS");
+                        break;
+                    case 10:
+                        reportRepository.getLessonSuccess("BIOLOGY");
+                        break;
+
+                }
+
+            } else System.out.println("Lütfen geçerli bir ders no giriniz");
 
 
+        }while (!lessonChoose);//??
 
 
 
@@ -125,22 +129,22 @@ public class ReportMethods {
 
         switch (successDegree) {
             case A:
-                System.out.println("Sınıf başarısı: Mükemmel");
+                System.out.println("Class success: Excellent");
                 break;
             case B:
-                System.out.println("Sınıf başarısı: İyi");
+                System.out.println("Class success: Good");
                 break;
             case C:
-                System.out.println("Sınıf başarısı: Orta");
+                System.out.println("Class success: Average");
                 break;
             case D:
-                System.out.println("Sınıf başarısı: Geçer");
+                System.out.println("Class success: Pass");
                 break;
             case F:
-                System.out.println("Sınıf başarısı: Başarısız");
+                System.out.println("Class success: Fail");
                 break;
             default:
-                System.out.println("Geçersiz değer");
+                System.out.println("Invalid value");
                 break;
         }
     /*
@@ -151,7 +155,7 @@ public class ReportMethods {
 
 
 
-            System.out.println("Hangi sınıfın başarısını görmek istiyorsunuz..");
+            System.out.println("Which class do you want to see success?");
             String selectedClass = scanner.nextLine();
 
             try {
@@ -161,7 +165,7 @@ public class ReportMethods {
                 reportRepository.getClassSuccess(selectedGrade);
 
             } catch (IllegalArgumentException e) {
-                System.err.println("Geçersiz sınıf ismi. Lütfen geçerli bir sınıf ismi giriniz.");
+                System.err.println("Invalid grade name. Please enter a valid grade name.");
             } finally {
                 scanner.close();
 
@@ -222,10 +226,17 @@ public class ReportMethods {
     public void showStudentSuccess() {
             //secilen ogrencinin once tum ders basarilari gosterilsin daha sonra genel ortalamaasi gosterilsin
 
-
-
-
-
+        System.out.println("Enter the ID of the student whose success you want to see.");
+        int id = Scanner_Utils.intScanner(scanner);
+        StudentRepository studentRepository = new StudentRepository();
+        StudentMethods studentMethods = new StudentMethods(scanner,studentRepository);
+        Student student = studentMethods.find(id);
+        if (student!=null) {
+            System.out.println(student.getName() +" "+student.getSurName()+" all courses and grades of the named student are as follows:");
+            for (Lessons eachLesson:student.getAllLessons().values()){
+                System.out.println(eachLesson.getName().name()+ " " + eachLesson.getStudentNote() +" "+eachLesson.getLessonSuccessDegree().name());
+            }
+        }
 
 
 

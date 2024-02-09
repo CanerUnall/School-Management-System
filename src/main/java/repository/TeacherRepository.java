@@ -2,16 +2,15 @@ package repository;
 import config.JDBC_Utils;
 import domain.Teacher;
 import domain.UserRol;
-import java.util.List;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.List;;
+
 public class TeacherRepository implements SameRepoOperations<Teacher> {
 
     //TODO  Umut Ayaz 10 -110
     public void createTeacherTable() {
       /*  bu methodun query si yazilirken if not exist kullanilacak
-
-
+>>>>>>> main
 
     public static void createTeacherTable() {
 // // Umut Ayaz 10 -110
@@ -107,10 +106,12 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
 
+
     }
 
 
     //TODO  Umut Ayaz 113-213
+
     @Override
     public Teacher find(int id) {
         // Umut Ayaz 113-213
@@ -209,7 +210,6 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
 
-
     }
 
 
@@ -218,44 +218,45 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
     public void addRepoSomeoneInfo(Teacher person) {
 
 
+        JDBC_Utils.setConnection();
+        String query = "INSERT INTO t_teacher(" +
+                "teacherID, " +
+                "tchr_name, " +
+                "tchr_surName, " +
+                "password, " +
+                "address, " +
+                "phoneNumber, " +
+                "role, " +
+                "salary, " +
+                "branch,) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
+        JDBC_Utils.setPrst(query);
 
 
+        try {
+            JDBC_Utils.getPrst().setInt(1, person.getTeacherID());
+            JDBC_Utils.getPrst().setString(2, person.getName());
+            JDBC_Utils.getPrst().setString(3, person.getSurName());
+            JDBC_Utils.getPrst().setString(4, person.getPassword());
+            JDBC_Utils.getPrst().setString(5, person.getAddress());
+            JDBC_Utils.getPrst().setString(6, person.getPhoneNumber());
+            JDBC_Utils.getPrst().setString(7, String.valueOf(person.getRole()));
+            JDBC_Utils.getPrst().setDouble(8, person.getSalary());
+            JDBC_Utils.getPrst().setString(9, person.getBranch());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            JDBC_Utils.getPrst().executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
 
 
 
@@ -422,206 +423,206 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
     //TODO Ersagun Eryildiz 423 - 623
     @Override
-    public void updateAdressInfo(Teacher person, String adress) {
+    public void updateAdressInfo(Teacher teacher, String address) {
 
+    JDBC_Utils.setConnection();
+    String sql = "UPDATE t_teacher SET address = ? WHERE teacherID = ? ";
+    JDBC_Utils.setPrst(sql);
 
+        try {
+            JDBC_Utils.getPrst().setString(1,address);
+            JDBC_Utils.getPrst().setInt(2,teacher.getTeacherID());
+            JDBC_Utils.getPrst().executeUpdate();
 
-
-// choice 1 ise adres, 2 ise brans, 3 ise maas update edilsin
-
-
-
-        /*if (person != null) {
-            int choice = 1; // Güncelleme seçeneği (1: Adres, 2: Branş, 3: Maaş)
-
-            switch (choice) {
-                case 1:
-                    person.setAddress(address);
-                    System.out.println("Updated address information: " + address);
-                    break;
-                case 2:
-                   // Branch branch = new Branch();
-                    branch.setBranch(branch);
-                    System.out.println("Updated branch information: " + branch);
-                    break;
-                case 3:
-                    //Salary salary = new Salary();
-                    salary.setSalary(salary);
-                    System.out.println("Updated salary information: " +salary);
-                    break;
-                default:
-                    System.out.println("Invalid option!");
-                    break;
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
             }
-        } else {
-            System.out.println("Invalid teacher information!");
+
         }
-    }*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 
 
         //Ersagun Eryildiz 423 - 623
-    }
+
     //TODO Ersagun Eryildiz 423 - 623
     public void updateBranchInfo(Teacher person, String branch) {
+        JDBC_Utils.setConnection();
+        String sql = "UPDATE t_teacher SET branch = ? WHERE teacherID = ? ";
+        JDBC_Utils.setPrst(sql);
+
+
+        try {
+            JDBC_Utils.getPrst().setString(1,branch);
+            JDBC_Utils.getPrst().setInt(2,person.getTeacherID());
+            JDBC_Utils.getPrst().executeUpdate();
+
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
 
     }
+
+
+
     //TODO Ersagun Eryildiz 423 - 623
     public void updateSalaryInfo(Teacher person, double salary) {
 
+        JDBC_Utils.setConnection();
+        String sql = "UPDATE t_teacher SET salary = ? WHERE teacherID = ? ";
+        JDBC_Utils.setPrst(sql);
+
+
+        try {
+            JDBC_Utils.getPrst().setDouble(1,salary);
+            JDBC_Utils.getPrst().setInt(2, person.getTeacherID());
+            JDBC_Utils.getPrst().executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
+
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //TODO  Seval Senturk 626 - 726
     @Override
