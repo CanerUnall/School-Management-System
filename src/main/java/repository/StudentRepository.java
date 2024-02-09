@@ -182,21 +182,11 @@ public class StudentRepository implements SameRepoOperations<Student> {
     //TODO Husnu Sen 182- 282
     @Override
     public void addRepoSomeoneInfo(Student person) {
-        /*//
 
 
-    //Husnu Sen 166-266 eski aralık ?
-    @Override
-    public void addRepoSomeoneInfo(Student person) {
-    /*
-
-    burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak ve kayit yapilacak
+        // buradaki methodla database e kaydetme işlemi gerçekleşiyor
 
 
-        burada parametreden gelen objeye gore dbye kayit icin gerekli sorgular yazilacak ve kayit yapilacak
-
-
-*/
     JDBC_Utils.setConnection();
     String sql = "INSERT INTO students (name, surName, password, address, phoneNumber, role, studentID, grade, lastYearGradeAvg, payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -231,6 +221,16 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
     //
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -197,22 +197,25 @@ public class StudentMethods implements Login<Student>, SameOperations  {
        //       }
 
 
-        System.out.println("Lütfen eklemek istediğiniz  öğrenci adını giriniz: " );
+        //burada tüm öğrencilerin bilgileri alınıyor ve obje oluşturuluyor
+
+
+        System.out.println("Please enter the name of the student you want to add " );
         String name = scanner.nextLine().trim();
-        System.out.println("Lütfen eklemek istediğiniz  öğrenci soyadını giriniz: ");
+        System.out.println("Please enter the surname of the student you want to add ");
         String surName = scanner.nextLine().trim();
-        System.out.println("Lütfen eklemek istediğiniz  öğrenci password giriniz : ");
+        System.out.println("Please enter the password of the student you want to add : ");
         String password = scanner.nextLine().trim();
-        System.out.println("Lütfen eklemek istediğiniz  öğrenci adresini giriniz : ");
+        System.out.println("Please enter the address of the student you want to add : ");
         String address = scanner.nextLine().trim();
-        System.out.println("Lütfen eklemek istediğiniz  öğrenci telefon numarasını giriniz : ");
+        System.out.println("Please enter the phone number of the student you want to add :  ");
         String phoneNumber = scanner.nextLine();
-        System.out.println("Lütfen öğrencinin ödeyeceği toplam miktarı girin");
+        System.out.println("Please enter the total payment of student");
         double payment = Scanner_Utils.doubleScanner(scanner);
-        boolean sinifBelirleme=false;
+        boolean sinifBelirleme=false; // bu döngü ile öğrencinin sınıfı belirleniyor
         Grades stdgrades = null;
         do  {
-            System.out.println("Kaçıncı sınıfa kaydetmek istersiniz");
+            System.out.println("Which grade would you like to enroll in");
             int sinif = Scanner_Utils.intScanner(scanner);//
 
 
@@ -246,28 +249,23 @@ public class StudentMethods implements Login<Student>, SameOperations  {
                 }
 
             } else {
-                System.out.println("geçerli bir sınıf bilgisi giriniz");
+                System.out.println("Please enter valid class info");
             }
 
         }while (!sinifBelirleme);
 
-        System.out.println("Lütfen eklemek istediğiniz  öğrenci Id sini girin : ");
+        System.out.println("Please enter the  id of the student you want to add : ");
         Integer studentID =  scanner.nextInt();
 
-        System.out.println("Lütfen eklemek istediğiniz  öğrencinin geçen yılki ort. girin: ");
+        System.out.println("Please enter the last year average of the student you want to add: ");
         double lastYearGradeAvg = Scanner_Utils.doubleScanner(scanner);
 
 
 
                 Student student = new Student(name,surName,password,address,phoneNumber,UserRol.STUDENT,studentID,stdgrades,lastYearGradeAvg,payment);
 
+                // burada obje oluşturuldu ve alttaki method yardımıyla öğrenci eklendi
                  studentRepository.addRepoSomeoneInfo(student);
-
-
-
-      //  String name, String surName, String password, String address, String phoneNumber,
-      //          UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment, HashMap<Integer,
-      //          Lessons> allLessons, HashMap<Integer, Attendance> historyAttendance)
 
 
 //Husnu Sen 174- 274
@@ -586,18 +584,8 @@ public class StudentMethods implements Login<Student>, SameOperations  {
     public SuccessDegree setAndReturnSuccessDegree(Student student, Lessons lessons,int not){
 
 
-       // Husnu Sen 586 - 686
 
-
-        // StudentRepository clasindaki updateSuccessDegreeInfo methodu olarak cagrilarak
-
-
-        // StudentRepository clasindaki updateRepoSomeoneInfo methodu choice 5 olarak cagrilarak
-
-
-        //bu method ogrenci notunu update ederken cagrilacak ona gore basarisi update edilmis olacak
-        //burada ogrencinin ders basari durumu da girilecek
-
+            //Bu method yukarıdaki methoda yardımcı olarak oluşturuldu.
 
 
         if (not >=80 && not<101){
@@ -620,6 +608,12 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 
       return null;
+
+
+
+
+
+
 
 
 

@@ -20,9 +20,9 @@ public class ReportMethods {
         // mat, fen
         //SuccessDegree enumlarini kullanacaksin
 
-        System.out.println("Hangi dersin notunu gireceksiniz");
+        System.out.println("Which course grade will you enter");
         System.out.println("1. MATHS");
-        System.out.println("2. ENGLISH");//dersler
+        System.out.println("2. ENGLISH");
         System.out.println("3. HISTORY");
         System.out.println("4.TURKISH");
         System.out.println("5.PHYSICAL");
@@ -32,8 +32,8 @@ public class ReportMethods {
         System.out.println("9.SPORTS");
         System.out.println("10.BIOLOGY");
 
-
-        System.out.println("Seçiminiz");
+        // burada 1 den 10 a kadar seçim yaptırılıp girmek istenen ders başarısı gösterilecek
+        System.out.println("Choose");
          boolean lessonChoose = false;
         do {
 
@@ -76,7 +76,7 @@ public class ReportMethods {
 
                 }
 
-            } else System.out.println("Lütfen geçerli bir ders no giriniz");
+            } else System.out.println("Please enter valid lesson number");
 
 
         }while (!lessonChoose);//??

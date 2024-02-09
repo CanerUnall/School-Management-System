@@ -2,6 +2,8 @@ package repository;
 import config.JDBC_Utils;
 import domain.Grades;
 import domain.Student;
+import exceptions.StudentNotFoundException;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,49 +13,45 @@ public class ReportRepository {
     public void getLessonSuccess(String lessonName) {
 
 
-
-        String dersSorgusu = "Select lesson_name,std_name,std_surName,studentNote From t_lessons l LEFT JOIN t_student s " +
-                " ON  l.studentID = s.std_id";
-
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
 
 
+        System.out.println("****************LESSON SUCCESS******************");
+
+        //burada öğrencinin ders başarısı iki farklı tablodan left join ile alınıyor student tablosu ve lesson tablosu kullanılıyor
+        // student id ortak değer olarak kabul ediliyor
+
+        try {
+            String getLessonQuery = "Select lesson_name,std_name,std_surName,studentNote From t_lessons l LEFT JOIN t_student s " +
+                    " ON  l.studentID = s.std_id";
+
+            ResultSet resultSet = JDBC_Utils.getSt().executeQuery(getLessonQuery);
 
 
+            while (resultSet.next()) {
+
+                String lesson = resultSet.getString("lesson_name");
+                String stdName = resultSet.getString("std_name");
+                String stdSurName = resultSet.getString("std_surName");
+                int studentNote = resultSet.getInt("studentNote");
 
 
+                System.out.println("Lesson: " + lesson + "  Student Name: " + stdName + "  Student Surname: " + stdSurName + "  Student Grade: " + studentNote );
 
+            }
 
+        }catch (SQLException e) {
+             System.err.println("Error : " + e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println("Error : " + e.getMessage());
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 
