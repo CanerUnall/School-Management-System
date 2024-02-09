@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class JDBC_Utils {
 
-    private static Connection con;
+    public static Connection con;
     private static Statement st;
-    private static PreparedStatement prst;
+    public static PreparedStatement prst;
 
     public static void setConnection() {
 
@@ -18,7 +18,7 @@ public class JDBC_Utils {
 
     }
 
-    public static void setStatement(){
+    public static void setStatement() {
 
         try {
             st = con.createStatement();
@@ -26,8 +26,20 @@ public class JDBC_Utils {
             System.err.println("Error : " + e.getMessage());
         }
     }
+    
+    public static Connection getCon() {
+        return con;
+    }
 
-    public static void setPrst(String query){
+    public static Statement getSt() {
+        return st;
+    }
+
+    public static PreparedStatement getPrst() {
+        return prst;
+    }
+
+    public static void setPrst(String query) {
 
         try {
             prst = con.prepareStatement(query);
@@ -36,6 +48,5 @@ public class JDBC_Utils {
         }
 
     }
-
 
 }

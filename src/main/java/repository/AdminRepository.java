@@ -1,6 +1,7 @@
 package repository;
-
+import config.JDBC_Utils;
 import domain.Admins;
+
 import domain.UserRol;
 import exceptions.AdminNotFoundException;
 
@@ -12,8 +13,11 @@ import static config.JDBC_Utils.*;
 
 public class AdminRepository {
     private static Statement st;
-    public void createAdminTable(){
-        // Mustafa Ubeyde Kayhan 7 -  57
+
+
+    //TODO  Mustafa Ubeyde Kayhan 7 -  57
+
+    public void createAdminTable() {
       /*  bu methodun query si yazilirken if not exist kullanilacak
 
         tablo adi = t_admin
@@ -39,61 +43,39 @@ public class AdminRepository {
                 "admin_branch VARCHAR(20)," +
                 "admin_teacherID INT FOREIGN KEY REFERENCES t_teacher(teacherID))";
 
-            setPrst(createTableAdmin);
+        try {
+            JDBC_Utils.getSt().executeUpdate(createTableAdmin);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
         // Mustafa Ubeyde Kayhan 7 -  57
     }
-public ResultSet query(String query) {
-    try {
-        return st.executeQuery(query);
-    } catch (SQLException e) {
-        throw new RuntimeException(e);
-    }
-}
 
-    public Admins find(int id){
+    public ResultSet query(String query) {
+        try {
+            return st.executeQuery(query);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Admins find(int id) {
         setConnection();
         setStatement();
         // Mustafa Ubeyde Kayhan 61 -  161
 //buradan girilen idye gore dbden admin bilgileri alinacak ve obje olusturulup return edilecek
-        String getAdmin = "SELECT * FROM t_admin WHERE admin_id="+id;
-        ResultSet result=query(getAdmin);
+        String getAdmin = "SELECT * FROM t_admin WHERE admin_id=" + id;
+        ResultSet result = query(getAdmin);
         //result.getString("id_number");
         //                String cName = result.getString("name");
         //                String password = result.getString("password");
@@ -133,110 +115,39 @@ public ResultSet query(String query) {
         }
 
 
-        // Mustafa Ubeyde Kayhan 61 -  161
+
     }
 
 
-   public void addAdminRepo(){
-        // Rumeysa Dagtekin 164 - 264
-        //burada projede yer alan arkadaslar admin olarak dbye eklenmesi icin gerekli sorgu yazilacak.
+//TODO Rumeysa Dagtekin 164 - 264
+        public void addAdminRepo (Admins admin){
 
+            //burada projede yer alan arkadaslar admin olarak dbye eklenmesi icin gerekli sorgu yazilacak.
 
+            JDBC_Utils.setConnection();
+            JDBC_Utils.setStatement();
 
+            String sql = "INSERT INTO t_admin VALUES ( " + admin.getAdminID() +
+                    "," + admin.getTeacherID() + ")";
 
+            try {
+                JDBC_Utils.getSt().executeQuery(sql);
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            } finally {
 
+                try {
+                    JDBC_Utils.getSt().close();
+                    JDBC_Utils.getCon().close();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
 
 
+            // Rumeysa Dagtekin 164 - 264
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Rumeysa Dagtekin 164 - 264
     }
 
-}
+

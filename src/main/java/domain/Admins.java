@@ -18,5 +18,13 @@ public class Admins extends Teacher{
     }
 
     public Admins() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "Admins{" +
+                "adminID=" + adminID +
+                '}';
     }
 }
