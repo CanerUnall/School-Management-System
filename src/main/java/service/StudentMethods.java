@@ -1,6 +1,7 @@
 package service;
 
 import config.Scanner_Utils;
+import controller.SchoolManagementSystem;
 import domain.*;
 import domain.Lessons;
 import domain.Student;
@@ -66,7 +67,6 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
 
 
-
     //TODO Gaukhar Ergin 70-170
 
     @Override
@@ -80,37 +80,37 @@ public class StudentMethods implements Login<Student>, SameOperations  {
          */
 
 
-        System.out.println("Öğrienci id'sini giriniz");
-        int id=scanner.nextInt();
+        System.out.println("Please enter student Id!");
+        int studentId = Scanner_Utils.intScanner(scanner);
 
-        Student foundedStudent=find(id);
+        Student foundedStudent = find(studentId);
 
-        if(foundedStudent!=null) {
-           boolean girisBasarili=false;
+        if (foundedStudent != null) {
+            boolean girisBasarili = false;
+
             do {
-                System.out.println("Öğrenci Şifrenizi Giriniz :");
-                String sifre = scanner.nextLine();
-
-                if (sifre.equals(foundedStudent.getPassword())) {
-
-                    studentRepository.find(id);
-
+                System.out.println("Enter the password of the student...");
+                String inputPassword = scanner.nextLine();
+                if (inputPassword.equals(foundedStudent.getPassword())) {
+                    SchoolManagementSystem.studentPage(foundedStudent);
                 } else {
-                    System.out.println("Şifreyi yanlış girdiniz!...");
-                    System.out.println("Tekrar denemek için  't' ,çıkış yapmak için 'c' giriniz: ");
+                    System.out.println("Wrong password!...");
+                    System.out.println("Enter 't' to try again, 'c' to exit: ");
                     char secim = scanner.next().charAt(0);
                     scanner.nextInt();
 
-                    if (secim == 'c' || secim =='C') {
-                        System.out.println("Çıkış yapılıyor....");
+                    if (secim == 'c' || secim == 'C') {
+                        girisBasarili = true;
+                        System.out.println("Signing out....");
                     }
                 }
 
-            } while (!girisBasarili) ;
-
+            } while (!girisBasarili);
 
 
         }
+
+
 
 
 
