@@ -1,9 +1,9 @@
 package domain;
 
 public enum UserRol {
-    STUDENT,
+    ADMIN,
     TEACHER,
-    ADMIN;
+    STUDENT
 
 
 }

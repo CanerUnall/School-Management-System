@@ -1,10 +1,13 @@
 package service;
 
+
 import config.JDBC_Utils;
 
 import config.Scanner_Utils;
 
+
 import domain.Teacher;
+import domain.UserRol;
 import exceptions.TeacherNotFoundException;
 import repository.TeacherRepository;
 
@@ -186,35 +189,33 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
          */
 
+    Teacher teacher=new Teacher();
+        //String name, String surName, String password, String address, String phoneNumber,
+        //                   UserRol role, double salary, String branch, int teacherID
+
+        System.out.print("Enter teacher name: ");
+        teacher.setName(scanner.nextLine());
+        System.out.print("Enter teacher surname: ");
+        teacher.setSurName(scanner.nextLine());
+        System.out.print("Enter teacher password: ");
+        teacher.setPassword(scanner.nextLine());
+        System.out.print("Enter teacher phone number: ");
+        teacher.setPhoneNumber(scanner.nextLine());
+        scanner.nextLine();
+        teacher.setRole(UserRol.TEACHER);
+        System.out.print("Enter teacher salary: ");
+        teacher.setSalary(Scanner_Utils.doubleScanner(scanner));
+        System.out.print("Enter teacher branch: ");
+        teacher.setBranch(scanner.nextLine());
+        scanner.nextLine();
+        System.out.print("Enter teacher ID: ");
+        teacher.setTeacherID(Scanner_Utils.intScanner(scanner));
 
 
+    teacherRepository.addRepoSomeoneInfo(teacher);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        System.out.println("\n\nTeacher saved successfully");
 
 
 

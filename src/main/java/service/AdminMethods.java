@@ -3,6 +3,7 @@ package service;
 import config.Scanner_Utils;
 import controller.SchoolManagementSystem;
 import domain.Admins;
+import exceptions.AdminNotFoundException;
 import repository.AdminRepository;
 
 import java.util.Scanner;
@@ -19,22 +20,12 @@ public class AdminMethods implements Login<Admins>{
     //TODO  Mustafa Ubeyde Kayhan 17 -  67
     @Override
     public Admins find(int id) {
-        //burada AdminRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
-        //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
 
-        return null;
+        Admins foundedAdmin=adminRepository.find(id);
 
-
-
-
-
-
-
-
-
-
-
-
+        if(foundedAdmin==null){
+            throw new AdminNotFoundException("Admin not found");
+        }else return foundedAdmin;
 
 
 
