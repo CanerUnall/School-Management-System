@@ -219,44 +219,45 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
     public void addRepoSomeoneInfo(Teacher person) {
 
 
+        JDBC_Utils.setConnection();
+        String query = "INSERT INTO t_teacher(" +
+                "teacherID, " +
+                "tchr_name, " +
+                "tchr_surName, " +
+                "password, " +
+                "address, " +
+                "phoneNumber, " +
+                "role, " +
+                "salary, " +
+                "branch,) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
+        JDBC_Utils.setPrst(query);
 
 
+        try {
+            JDBC_Utils.getPrst().setInt(1, person.getTeacherID());
+            JDBC_Utils.getPrst().setString(2, person.getName());
+            JDBC_Utils.getPrst().setString(3, person.getSurName());
+            JDBC_Utils.getPrst().setString(4, person.getPassword());
+            JDBC_Utils.getPrst().setString(5, person.getAddress());
+            JDBC_Utils.getPrst().setString(6, person.getPhoneNumber());
+            JDBC_Utils.getPrst().setString(7, String.valueOf(person.getRole()));
+            JDBC_Utils.getPrst().setDouble(8, person.getSalary());
+            JDBC_Utils.getPrst().setString(9, person.getBranch());
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            JDBC_Utils.getPrst().executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
 
 
 

@@ -1,20 +1,26 @@
 package repository;
-import config.JDBC_Utils;
+
+
 import domain.LessonNames;
 import domain.Lessons;
-import domain.Student;
 import domain.Teacher;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import config.JDBC_Utils;
+import domain.Student;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import static config.JDBC_Utils.setConnection;
 import static config.JDBC_Utils.setStatement;
 
 
+
 public class LessonsRepository {
+    PreparedStatement prst;
     TeacherRepository tRepo=new TeacherRepository();
+
 
     //TODO Omer Faruk Osmanoglu 15- 115
     public void createLessonsTable(){
@@ -116,6 +122,51 @@ public class LessonsRepository {
     //TODO Mustafa Ubeyde Kayhan 111 -  211
     public void  addRepoLessons(Lessons lessons){
         // ilgili dersi if not exist ile dbye kayit edecek
+
+        //tablo adi = t_lessons
+        //
+        //      lessonID primary key
+        //
+        //      lesson_name
+        //      teacherID foreign key olarak eklenecek
+        //      lessonCredit
+        //      lessonFee real
+        //      studentNote
+        //      lesson_day
+        //      studentID foreign key olarak eklenecek
+        JDBC_Utils.setConnection();
+
+        String sql = "INSERT INTO IF NOT EXISTS t_lessons" +
+                "(lesson_name, teacherID, lessonCredit, lessonFee, studentNote, lesson_day, studentID)" +
+                " VALUES (?,?,?,?,?,?,?)";
+
+
+        JDBC_Utils.setPrst(sql);
+
+
+        try {
+            JDBC_Utils.getPrst().setString(1, String.valueOf(lessons.getName()));
+            JDBC_Utils.getPrst().setInt(2, lessons.getTeacher().getTeacherID());
+            JDBC_Utils.getPrst().setInt(3, lessons.getLessonCredit());
+            JDBC_Utils.getPrst().setDouble(4, lessons.getLessonFee());
+            JDBC_Utils.getPrst().setInt(5, lessons.getStudentNote());
+            JDBC_Utils.getPrst().setString(6, lessons.getDay());
+           //JDBC_Utils.getPrst().setInt(7, lessons.getStudentID);
+
+
+            JDBC_Utils.getPrst().executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+
+
 
 
 
