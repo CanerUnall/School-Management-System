@@ -1,11 +1,18 @@
 package service;
 
+
+import config.JDBC_Utils;
+
 import config.Scanner_Utils;
+
+
 import domain.Teacher;
 import domain.UserRol;
 import exceptions.TeacherNotFoundException;
 import repository.TeacherRepository;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -273,7 +280,6 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
         //Mustafa Ubeyde Kayhan 174- 274
     }
-
     //TODO Gaukhar Ergin 277 - 377
     @Override
     public void removeSomeoneInfo() {
@@ -286,10 +292,10 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
          */
 
-        System.out.println("Silinecek Öğretmenin id'sini Giriniz");//ilk olarak kullanıcıdan silinecek öğretmenin id'sini alalım
-        int id=scanner.nextInt();// aldığımız id'yi scanner ekleyelim
-        Teacher foundedTeacher=find(id);//teacher tipinde  foundedTeacher field oluşturuyoruz ve silinecek hocayı find methodu bu field'a eşitliyoruz
-        teacherRepository.removeRepoSomeoneInfo(foundedTeacher);// teacher repository den aldığımız removeRepoSomeoneInfo methodu ile siliyoruz.
+        System.out.println("Silinecek Öğretmenin id'sini Giriniz"); //ilk olarak kullanıcıdan silinecek öğretmenin id'sini alalım
+        int id=Scanner_Utils.intScanner(scanner); // aldığımız id'yi scanner ekleyelim
+        Teacher foundedTeacher=find(id); //teacher tipinde  foundedTeacher field oluşturuyoruz ve silinecek hocayı find methodu bu field'a eşitliyoruz
+        teacherRepository.removeRepoSomeoneInfo(foundedTeacher); // teacher repository den aldığımız removeRepoSomeoneInfo methodu ile siliyoruz.
 
 
 
@@ -683,16 +689,25 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
 
 // Seval Senturk 583 - 683
     }
-
     //TODO  Umut Ayaz 686 - 786
-    public List<Teacher> getAllTeacher(){
+
+public List<Teacher> getAllTeacher(){
+    //burada reTeacherRepository clasindaki getAllTeacherRepo methodu cagrilacak
+    try {
+
+        List<Teacher> teachers = teacherRepository.getAllTeacher();
+
+        for (Teacher teacher : teachers) {
+            System.out.println(teacher.toString());
+        }
+
+    } catch (SQLException e) {
+        System.out.println(" ");
+    }
+    return null;
+}
 
 
-
-
-
-        //burada reTeacherRepository clasindaki getAllTeacherRepo methodu cagrilacak
-        return null;
 
 
 
