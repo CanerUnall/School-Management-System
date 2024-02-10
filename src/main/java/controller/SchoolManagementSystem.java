@@ -223,7 +223,7 @@ public class SchoolManagementSystem {
     }
 
     //TODO Hanife Ocak 225-325
-    void studentPage(Student student) {
+    public static void studentPage(Student student) {
         /*
         * ogrenci ahmet hosgeldin
         * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
