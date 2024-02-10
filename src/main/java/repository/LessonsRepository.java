@@ -137,22 +137,21 @@ public class LessonsRepository {
         JDBC_Utils.setConnection();
 
         String sql = "INSERT INTO IF NOT EXISTS t_lessons" +
-                "(lessonID, lesson_name, teacherID, lessonCredit, lessonFee, studentNote, lesson_day, studentID)" +
-                " VALUES (?,?,?,?,?,?,?,?)";
+                "(lesson_name, teacherID, lessonCredit, lessonFee, studentNote, lesson_day, studentID)" +
+                " VALUES (?,?,?,?,?,?,?)";
 
 
         JDBC_Utils.setPrst(sql);
 
 
         try {
-           // JDBC_Utils.getPrst().setInt(1, lessons.getLessonID);
-            JDBC_Utils.getPrst().setString(2, String.valueOf(lessons.getName()));
-            JDBC_Utils.getPrst().setInt(3, lessons.getTeacher().getTeacherID());
-            JDBC_Utils.getPrst().setInt(4, lessons.getLessonCredit());
-            JDBC_Utils.getPrst().setDouble(5, lessons.getLessonFee());
-            JDBC_Utils.getPrst().setInt(6, lessons.getStudentNote());
-            JDBC_Utils.getPrst().setString(7, lessons.getDay());
-            //JDBC_Utils.getPrst().setInt(8, lessons.getStudentID);
+            JDBC_Utils.getPrst().setString(1, String.valueOf(lessons.getName()));
+            JDBC_Utils.getPrst().setInt(2, lessons.getTeacher().getTeacherID());
+            JDBC_Utils.getPrst().setInt(3, lessons.getLessonCredit());
+            JDBC_Utils.getPrst().setDouble(4, lessons.getLessonFee());
+            JDBC_Utils.getPrst().setInt(5, lessons.getStudentNote());
+            JDBC_Utils.getPrst().setString(6, lessons.getDay());
+           //JDBC_Utils.getPrst().setInt(7, lessons.getStudentID);
 
 
             JDBC_Utils.getPrst().executeUpdate();

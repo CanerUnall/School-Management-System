@@ -25,6 +25,7 @@ public class Lessons {
     public Lessons() {
     }
 
+
     public SuccessDegree getLessonSuccessDegree() {
         return lessonSuccessDegree;
     }

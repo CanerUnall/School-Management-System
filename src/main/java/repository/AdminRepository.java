@@ -31,16 +31,7 @@ public class AdminRepository {
 
         String createTableAdmin = "CREATE TABLE IF NOT EXISTS t_admin " +
                 "(admin_id INT PRIMARY KEY AUTO_INCREMENT," +
-                "admin_name VARCHAR(20))," +
-                "admin_surname VARCHAR(20)" +
-                "admin_password VARCHAR(20)," +
-                "admin_address VARCHAR(50)," +
-                "admin_phoneNumber VARCHAR(20)," +
-                "admin_role VARCHAR(5)," +
-                "admin_salary REAL," +
-                "admin_branch VARCHAR(20)," +
                 "admin_teacherID INT FOREIGN KEY REFERENCES t_teacher(teacherID))";
-
         try {
             JDBC_Utils.getSt().executeUpdate(createTableAdmin);
         } catch (SQLException e) {
@@ -66,29 +57,37 @@ public class AdminRepository {
         // Mustafa Ubeyde Kayhan 61 -  161
 //buradan girilen idye gore dbden admin bilgileri alinacak ve obje olusturulup return edilecek
 
-        String getAdmin = "SELECT * FROM t_admin WHERE admin_id=" + id;
-        Admins admin = new Admins();
+        //SELECT orders.order_id, orders.order_date, customers.customer_name
+        //FROM orders
+        //JOIN customers ON orders.customer_id = customers.customer_id
+        //WHERE orders.order_date BETWEEN '2023-01-01' AND '2023-12-31';
+
+        String getAdmin = "SELECT * FROM t_admin a " +
+                "RIGHT JOIN t_teacher t " +
+                "ON t.teacherID=a.teacherID " +
+                "WHERE a.admin_id=" + id;
+        Admins admin = null;
 
         try {
 
             ResultSet result = JDBC_Utils.getSt().executeQuery(getAdmin);
 
             while (result.next()) {
+               admin=new Admins();
                 admin.setAdminID(result.getInt("admin_id"));
-                admin.setName(result.getString("admin_name"));
-                admin.setSurName(result.getString("admin_surname"));
-                admin.setPassword(result.getString("admin_password"));
-                admin.setAddress(result.getString("admin_address"));
-                admin.setPhoneNumber(result.getString("admin_phoneNumber"));
+                admin.setAddress(result.getString("address"));
+                admin.setPassword(result.getString("password"));
+                admin.setName(result.getString("tchr_name"));
+                admin.setSurName(result.getString("tchr_surName"));
+                admin.setPhoneNumber(result.getString("phoneNumber"));
+                admin.setBranch(result.getString("branch"));
+                admin.setSalary(result.getDouble("salary"));
                 admin.setRole(UserRol.ADMIN);
-                admin.setSalary(result.getDouble("admin_salary"));
-                admin.setBranch(result.getString("admin_branch"));
                 admin.setTeacherID(result.getInt("admin_teacherID"));
-
 
             }
         } catch (SQLException e) {
-            throw new AdminNotFoundException("Admin not found");
+            System.out.println(e.getMessage());
         }finally {
             try {
                 JDBC_Utils.getSt().close();
