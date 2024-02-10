@@ -14,9 +14,12 @@ import java.util.Scanner;
 public class StudentMethods implements Login<Student>, SameOperations  {
     private final Scanner scanner;
     private final StudentRepository studentRepository;
-    public StudentMethods(Scanner scanner, StudentRepository studentRepository) {
+    private final SchoolManagementSystem schoolManagementSystem;
+
+    public StudentMethods(Scanner scanner, StudentRepository studentRepository, SchoolManagementSystem schoolManagementSystem) {
         this.scanner = scanner;
         this.studentRepository = studentRepository;
+        this.schoolManagementSystem = schoolManagementSystem;
     }
 
     //TODO Ersagun Eryildiz 17-67
@@ -94,7 +97,7 @@ public class StudentMethods implements Login<Student>, SameOperations  {
                 System.out.println("Enter the password of the student...");
                 String inputPassword = scanner.nextLine();
                 if (inputPassword.equals(foundedStudent.getPassword())) {
-                    SchoolManagementSystem.studentPage(foundedStudent);
+                    schoolManagementSystem.studentPage(foundedStudent);
                 } else {
                     System.out.println("Wrong password!...");
                     System.out.println("Enter 't' to try again, 'c' to exit: ");
@@ -257,14 +260,15 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         }while (!sinifBelirleme);
 
         System.out.println("Please enter the  id of the student you want to add : ");
-        Integer studentID =  scanner.nextInt();
+        int studentID =  Scanner_Utils.intScanner(scanner);
 
         System.out.println("Please enter the last year average of the student you want to add: ");
         double lastYearGradeAvg = Scanner_Utils.doubleScanner(scanner);
 
 
 
-                Student student = new Student(name,surName,password,address,phoneNumber,UserRol.STUDENT,studentID,stdgrades,lastYearGradeAvg,payment);
+                Student student = new Student(name,surName,password,address,
+                        phoneNumber,UserRol.STUDENT,studentID,stdgrades,lastYearGradeAvg,payment);
 
                 // burada obje oluşturuldu ve alttaki method yardımıyla öğrenci eklendi
                  studentRepository.addRepoSomeoneInfo(student);
@@ -287,6 +291,8 @@ public class StudentMethods implements Login<Student>, SameOperations  {
 
         if(find(id)!=null){
             studentRepository.removeRepoSomeoneInfo(find(id));
+        }else {
+            System.out.println("Student not found !");
         }
 
 
@@ -342,7 +348,7 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         if(studentToUpdate != null) {
 
             System.out.println("Güncellenecek bilgiyi seçiniz : ");
-            System.out.println("1. Adres\n2. Sınıf\n3. Ücret\n4. Notu\n5. Başarı Durumu");
+            System.out.print("1. Address\n2. Class\n3. Payment\n4. Note\n5. Success Degree\n Your Choice : ");
 
             int choice = Scanner_Utils.intScanner(scanner);
 
@@ -369,11 +375,10 @@ public class StudentMethods implements Login<Student>, SameOperations  {
                     studentToUpdate.setPayment(newFee);
                     studentRepository.updateFeeInfo(studentToUpdate, newFee);
                     break;
-                case 4:
+                case 4://TODO burayi kontrol et !!!
                     System.out.println("Which lesson's Note do you want to update?");
                     for (Lessons lesson : studentToUpdate.getAllLessons().values()) {
                             System.out.println(lesson.getName().name());
-
                     }
                     String lessonChoice = scanner.nextLine();
 
@@ -393,7 +398,7 @@ public class StudentMethods implements Login<Student>, SameOperations  {
                         System.out.println("Invalid lesson Selection!");
                     }
                     break;
-                case 5:
+                case 5://TODO burayi kontrol et !!!
                     System.out.println("Which lesson's Success Degree do you want to update?");
                     //Lessons lesson= studentToUpdate.getAllLessons().values();
                     for (Lessons lesson : studentToUpdate.getAllLessons().values()) {
@@ -537,11 +542,24 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         1. once ogrencinin id alinacak
         2. StudentMethods icindeki find methodu ile o ogrenci bulunacak
         3. daha sonra hangi ders notunu update etmek istedigi sorulacak
-        4. StudentRepository clasindaki updateRepoSomeoneInfo methodu choice 4 olarak cagrilarak
+
         5. ogrenci notu update edildikten sonra bu classtaki alttaki setAndReturnSuccessDegree methodu cagrilacak
 
 
          */
+
+        System.out.println("Enter the ID of the student whose grade will be updated:");
+        int id = Scanner_Utils.intScanner(scanner);
+        Student foundStudent = find(id);
+
+        if(foundStudent!= null){
+            System.out.println("Enter the lesson whose grade will be updated");
+            String lessonName = scanner.nextLine();
+
+            //studentRepository.updateLessonNoteInfo(foundStudent,);
+
+
+        }
 
 
 

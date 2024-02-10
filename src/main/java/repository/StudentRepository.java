@@ -69,11 +69,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
     }
 
 
-
-
-
-
-
     //TODO Ersagun Eryildiz 78-178
     @Override
     public Student find(int id) {
@@ -157,24 +152,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
         return null;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -186,12 +163,8 @@ public class StudentRepository implements SameRepoOperations<Student> {
         // buradaki methodla database e kaydetme işlemi gerçekleşiyor
 
 
-
-
-
         JDBC_Utils.setConnection();
         String sql = "INSERT INTO students (name, surName, password, address, phoneNumber, role, studentID, grade, lastYearGradeAvg, payment) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
 
 
         JDBC_Utils.setPrst(sql);
@@ -225,69 +198,9 @@ public class StudentRepository implements SameRepoOperations<Student> {
         //
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
     }
+
+
     //TODO Caner Unal 285- 335
 
     @Override
@@ -304,12 +217,12 @@ public class StudentRepository implements SameRepoOperations<Student> {
 
 
         try {
-            JDBC_Utils.getPrst().setInt(1,person.getStudentID());
+            JDBC_Utils.getPrst().setInt(1, person.getStudentID());
 
             JDBC_Utils.getPrst().executeUpdate();
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }finally {
+        } finally {
             try {
                 JDBC_Utils.getPrst().close();
                 JDBC_Utils.getCon().close();
@@ -320,26 +233,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
+    }
 
 
     //TODO  Zehra Erol 337 - 437
@@ -386,72 +280,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     //TODO Seval Senturk 449 - 500
@@ -490,21 +318,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     //TODO Seval Senturk 502 - 550
@@ -538,21 +351,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -592,19 +390,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     //TODO Seval Senturk 602 - 652
@@ -640,21 +425,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     } //method ismi değiştirildi
@@ -693,20 +463,6 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 System.err.println(e.getMessage());
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -753,7 +509,7 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 allStudents.add(student);
 
             }
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             throw new RuntimeException(ex);
         }
 
@@ -763,15 +519,15 @@ public class StudentRepository implements SameRepoOperations<Student> {
         try {
             resultSet2 = JDBC_Utils.getSt().executeQuery(query2);
             Attendance attendance = new Attendance();
-            Lessons lessons=new Lessons();
-            LessonsRepository lessonsRepository=new LessonsRepository();
+            Lessons lessons = new Lessons();
+            LessonsRepository lessonsRepository = new LessonsRepository();
 
             while (resultSet2.next()) {
                 attendance.setDate(resultSet2.getDate("date"));
-                LessonNames lessonNames=LessonNames.valueOf(resultSet2.getString("lesson_name"));//hangi dersten devamsizlik oldugunu bulmak icin
+                LessonNames lessonNames = LessonNames.valueOf(resultSet2.getString("lesson_name"));//hangi dersten devamsizlik oldugunu bulmak icin
                 //LessonsNames enum turunde oldugu icin valueOf() kullandik garanti olsun verilen deger ile enum degeri ayni olsun diye
 
-                for(Lessons lesson: lessonsRepository.getAllLessons()) {
+                for (Lessons lesson : lessonsRepository.getAllLessons()) {
                     if (lesson.getName().equals(lessonNames)) {//db'deki devamsizlik tablosundan gelen lessonNames ile allLessonsdaki handi ders eslesmisse;
                         attendance.setLesson(lessons);//o dersi attendance objesine set ettik
 
@@ -784,8 +540,8 @@ public class StudentRepository implements SameRepoOperations<Student> {
                         }
                     }
                 }
-        }
-            }catch (SQLException ex) {
+            }
+        } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
 
@@ -793,9 +549,9 @@ public class StudentRepository implements SameRepoOperations<Student> {
         ResultSet resultSet3 = null;
         try {
             resultSet3 = JDBC_Utils.getSt().executeQuery(query3);
-            Teacher teacher=new Teacher();//her lesson'in teacher'i oldugu icin Teacher'dan injeksion yaptik
-            Lessons lessons=new Lessons();
-            TeacherRepository teacherRepository=new TeacherRepository();
+            Teacher teacher = new Teacher();//her lesson'in teacher'i oldugu icin Teacher'dan injeksion yaptik
+            Lessons lessons = new Lessons();
+            TeacherRepository teacherRepository = new TeacherRepository();
             while (resultSet3.next()) {//lesson tablosundan bilgileri alip lessons'a set ettik
                 lessons.setName(LessonNames.valueOf(resultSet3.getString("lesson_name")));
                 lessons.setLessonCredit(resultSet3.getInt("lessonCredit"));
@@ -803,38 +559,36 @@ public class StudentRepository implements SameRepoOperations<Student> {
                 lessons.setStudentNote(resultSet3.getInt("studentNote"));
                 lessons.setDay(resultSet3.getString("lesson_day"));
                 //lessons.setLessonSuccessDegree(resultSet3.);
-                int teacherId=resultSet3.getInt("teacherID");
+                int teacherId = resultSet3.getInt("teacherID");
 
 
-                for(Teacher teachers: teacherRepository.getAllTeacher()){
-                    if (teachers.getTeacherID()==teacherId){
+                for (Teacher teachers : teacherRepository.getAllTeacher()) {
+                    if (teachers.getTeacherID() == teacherId) {
                         lessons.setTeacher(teachers);
 
-                        int id=resultSet3.getInt("studentID");
+                        int id = resultSet3.getInt("studentID");
 
-                        for (Student student: allStudents){
-                            if (student.getStudentID()==id){
-                                student.getAllLessons().put(id,lessons);
+                        for (Student student : allStudents) {
+                            if (student.getStudentID() == id) {
+                                student.getAllLessons().put(id, lessons);
                             }
                         }
                     }
                 }
             }
         } catch (SQLException e) {
-        System.err.println(e.getMessage());
+            System.err.println(e.getMessage());
         } finally {
             try {
-        JDBC_Utils.getSt().close();
-        JDBC_Utils.getCon().close();
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
 
-        } catch (SQLException e) {
-        System.err.println(e.getMessage());
-        }
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
         }
         return allStudents;
 
 
-
-
-        }
+    }
 }

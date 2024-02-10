@@ -18,6 +18,7 @@ import service.StudentMethods;
 import service.TeacherMethods;
 
 public class SchoolManagementSystem {
+    private SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem();
 
     private Scanner scanner = new Scanner(System.in);
     private ClassesRepository classesRepository = new ClassesRepository();
@@ -25,7 +26,7 @@ public class SchoolManagementSystem {
 
     private StudentRepository studentRepository = new StudentRepository();
 
-    private StudentMethods studentMethods = new StudentMethods(scanner, studentRepository);
+    private StudentMethods studentMethods = new StudentMethods(scanner, studentRepository,schoolManagementSystem);
 
     private LessonsRepository lessonsRepository = new LessonsRepository();
     private LessonMethods lessonMethods = new LessonMethods(lessonsRepository, scanner);
@@ -40,6 +41,8 @@ public class SchoolManagementSystem {
     private FinanceMethods financeMethods = new FinanceMethods(financeRepository);
     private AdminRepository adminRepository = new AdminRepository();
     private AdminMethods adminMethods = new AdminMethods(scanner, adminRepository);
+
+    AttendanceRepository attendanceRepository = new AttendanceRepository();
 
     static {
 
@@ -100,15 +103,15 @@ public class SchoolManagementSystem {
          */
 
         Thread secondThread = new Thread(() -> {
-            AdminRepository adminRepository = new AdminRepository();
+
             adminRepository.createAdminTable();
-            AttendanceRepository attendanceRepository = new AttendanceRepository();
+
             attendanceRepository.createAttendanceTable();
-            StudentRepository studentRepository = new StudentRepository();
+
             studentRepository.createStudentTable();
-            TeacherRepository teacherRepository = new TeacherRepository();
+
             teacherRepository.createTeacherTable();
-            LessonsRepository lessonsRepository = new LessonsRepository();
+
             lessonsRepository.createLessonsTable();
         });
         Thread startToThread = new Thread(() -> {
@@ -223,7 +226,7 @@ public class SchoolManagementSystem {
     }
 
     //TODO Hanife Ocak 225-325
-    public static void studentPage(Student student) {
+    public void studentPage(Student student) {
         /*
         * ogrenci ahmet hosgeldin
         * yapabilecegi islemler bir dongu ile yazdirilacak ve sectirilecek
@@ -235,49 +238,47 @@ public class SchoolManagementSystem {
         5. YOKLAMA
         6. Ana menuye don
         * */
+        System.out.println("Welcome" + student.getName());
+        boolean exit = false;
+        int choice;
+        while (!exit) {
+            System.out.println("========= Welcome to School Management System =========");
+            System.out.println("1. See your own information\n" +
+                    "2. See the course schedule\n" +
+                    "3. See your course notes\n" +
+                    "4. Choose a course\n" +
+                    "5. See attendance history\n" +
+                    "0. Exit" +
+                    "Enter your choice : ");
+
+            choice = Scanner_Utils.intScanner(scanner);
 
 
-        class studentPage {
-            private String ad;
-            private String ogrenciNo;
-            private String bolum;
-
-            public studentPage(String ad, String ogrenciNo, String bolum) {
-                this.ad = ad;
-                this.ogrenciNo = ogrenciNo;
-                this.bolum = bolum;
-            }
-
-            public void kendiBilgileriniGor() {
-                System.out.println("Ad: " + ad);
-                System.out.println("Ogrenci No: " + ogrenciNo);
-                System.out.println("Bolum: " + bolum);
-            }
-
-            public void dersPrograminiGor() {
-                // Ders programını görüntüleme işlemleri
-                System.out.println("Ders Programi: ...");
-            }
-
-            public void dersSonuclariniGor() {
-                // Ders sonuçlarını görüntüleme
-                System.out.println("Ders Sonuclari: ...");
-            }
-
-            public void dersSecimiYap() {
-                // Ders seçimi yapma
-                System.out.println("Ders Secimi Yapiliyor...");
-            }
-
-            public void yoklamaAl() {
-                // Yoklama alma
-                System.out.println("Yoklama Aliniyor...");
+            switch (choice) {
+                case 1:
+                studentMethods.getSomeoneInfo(student.getStudentID());
+                    break;
+                case 2:
+                lessonMethods.studentSchedule(student);
+                    break;
+                case 3:
+                lessonMethods.resultLesson(student);
+                    break;
+                case 4:
+                lessonMethods.selectLesson(student);
+                    break;
+                case 5:
+                lessonMethods.showStudentAttendance(student);
+                    break;
+                case 0:
+                    exit = true;
+                    System.out.println("Good bye...");
+                    break;
+                default:
+                    System.out.println("Invalid choice, please try again");
+                    break;
             }
         }
-
-
-
-
 
 
 
