@@ -8,6 +8,7 @@ import domain.Attendance;
 import domain.Classes;
 import domain.Grades;
 
+
 import domain.Lessons;
 import domain.Student;
 import repository.LessonsRepository;
@@ -129,58 +130,57 @@ public class LessonMethods {
         //burada hafta icleri icin birer list olustursun
 
 
+        List<Lessons> monday = new ArrayList<>();
+        List<Lessons> tuesday = new ArrayList<>();
+        List<Lessons> wednesday = new ArrayList<>();
+        List<Lessons> thursday = new ArrayList<>();
+        List<Lessons> friday = new ArrayList<>();
+
+        for (Lessons lesson : student.getAllLessons().values()) {
+            switch (lesson.getDay()) {
+                case "Monday":
+                    monday.add(lesson);
+                    break;
+                case "Tuesday":
+                    tuesday.add(lesson);
+                    break;
+                case "Wednesday":
+                    wednesday.add(lesson);
+                    break;
+                case "Thursday":
+                    thursday.add(lesson);
+                    break;
+                case "Friday":
+                    friday.add(lesson);
+                    break;
+                default:
+                    System.out.println("non-valid day");
+                    break;
+            }
+        }
+
+        System.out.println("Lessons of Monday:");
+        for (Lessons lesson : monday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Tuesday:");
+        for (Lessons lesson : tuesday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Wednesday:");
+        for (Lessons lesson : wednesday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Thursday:");
+        for (Lessons lesson : thursday) {
+            System.out.println(lesson.getName().name());
+        }
+        System.out.println("Lessons of Friday:");
+        for (Lessons lesson : friday) {
+            System.out.println(lesson.getName().name());
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
 
 
 
@@ -508,23 +508,17 @@ public class LessonMethods {
 
 
 
-
-
-
-
-
-
-
 //Rumeysa Dagtekin 326 526}
     }
 
     //Bu metodu selectLesson metodunun daha clean olmasi icin yazdim.
     private void chooseLesson(int choice, Student student, List<Lessons> lessonsList, StudentRepository studentRepository) {
 
+
         student.getAllLessons().put(student.getStudentID(), lessonsList.get(choice - 1));
-        student.setTotalPrice(student.getTotalPrice() + (lessonsList.get(choice - 1).getLessonFee() * student.getPercentDiscount() / 100));
+        student.setTotalPrice(student.getTotalPrice() + (lessonsList.get(choice - 1).getLessonFee() * (100-student.getPercentDiscount()) / 100));
         lessonsRepository.addLessonStudent(student, lessonsList.get(choice - 1));
-        studentRepository.updateFeeInfo(student, lessonsList.get(choice - 1).getLessonFee() * student.getPercentDiscount() / 100);
+        studentRepository.updateFeeInfo(student, lessonsList.get(choice - 1).getLessonFee() * (100-student.getPercentDiscount()) / 100);
 
     }
 
@@ -573,7 +567,15 @@ public class LessonMethods {
         //buna dair simdilik bir yol haritasi hazirlayamadim.
 
 
-        // bu sekilde sinif sinif ders takvimi yazdirilacak
+
+        //bu sekilde sinif sinif ders takvimi yazdirilacak
+
+        System.out.println("*** Classes ***");
+        System.out.println();
+
+
+        System.out.println("Please select the class you want to view the schedule for :");
+
 
 
     }

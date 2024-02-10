@@ -106,7 +106,6 @@ public class Student extends Person {
         this.historyAttendance = historyAttendance;
     }
 
-
     public Student(String name, String surName, String password, String address, String phoneNumber,
                    UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment) {
         super(name, surName, password, address, phoneNumber, role);

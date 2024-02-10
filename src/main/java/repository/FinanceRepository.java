@@ -31,13 +31,15 @@ public class FinanceRepository {
 
                HashMap<Integer,Lessons> lessonshp= each.getAllLessons(); // her ogrencinin derslerini getirip hashMap e atadim.
 
-               for (Map.Entry<Integer,Lessons> w:lessonshp.entrySet()){ // hashMapi donguye sokmak icin entrySet metodunu kullandim
+               for (Map.Entry<Integer,Lessons> each2:lessonshp.entrySet()){ // hashMapi donguye sokmak icin entrySet metodunu kullandim
 
-                     sum=sum+ w.getValue().getLessonFee();  //burada dersin ucretini sum'a atamis oldum. Bu dongunun sonunda ogrencinin secmis oldugu butun derslerin ucretleri toplanip sum'a atanir.
+                     sum=sum+ each2.getValue().getLessonFee();  //burada dersin ucretini sum'a atamis oldum. Bu dongunun sonunda ogrencinin secmis oldugu butun derslerin ucretleri toplanip sum'a atanir.
                }
 
-               sum2+=sum; // her ogrenciden gelen gelirler sum2 ye atanir.
+                sum2+=sum; // her ogrenciden gelen gelirler sum2 ye atanir.
                 System.out.println(each.getName()+" "+each.getSurName() +"--> "+ "Total:  "+sum);
+                sum=0; //Burada sum degiskenini sifirladim cunku bir sonraki ogrencinin ders ucretlerinin toplamini atamam lazim.
+
             }
             System.out.println("Total Income: "+sum2); // Toplam gelir
 

@@ -108,14 +108,6 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
 
 
-
-
-
-
-
-            // Umut Ayaz 10 -110
-
-
     }
 
 
@@ -171,7 +163,6 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
 
             }
         }
-
 
 
 
@@ -331,33 +322,33 @@ public class TeacherRepository implements SameRepoOperations<Teacher> {
     @Override
     public void removeRepoSomeoneInfo(Teacher person) {
 
+        // JDBC bağlantısını aç
 
+        JDBC_Utils.setConnection();
 
+        String sql = "DELETE FROM t_teacher WHERE id = ?";
 
+        JDBC_Utils.setPrst(sql);
 
+        try {
+            JDBC_Utils.getPrst().setInt(1, person.getTeacherID());
+            int affectedRows = JDBC_Utils.getPrst().executeUpdate();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            if (affectedRows > 0) {
+                System.out.println("Teacher information with ID " + person.getTeacherID() + " has been successfully removed.");
+            } else {
+                System.out.println("No teacher found with ID " + person.getTeacherID() + ". No records were removed.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error: " + e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println("Error: " + e.getMessage());
+            }
+        }
 
 
 
