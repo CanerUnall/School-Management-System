@@ -1,18 +1,15 @@
 package service;
 
-
-import config.JDBC_Utils;
-
 import config.Scanner_Utils;
-
-
+import controller.SchoolManagementSystem;
+import domain.Grades;
+import domain.LessonNames;
 import domain.Teacher;
 import domain.UserRol;
 import exceptions.TeacherNotFoundException;
 import repository.TeacherRepository;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,179 +17,67 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
     private final TeacherRepository teacherRepository;
     private final Scanner scanner;
 
+
     public TeacherMethods(TeacherRepository teacherRepository, Scanner scanner) {
         this.teacherRepository = teacherRepository;
         this.scanner = scanner;
+
     }
 
-    //TODO  Umut Ayaz 18 -68
+
     @Override
     public Teacher find(int id) {
-
-        //burada TeacherRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
-        //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
-
         try {
-
             Teacher foundTeacher = teacherRepository.find(id);
-
-            if (foundTeacher!= null){
-                System.out.println(foundTeacher);
+            if (foundTeacher != null) {
                 return foundTeacher;
-            }else {
+            } else {
                 throw new TeacherNotFoundException("Teacher not found with ID :" + id);
             }
-
         } catch (TeacherNotFoundException e) {
-
             System.out.println("Hata: " + e.getMessage());
         }
         return null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Umut Ayaz 18 -68
     }
 
-    //TODO Rumeysa Dagtekin 71 - 171
+
     @Override
     public void login() {
-    /*
-    1. burada ogretmen ogrenci id alinacak.
-    2. daha sonra yukaridaki find methodu cagrilacak.
-    3. return olarak gelen obje null degilse sifre sorulacak.
-    4. sifre dogru ise SchoolManagementSystem clasindaki teacherPage methodu burada cagrilacak.
-    5. sifre yanlis ise yanlis oldugu soylenecek ve devam etmek / cikis yapmak isteyip istemedigi sorulacak ona gore dongu devam edecek.
-            */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Rumeysa Dagtekin 71 - 171
+        System.out.println("Please enter teacher Id!");
+        int teacherId = Scanner_Utils.intScanner(scanner);
+        scanner.nextLine();
+        Teacher foundedTeacher = find(teacherId);
+
+        if (foundedTeacher != null) {
+            boolean girisBasarili = false;
+
+            do {
+                System.out.println("Enter the password of the student...");
+                String inputPassword = scanner.nextLine();
+                if (inputPassword.equals(foundedTeacher.getPassword())) {
+                    SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem();
+                    schoolManagementSystem.teacherPage(foundedTeacher);
+                } else {
+                    System.out.println("Wrong password!...");
+                    System.out.println("Enter 't' to try again, 'c' to exit: ");
+                    char secim = scanner.next().charAt(0);
+                    scanner.nextLine();
+
+                    if (secim == 'c' || secim == 'C') {
+                        girisBasarili = true;
+                        System.out.println("Signing out....");
+                    }
+                }
+            } while (!girisBasarili);
+        }
     }
 
-    //TODO Mustafa Ubeyde Kayhan 174- 274
+
     @Override
     public void addSomeoneInfo() {
-    /*
-        1. burada eklenecek ogretmenin tum bilgileri sirasiyla alinacak ve obje olusturulacak
-        2. daha sonra TeacherRepository clasindaki addRepoSomeoneInfo methodu cagrilacak.
-        3. ogretmen basariyla kaydedildi diye sout atilacak.
 
-         */
-
-    Teacher teacher=new Teacher();
-        //String name, String surName, String password, String address, String phoneNumber,
-        //                   UserRol role, double salary, String branch, int teacherID
-
+        Teacher teacher = new Teacher();
         System.out.print("Enter teacher name: ");
         teacher.setName(scanner.nextLine());
         System.out.print("Enter teacher surname: ");
@@ -201,607 +86,113 @@ public class TeacherMethods implements Login<Teacher>, SameOperations {
         teacher.setPassword(scanner.nextLine());
         System.out.print("Enter teacher phone number: ");
         teacher.setPhoneNumber(scanner.nextLine());
-        scanner.nextLine();
         teacher.setRole(UserRol.TEACHER);
+        System.out.print("Enter teacher address: ");
+        teacher.setAddress(scanner.nextLine());
         System.out.print("Enter teacher salary: ");
         teacher.setSalary(Scanner_Utils.doubleScanner(scanner));
+
         System.out.print("Enter teacher branch: ");
-        teacher.setBranch(scanner.nextLine());
+        int x = 1;
+        for (LessonNames lessonNames : LessonNames.values()) {
+            System.out.println(x + " " + lessonNames.name());
+            x++;
+        }
+        int gradeChoice = Scanner_Utils.intScanner(scanner);
         scanner.nextLine();
-        System.out.print("Enter teacher ID: ");
-        teacher.setTeacherID(Scanner_Utils.intScanner(scanner));
+        teacher.setBranch(LessonNames.values()[gradeChoice - 1].name());
 
+        int teacherID = Teacher.getTeacherRegistrationNumber() + getAllTeacher().size();
+        teacher.setTeacherID(teacherID);
 
-    teacherRepository.addRepoSomeoneInfo(teacher);
-
+        teacherRepository.addRepoSomeoneInfo(teacher);
 
         System.out.println("\n\nTeacher saved successfully");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Mustafa Ubeyde Kayhan 174- 274
+        System.out.print("New teacher's ID: " + teacherID);
     }
-    //TODO Gaukhar Ergin 277 - 377
+
+
     @Override
     public void removeSomeoneInfo() {
-        /*
-        1. once silinecek ogretmenin id alinacak
-        2. TeacherMethods icindeki find methodu ile o ogretmen bulunacak
-
-        3. daha sonra TeacherRepository clasindaki removeRepoSomeoneInfo methodu cagrilarak öğretmen silinecek
-
-
-         */
 
         System.out.println("Silinecek Öğretmenin id'sini Giriniz"); //ilk olarak kullanıcıdan silinecek öğretmenin id'sini alalım
-        int id=Scanner_Utils.intScanner(scanner); // aldığımız id'yi scanner ekleyelim
-        Teacher foundedTeacher=find(id); //teacher tipinde  foundedTeacher field oluşturuyoruz ve silinecek hocayı find methodu bu field'a eşitliyoruz
+        int id = Scanner_Utils.intScanner(scanner); // aldığımız id'yi scanner ekleyelim
+        scanner.nextLine();
+        Teacher foundedTeacher = find(id); //teacher tipinde  foundedTeacher field oluşturuyoruz ve silinecek hocayı find methodu bu field'a eşitliyoruz
         teacherRepository.removeRepoSomeoneInfo(foundedTeacher); // teacher repository den aldığımız removeRepoSomeoneInfo methodu ile siliyoruz.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Gaukhar Ergin 277 - 377
     }
 
-    //TODO Ersagun Eryildiz 380 - 580
+
     @Override
     public void updateSomeoneInfo() {
 
-        /*
-        1. once ogretmenin id alinacak
-        2. TeacherMethods icindeki find methodu ile o ogretmen bulunacak
-        3. daha sonra update edilecek islem sorulacak
-        4. TeacherRepository clasindaki updateRepoSomeoneInfo methodu cagrilarak ogretmen bilgisii update edilecek
-        choice 1 ise Adres, 2 ise brans, 3 ise ucret
-         */
+        System.out.println(" Enter the teacher's id: ");
+        int id = Scanner_Utils.intScanner(scanner);// aldığımız id'yi scanner ekleyelim
+        scanner.nextLine();
+        Teacher foundTeacher = teacherRepository.find(id);
 
-            System.out.println(" Enter the teacher's id: ");
-            int id=scanner.nextInt();// aldığımız id'yi scanner ekleyelim
-            Teacher foundTeacher=teacherRepository.find(id);
+        if (foundTeacher != null) {
+            // 3. Güncellenecek işlemi sor
+            System.out.println("Select update information: ");
+            System.out.println("1. Address");
+            System.out.println("2. Branch");
+            System.out.println("3. Salary");
+            int choice = Scanner_Utils.intScanner(scanner);
+            scanner.nextLine();
+            // 4. TeacherRepository sınıfındaki updateRepoSomeoneInfo metodunu çağırarak öğretmen bilgisini güncelle
 
-            if (foundTeacher != null) {
 
-
-                // 3. Güncellenecek işlemi sor
-                System.out.println("Select update information: ");
-                System.out.println("1. Address");
-                System.out.println("2. Branch");
-                System.out.println("3. Salary");
-                int choice = scanner.nextInt();
-
-                // 4. TeacherRepository sınıfındaki updateRepoSomeoneInfo metodunu çağırarak öğretmen bilgisini güncelle
-                scanner.nextLine();
-
-                switch (choice) {
-                    case 1:
-                        System.out.println("Enter new address:");
-                        String newAddress = scanner.nextLine();
-                        teacherRepository.updateAdressInfo(foundTeacher,newAddress);
-                        break;
-                    case 2:
-                        System.out.println("Enter new branch:");
-                        String newBranch = scanner.nextLine();
-                        teacherRepository.updateBranchInfo(foundTeacher,newBranch);
-                        break;
-                    case 3:
-                        System.out.println("Enter new salary:");
-                        double newSalary = scanner.nextDouble();
-                        teacherRepository.updateSalaryInfo(foundTeacher,newSalary);
-                        break;
-                    default:
-                        System.out.println("Invalid choice!");
-                        break;
-                }
-            } else {
-                System.out.println("Not teacher found!.");
+            switch (choice) {
+                case 1:
+                    System.out.println("Enter new address:");
+                    String newAddress = scanner.nextLine();
+                    teacherRepository.updateAdressInfo(foundTeacher, newAddress);
+                    break;
+                case 2:
+                    System.out.println("Enter new branch:");
+                    int x = 1;
+                    for (LessonNames lessonNames : LessonNames.values()) {
+                        System.out.println(x + " " + lessonNames.name());
+                        x++;
+                    }
+                    int gradeChoice = Scanner_Utils.intScanner(scanner);
+                    scanner.nextLine();
+                    String newBranch = LessonNames.values()[gradeChoice - 1].name();
+                    teacherRepository.updateBranchInfo(foundTeacher, newBranch);
+                    break;
+                case 3:
+                    System.out.println("Enter new salary:");
+                    double newSalary = Scanner_Utils.doubleScanner(scanner);
+                    scanner.nextLine();
+                    teacherRepository.updateSalaryInfo(foundTeacher, newSalary);
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+                    break;
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Ersagun Eryildiz  380 - 580
+        } else {
+            System.out.println("Not teacher found!.");
+        }
     }
 
-    //TODO  Seval Senturk 583 - 683
+
     @Override
     public void getSomeoneInfo(int id) {
 
-        //1. TeacherRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
-
         teacherRepository.getRepoSomeoneInfo(id);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Seval Senturk 583 - 683
     }
-    //TODO  Umut Ayaz 686 - 786
 
-public List<Teacher> getAllTeacher(){
-    //burada reTeacherRepository clasindaki getAllTeacherRepo methodu cagrilacak
-    try {
 
-        List<Teacher> teachers = teacherRepository.getAllTeacher();
+    public List<Teacher> getAllTeacher() {
 
-        for (Teacher teacher : teachers) {
-            System.out.println(teacher.toString());
-        }
+        List<Teacher> teachers;
 
-    } catch (SQLException e) {
-        System.out.println(" ");
+        teachers = teacherRepository.getAllTeacher();
+
+        return teachers;
+
     }
-    return null;
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Umut Ayaz 686 - 786
-    }

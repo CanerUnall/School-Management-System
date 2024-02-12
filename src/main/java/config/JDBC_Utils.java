@@ -9,13 +9,11 @@ public class JDBC_Utils {
     public static PreparedStatement prst;
 
     public static void setConnection() {
-
         try {
             con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/school_management_system", "postgres", "Asd181116.");
         } catch (SQLException e) {
             System.err.println("Error : " + e.getMessage());
         }
-
     }
 
     public static void setStatement() {
@@ -26,7 +24,7 @@ public class JDBC_Utils {
             System.err.println("Error : " + e.getMessage());
         }
     }
-    
+
     public static Connection getCon() {
         return con;
     }

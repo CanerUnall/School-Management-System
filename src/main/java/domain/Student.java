@@ -1,10 +1,11 @@
 package domain;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Student extends Person {
-
-
+    private static int studentRegistrationNumber = 100;
+    private int generalRank;
     private int studentID;
     private Grades grade;
     private double lastYearGradeAvg;
@@ -14,12 +15,20 @@ public class Student extends Person {
 
     private double totalPrice;
     private int lessonCredit;
-    private HashMap<Integer, Lessons> allLessons;
+    private List<Lessons> allLessons;
 
-    private Integer percentDiscount = 1;
+    private Integer percentDiscount = 0;
 
     public Student() {
 
+    }
+
+    public static int getStudentRegistrationNumber() {
+        return studentRegistrationNumber;
+    }
+
+    public static void setStudentRegistrationNumber(int studentRegistrationNumber) {
+        Student.studentRegistrationNumber = studentRegistrationNumber;
     }
 
     public Integer getPercentDiscount() {
@@ -30,7 +39,7 @@ public class Student extends Person {
         this.percentDiscount = discount;
     }
 
-    private HashMap<Integer, Attendance> historyAttendance;
+    private List< Attendance> historyAttendance;
 
 
     public int getStudentID() {
@@ -90,20 +99,28 @@ public class Student extends Person {
     }
 
 
-    public HashMap<Integer, Lessons> getAllLessons() {
+    public List<Lessons> getAllLessons() {
         return allLessons;
     }
 
-    public void setAllLessons(HashMap<Integer, Lessons> allLessons) {
+    public void setAllLessons(List<Lessons> allLessons) {
         this.allLessons = allLessons;
     }
 
-    public HashMap<Integer, Attendance> getHistoryAttendance() {
+    public List<Attendance> getHistoryAttendance() {
         return historyAttendance;
     }
 
-    public void setHistoryAttendance(HashMap<Integer, Attendance> historyAttendance) {
+    public void setHistoryAttendance(List<Attendance> historyAttendance) {
         this.historyAttendance = historyAttendance;
+    }
+
+    public int getGeneralRank() {
+        return generalRank;
+    }
+
+    public void setGeneralRank(int generalRank) {
+        this.generalRank = generalRank;
     }
 
     public Student(String name, String surName, String password, String address, String phoneNumber,
@@ -113,12 +130,13 @@ public class Student extends Person {
         this.grade = grade;
         this.lastYearGradeAvg = lastYearGradeAvg;
         this.payment = payment;
-        this.allLessons = new HashMap<>();
-        this.historyAttendance = new HashMap<>();
+        this.allLessons = new ArrayList<>();
+        this.historyAttendance = new ArrayList<>();
         this.lessonCredit = 20;
         this.totalPrice = 0;
         this.thisYearGradeAvg = 0;
         this.percentDiscount = 1;
+        this.generalRank=0;
 
     }
 

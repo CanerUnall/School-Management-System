@@ -1,209 +1,67 @@
 package service;
 
+
+import config.Scanner_Utils;
 import domain.Grades;
+
+import domain.Lessons;
 import repository.ClassesRepository;
+
 import java.util.Scanner;
 
 public class ClassesMethods {
+
     private final ClassesRepository classesRepository;
     private final Scanner scanner;
+    private final LessonMethods lessonMethods;
 
-    public ClassesMethods(ClassesRepository classesRepository, Scanner scanner) {
+    public ClassesMethods(ClassesRepository classesRepository, Scanner scanner, LessonMethods lessonMethods) {
+
         this.classesRepository = classesRepository;
         this.scanner = scanner;
+        this.lessonMethods = lessonMethods;
     }
 
-    //TODO Hanife Ocak 16-116
-    public void showAllClassNotes(){
-        //burada once hangi sinifin notlarini gormek istedigi sorulacak
-        //daha sonra hangi dersin notlarini gormek istedigi sorulacak
-        // daha sonra secilen sinifa ve derse gore
-        // ClassesRepository clasindaki getAllClassNotes methodu cagrilacak
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Hanife Ocak 6-106
-    }
-
-    //TODO Seval Senturk 119 - 219
-    public void showAllStudentInfo(){
-
-        /*once hangi sinifa ait ogrencilerin bilgilerini gormek istedigini sorsun
-        daha sonra ClassesRepository clasindaki getAllClassInfo methodu cagrilacak */
-
-
-        // Hangi sınıfa ait öğrenci bilgilerini görmek istediğini kullanıcıdan al
-        System.out.println("Hangi sınıfa ait öğrenci bilgilerini görmek istersiniz?");
-        String inputName = scanner.nextLine();
-
-     // Kullanıcının girdiği sınıf adına karşılık gelen enum değerini bul
-        Grades grades;
-        try {
-            grades = Grades.valueOf(inputName.toUpperCase());
-        } catch (IllegalArgumentException e) {
-            System.out.println("Geçersiz sınıf adı!");
-            return;
+    public void showAllClassNotes() {
+
+        System.out.println("Please enter which class's grade you would like to see.");
+        int x= 1;
+        for (Grades grades : Grades.values()) {
+            System.out.println(x+" "+grades.name());
+            x++;
         }
+        int gradeChoice = Scanner_Utils.intScanner(scanner);
+        scanner.nextLine();
+        Grades grade = Grades.values()[gradeChoice - 1];
+        System.out.println("Select which lesson grade you want to see.");
+        int i = 1;      //Secim yapilacak ders listesini donguye sokup  dersleri alt alta yazdirdim.
+        for (Lessons each : lessonMethods.getAllLessonsList()) {
+            System.out.println(i + ". " + each.getName());   //  1.( ders ismi ) seklinde console`a yazdirdim
+            i++;
+        }
+        int selected = Scanner_Utils.intScanner(scanner);
+        scanner.nextLine();
+        Lessons lessonChoice = lessonMethods.getAllLessonsList().get(selected-1);
+
+        String lessonName = lessonChoice.getName().name();
+        classesRepository.getAllClassNotes(grade, lessonName);
+
+    }
+
+    public void showAllStudentInfo() {
+
+        System.out.println("Please Enter Grade :");
+        int x = 1;
+        for (Grades grades : Grades.values()) {
+            System.out.println(x+" "+grades.name());
+            x++;
+        }
+        int gradeChoice = Scanner_Utils.intScanner(scanner);
+        scanner.nextLine();
+        Grades grades = Grades.values()[gradeChoice - 1];
 
         classesRepository.getAllClassInfo(grades);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Seval Senturk 109 - 209
     }
 
 }

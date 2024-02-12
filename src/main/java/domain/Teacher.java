@@ -1,14 +1,19 @@
 package domain;
 
 public class Teacher extends Person{
+    private static int teacherRegistrationNumber = 1000;
     private double salary;
     private String branch;
 
     private  int teacherID;
 
+    public static int getTeacherRegistrationNumber() {
+        return teacherRegistrationNumber;
+    }
 
-    private Lessons lesson;
-
+    public static void setTeacherRegistrationNumber(int teacherRegistrationNumber) {
+        Teacher.teacherRegistrationNumber = teacherRegistrationNumber;
+    }
 
     public double getSalary() {
         return salary;
@@ -35,13 +40,6 @@ public class Teacher extends Person{
     }
 
 
-    public Lessons getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(Lessons lesson) {
-        this.lesson = lesson;
-    }
 
     public Teacher(String name, String surName, String password, String address, String phoneNumber,
                    UserRol role, double salary, String branch, int teacherID) {
@@ -60,6 +58,5 @@ public class Teacher extends Person{
                 ", branch='" + branch + '\'' +
                 ", teacherID=" + teacherID +
                 '}';
-
     }
 }

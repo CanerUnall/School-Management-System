@@ -3,6 +3,9 @@ package repository;
 import config.JDBC_Utils;
 import domain.Lessons;
 import domain.Student;
+import domain.Teacher;
+import service.TeacherMethods;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -10,245 +13,76 @@ import java.util.List;
 import java.util.Map;
 
 public class FinanceRepository {
+    private final TeacherRepository teacherRepository;
 
-    //TODO Rumeysa Dagtekin  15 - 115
-    public void getRepoIncomeInfo(){
+    public FinanceRepository(TeacherRepository teacherRepository) {
+        this.teacherRepository = teacherRepository;
+    }
 
-        //burada tum ogrencilerin cagrilacak ve bir dongu baslatilacak
-        //daha sonra ogrencilerin aldiklari dersler de ayri bir donguye girecek
-        //ogrencilerin aldiklari derslerin ders ucretleri toplanip gelir olarak yazdirilacak
-        //her bir ogrenciden ne kadar alindigi gelir olarak gosterilecek
+    public void getRepoIncomeInfo() {
 
-        //burada tum ogrencilerin aldigi derslerin ucretine ogre ogrencinin odemesi gerekn miktar gelir olarak gosterilecek
-        //ogrenci adi - odemesi gereken tutar
+        StudentRepository studentRepository = new StudentRepository();
+        List<Student> studentList = studentRepository.getAllStudents();
 
-        StudentRepository studentRepository=new StudentRepository();
-        List<Student> studentList=studentRepository.getAllStudents();
+        double sum = 0;
+        double sum2 = 0;
+        for (Student each : studentList) {   //ogrenci listemizi donguye soktum
 
-            double sum=0;
-            double sum2=0;
-            for (Student each:studentList) {   //ogrenci listemizi donguye soktum
+            for (Lessons each2 : each.getAllLessons()) {
 
-               HashMap<Integer,Lessons> lessonshp= each.getAllLessons(); // her ogrencinin derslerini getirip hashMap e atadim.
-
-               for (Map.Entry<Integer,Lessons> each2:lessonshp.entrySet()){ // hashMapi donguye sokmak icin entrySet metodunu kullandim
-
-                     sum=sum+ each2.getValue().getLessonFee();  //burada dersin ucretini sum'a atamis oldum. Bu dongunun sonunda ogrencinin secmis oldugu butun derslerin ucretleri toplanip sum'a atanir.
-               }
-
-                sum2+=sum; // her ogrenciden gelen gelirler sum2 ye atanir.
-                System.out.println(each.getName()+" "+each.getSurName() +"--> "+ "Total:  "+sum);
-                sum=0; //Burada sum degiskenini sifirladim cunku bir sonraki ogrencinin ders ucretlerinin toplamini atamam lazim.
-
+                sum = sum + each2.getLessonFee();  //burada dersin ucretini sum'a atamis oldum. Bu dongunun sonunda ogrencinin secmis oldugu butun derslerin ucretleri toplanip sum'a atanir.
             }
-            System.out.println("Total Income: "+sum2); // Toplam gelir
 
+            sum2 += sum; // her ogrenciden gelen gelirler sum2 ye atanir.
+            System.out.println(each.getName() + " " + each.getSurName() + "--> " + "Total:  " + sum);
+            sum = 0; //Burada sum degiskenini sifirladim cunku bir sonraki ogrencinin ders ucretlerinin toplamini atamam lazim.
 
+        }
+        System.out.println("Total Income: " + sum2); // Toplam gelir
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Cihan Guler  5 - 105
     }
 
-    //TODO Emrah Kaya 117 - 217 BURAYI BASKASI ALACAK
-    public void getRepoExpenseInfo(){
-        //burada ise tum ogretmenlerin ucretleri gider olarak gosterilecek
-        //buna ilislik sorgu yazilacak
-        // ogretmen adi - ucreti
+    public void getRepoExpenseInfo() {
 
-        //toplam gider
+        double sum = 0;
 
+        for (Teacher teacher : teacherRepository.getAllTeacher()) {
+            System.out.println(teacher.getName() + " " + teacher.getSurName() + " " + teacher.getSalary());
+            sum += teacher.getSalary();
+        }
+        System.out.println("Total Expense : " + sum);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Emrah Kaya 107 - 217
     }
 
-    //TODO  Semra Zengin  219 - 319
-    public void getRepoPaymentTrackingInfo(){
-        //tum ogrencilerin odemesi gereken tutar, odedigi tutar ve kalan tutar gosterilecek
-        //buna iliskin sorgu yazilacak
+    public void getRepoPaymentTrackingInfo() {
+
         JDBC_Utils.setConnection();
         JDBC_Utils.setStatement();
 
-        String query="SELECT studentID,std_name, std_surName, payment, totalPrice FROM t_student";
+        String query = "SELECT std_id,std_name, std_surName, payment, totalPrice FROM t_student";
         System.out.println("====================PAYMENT TRACKING INFO OF ALL STUDENTS================");
 
         try {
-            ResultSet resultSet=JDBC_Utils.getSt().executeQuery(query);
-            int leftPrice= resultSet.getInt("totalPrice")-resultSet.getInt("payment");
+            ResultSet resultSet = JDBC_Utils.getSt().executeQuery(query);
 
-            while (resultSet.next()){
-                System.out.println("Id : "+resultSet.getInt("id"));
-                System.out.println("Name : "+resultSet.getString("std_name"));
-                System.out.println("Surname : "+resultSet.getString("std_surname"));
-                System.out.println("Payment : "+resultSet.getInt("payment"));
-                System.out.println("TotalPrice : "+resultSet.getInt("totalPrice"));
-                if (leftPrice>0){
-                    System.out.println("LeftPrice : "+leftPrice);
-                }else{
-                    System.out.println("LeftPrice : "+leftPrice+" -->All payments are completed");
+            while (resultSet.next()) {
+                int leftPrice = resultSet.getInt("totalPrice") - resultSet.getInt("payment");
+                System.out.print("Id : " + resultSet.getInt("std_id"));
+                System.out.print(" Name : " + resultSet.getString("std_name"));
+                System.out.print(" Surname : " + resultSet.getString("std_surname"));
+                System.out.print(" Payment : " + resultSet.getInt("payment"));
+                System.out.print(" TotalPrice : " + resultSet.getInt("totalPrice"));
+                if (leftPrice > 0) {
+                    System.out.print(" LeftPrice : " + leftPrice);
+                } else {
+                    System.out.print(" LeftPrice : " + leftPrice + " -->All payments are completed");
                 }
-
+                System.out.println();
             }
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }finally {
+        } finally {
             try {
                 JDBC_Utils.getSt().close();
                 JDBC_Utils.getCon().close();
@@ -258,100 +92,5 @@ public class FinanceRepository {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Semra Zengin  209 - 309
     }
 }

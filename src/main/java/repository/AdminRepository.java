@@ -1,37 +1,28 @@
 package repository;
+
 import config.JDBC_Utils;
 import domain.Admins;
-
+import domain.Teacher;
 import domain.UserRol;
-import exceptions.AdminNotFoundException;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import static config.JDBC_Utils.*;
 
 public class AdminRepository {
-    private static Statement st;
-
-
-    //TODO  Mustafa Ubeyde Kayhan 7 -  57
 
     public void createAdminTable() {
-      /*  bu methodun query si yazilirken if not exist kullanilacak
-
-        tablo adi = t_admin
-
-        adminID bu pk olacak
-        teacherID foreign key
-
-*/
         setConnection();
         setStatement();
 
-        String createTableAdmin = "CREATE TABLE IF NOT EXISTS t_admin " +
-                "(admin_id INT PRIMARY KEY AUTO_INCREMENT," +
-                "admin_teacherID INT FOREIGN KEY REFERENCES t_teacher(teacherID))";
+        String createTableAdmin = "CREATE TABLE IF NOT EXISTS t_admin (" +
+                "admin_id INT PRIMARY KEY," +
+                "teacherID INT REFERENCES t_teacher(teacherID)" +
+                ")";
         try {
             JDBC_Utils.getSt().executeUpdate(createTableAdmin);
         } catch (SQLException e) {
@@ -46,21 +37,12 @@ public class AdminRepository {
 
         }
 
-
-        // Mustafa Ubeyde Kayhan 7 -  57
     }
 
 
     public Admins find(int id) {
         setConnection();
         setStatement();
-        // Mustafa Ubeyde Kayhan 61 -  161
-//buradan girilen idye gore dbden admin bilgileri alinacak ve obje olusturulup return edilecek
-
-        //SELECT orders.order_id, orders.order_date, customers.customer_name
-        //FROM orders
-        //JOIN customers ON orders.customer_id = customers.customer_id
-        //WHERE orders.order_date BETWEEN '2023-01-01' AND '2023-12-31';
 
         String getAdmin = "SELECT * FROM t_admin a " +
                 "RIGHT JOIN t_teacher t " +
@@ -73,7 +55,7 @@ public class AdminRepository {
             ResultSet result = JDBC_Utils.getSt().executeQuery(getAdmin);
 
             while (result.next()) {
-               admin=new Admins();
+                admin = new Admins();
                 admin.setAdminID(result.getInt("admin_id"));
                 admin.setAddress(result.getString("address"));
                 admin.setPassword(result.getString("password"));
@@ -83,141 +65,115 @@ public class AdminRepository {
                 admin.setBranch(result.getString("branch"));
                 admin.setSalary(result.getDouble("salary"));
                 admin.setRole(UserRol.ADMIN);
-                admin.setTeacherID(result.getInt("admin_teacherID"));
+                admin.setTeacherID(result.getInt("teacherID"));
 
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        }finally {
+        } finally {
             try {
                 JDBC_Utils.getSt().close();
                 JDBC_Utils.getCon().close();
-            }catch (SQLException e){
+            } catch (SQLException e) {
                 System.err.println(e.getMessage());
             }
         }
         return admin;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//TODO Rumeysa Dagtekin 164 - 264
-        public void addAdminRepo (Admins admin){
-
-            //burada projede yer alan arkadaslar admin olarak dbye eklenmesi icin gerekli sorgu yazilacak.
-
-            JDBC_Utils.setConnection();
-            JDBC_Utils.setStatement();
-
-            String sql = "INSERT INTO t_admin VALUES ( " + admin.getAdminID() +
-                    "," + admin.getTeacherID() + ")";
-
+    public void addAdminRepo(Admins admin) {
+
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
+
+        String query = "INSERT INTO t_teacher(" +
+                "teacherID, " +
+                "tchr_name, " +
+                "tchr_surName, " +
+                "password, " +
+                "address, " +
+                "phoneNumber, " +
+                "role, " +
+                "salary, " +
+                "branch) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        JDBC_Utils.setPrst(query);
+
+
+        try {
+            JDBC_Utils.getPrst().setInt(1, admin.getTeacherID());
+            JDBC_Utils.getPrst().setString(2, admin.getName());
+            JDBC_Utils.getPrst().setString(3, admin.getSurName());
+            JDBC_Utils.getPrst().setString(4, admin.getPassword());
+            JDBC_Utils.getPrst().setString(5, admin.getAddress());
+            JDBC_Utils.getPrst().setString(6, admin.getPhoneNumber());
+            JDBC_Utils.getPrst().setString(7, String.valueOf(admin.getRole()));
+            JDBC_Utils.getPrst().setDouble(8, admin.getSalary());
+            JDBC_Utils.getPrst().setString(9, admin.getBranch());
+
+            JDBC_Utils.getPrst().executeUpdate();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
+        String sql = "INSERT INTO t_admin VALUES ( " + admin.getAdminID() +
+                "," + admin.getTeacherID() + ")";
+
+        try {
+            JDBC_Utils.getSt().executeQuery(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
             try {
-                JDBC_Utils.getSt().executeQuery(sql);
+                JDBC_Utils.getPrst().close();
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
-            } finally {
-
-                try {
-                    JDBC_Utils.getSt().close();
-                    JDBC_Utils.getCon().close();
-                } catch (SQLException e) {
-                    System.out.println(e.getMessage());
-                }
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            // Rumeysa Dagtekin 164 - 264
         }
 
     }
 
+    public List<Admins> getRepoAllAdmins() {
 
+        JDBC_Utils.setConnection();
+        JDBC_Utils.setStatement();
+        List<Admins> allAdmins = null;
+
+        try {
+
+            String sql = "SELECT * FROM t_teacher LEFT JOIN t_admin ON t_teacher.teacherID = t_admin.teacherID";
+            ResultSet resultSet = JDBC_Utils.getSt().executeQuery(sql);
+            allAdmins = new ArrayList<>();
+            while (resultSet.next()) {
+                Admins admin = new Admins();
+                admin.setAdminID(resultSet.getInt("admin_id"));
+                admin.setAddress(resultSet.getString("address"));
+                admin.setPassword(resultSet.getString("password"));
+                admin.setName(resultSet.getString("tchr_name"));
+                admin.setSurName(resultSet.getString("tchr_surName"));
+                admin.setPhoneNumber(resultSet.getString("phoneNumber"));
+                admin.setBranch(resultSet.getString("branch"));
+                admin.setSalary(resultSet.getDouble("salary"));
+                admin.setRole(UserRol.ADMIN);
+                admin.setTeacherID(resultSet.getInt("teacherID"));
+                allAdmins.add(admin);
+            }
+            return allAdmins;
+        } catch (SQLException e) {
+            System.err.println(" LOGIN ERROR: " + e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            }
+
+        }
+        return allAdmins;
+    }
+
+}
