@@ -18,7 +18,7 @@ public class Lessons {
         this.lessonCredit = lessonCredit;
         this.lessonFee = lessonFee;
         this.day = day;
-        this.studentNote= null;
+        this.studentNote= 0;
         this.lessonSuccessDegree=null;
     }
 

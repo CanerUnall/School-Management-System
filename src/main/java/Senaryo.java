@@ -1,4 +1,4 @@
-/*public class Senaryo {/*
+/*
 PROJE YAZILIRKEN UYULACAK KURALLAR.
 1- PROJEDE SENARYOSUNUN DISINA CIKILMAYACAK
 2- POJO CLASSLAR VE METHOD ISIMLERI BELIRLENECEK VE ONA GORE GOREV DAGILIMI YAPILACAK.
@@ -6,14 +6,14 @@ PROJE YAZILIRKEN UYULACAK KURALLAR.
     --CLASSLARDA CODE BLOKLARI AYRILABILIR
 
     OKUL YONETIM SISTEMI
-OGRENCI EKRANINDA
-1. KENDI BILGILERINI
-2. DERS PROGRAMINI GOR
-3. DERS SONUCLARINI
-4. DERS SECIMI
-5. YOKLAMA
+     GRENCI EKRANI
+        1. KENDI BILGILERINI
+        2. DERS PROGRAMINI GOR
+        3. DERS SONUCLARINI
+        4. DERS SECIMI
+        5. YOKLAMA
 
-OGRETMEN EKRANINDA
+    OGRETMEN/ADMIN EKRANI
     1- OGRENCILER
 	    1- TUM OGRENCI BILGILERI
 		* Adı, soyadı,numarasi, adresi, sınıfı,eski notu, notları ve başarı durumuyla birlikte tüm öğrenci bilgilerini içerir.
@@ -32,16 +32,7 @@ OGRETMEN EKRANINDA
 		4- OGRENCI BUL
 			* Öğrencinin ID'sine göre tüm bilgileri görüntüleme işlemi gerçekleştirilir.
 
-   3- DERS TAKIBI VE SECIMI
-        1- DERS PROGRAMI - (DERSLERI VE OGRETMENLERI ICERIR)
-            * Tüm dersleri ve öğretmen bilgilerini içeren bir ders programı oluşturulur.
-            Ders programı oluştururken, dersin gün ve saat bilgilerini ekleyerek bir takvim oluşturabiliriz.
-        2- DERS KREDISI BELIRLE
-            * Öğrencilere ders kredisi atanabilir.
-            Ders kredisi belirleme işlemine, öğrencilere otomatik olarak
-            kredi atama veya krediyi manuel olarak düzenleme özelliği ekleyebiliriz.
-
-    4- OGRENCI NOT TAKIBI
+    3- OGRENCI NOT TAKIBI
         1- TUM SINIFIN NOTUNU GORSUN (5, 20)
             * Seçilen sınıfın tüm öğrencilerinin notlarını görüntüleme işlemi yapılır.
             Tüm sınıfın notlarını görüntüleme işlemine sınıf seçimi ekleyebiliriz.
@@ -50,7 +41,7 @@ OGRETMEN EKRANINDA
             Öğrenci notlarını girerken, ders seçimi ve dönem seçimi ekleyerek daha ayrıntılı bir not takibi sağlayabiliriz.
         3- YOKLAMA GIRISI
 
-    5- OGRETMENLER
+    4- OGRETMENLER
         1- OGRETMEN BILGILERI
             * Sicil numarası, adı, soyadı, adresi ve branşı gibi öğretmen bilgilerini içerir.
 
@@ -66,7 +57,7 @@ OGRETMEN EKRANINDA
             4- OGRETMEN BUL
                 * Öğretmenin ID'sine göre bilgilerini görüntüleme işlemi gerçekleştirilir.
 
-    6- RAPORLAMA
+    5- RAPORLAMA
         1- DERSE GORE BASARI
             * Seçilen derse göre öğrenci başarı durumları raporlanır.
         2- SINIF BASARISI
@@ -76,7 +67,7 @@ OGRETMEN EKRANINDA
         4- SIRALAMA
             * Öğrenci başarısı raporlarına, sıralama (notlara göre sıralama) özelliği ekleyebiliriz.
 
-    7- FINANS
+    6- FINANS(burasi sadece adminlerde gozukecek)
         1- BURAYA YONETICILER GIREBILIR (ID SIFRE KONTROLU OLACAK)
             * ID ve şifre kontrolü ile yöneticilerin finans bölümüne girişi sağlanır.
         2- GELIR TABLOSUNU GORUNTULE
@@ -86,10 +77,10 @@ OGRETMEN EKRANINDA
         4- ODEME TAKIBI
             * Kimin ne kadar ödeme yaptığını izleme ve takip etme işlemi yapılır. (Döviz cinsinden ödemeler de dahil edilebilir.)
 
-    8- GÜVENLİK
+    GÜVENLİK
         * Kullanıcı girişi için daha güvenli bir kimlik doğrulama sistemi ekleyebiliriz.
 
-    9- CIKIS
+    0- CIKIS
         * Programdan çıkış yapma işlemi gerçekleştirilir.
 
 */

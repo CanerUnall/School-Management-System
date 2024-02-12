@@ -7,99 +7,70 @@ import domain.Lessons;
 import domain.Student;
 import domain.SuccessDegree;
 import exceptions.StudentNotFoundException;
+
+import repository.ReportRepository;
 import repository.StudentRepository;
 
-import java.util.Map;
+import javax.swing.*;
+import java.util.List;
+
 import java.util.Scanner;
-public class StudentMethods implements Login<Student>, SameOperations  {
+
+public class StudentMethods implements Login<Student>, SameOperations {
+
     private final Scanner scanner;
     private final StudentRepository studentRepository;
-    public StudentMethods(Scanner scanner, StudentRepository studentRepository) {
+    private final LessonMethods lessonMethods;
+
+    public StudentMethods(Scanner scanner, StudentRepository studentRepository, LessonMethods lessonMethods) {
         this.scanner = scanner;
         this.studentRepository = studentRepository;
+        this.lessonMethods = lessonMethods;
     }
 
-    //TODO Ersagun Eryildiz 17-67
+
     @Override
     public Student find(int id) {
-        //Ersagun Eryildiz 17-67
-
-        //burada StudentRepository nin find methodu cagrilacak ve oradan alinan obje return edilecek
-        //Nesibe hoca hotel sisteminde exceptionslarin pratigini yaptirmisti. biz de burada exceptions attiracagiz.
-      //  return null;
-
-
+        try {
             Student foundStudent = studentRepository.find(id);
-            try {
-                if (foundStudent != null) {
-                    System.out.println("---------------------------------------------");
-                    System.out.println(foundStudent);
-                    System.out.println("---------------------------------------------");
-                    return foundStudent;
-                } else {
-                    throw new StudentNotFoundException("Student not found by id : " + id);
-                }
-            }catch (StudentNotFoundException e){
-                System.out.println(e.getMessage());
+            if (foundStudent != null) {
+
+                return foundStudent;
+            } else {
+                throw new StudentNotFoundException("Student not found by id : " + id);
             }
-            return null;
-//---------------------------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Ersagun Eryildiz 17-67
+        } catch (StudentNotFoundException e) {
+            System.err.println(e.getMessage());
+        }
+        return null;
     }
 
-
-
-    //TODO Gaukhar Ergin 70-170
 
     @Override
     public void login() {
-        /*
-        1. burada ogrenciden ogrenci id alinacak.
-        2. daha sonra yukaridaki find methodu cagrilacak.
-        3. return olarak gelen obje null degilse sifre sorulacak.
-        4. sifre dogru ise SchoolManagementSystem clasindaki studentPage methodu burada cagrilacak.
-        5. sifre yanlis ise yanlis oldugu soylenecek ve devam etmek / cikis yapmak isteyip istemedigi sorulacak ona gore dongu devam edecek.
-         */
+        boolean girisBasarili = false;
+        SchoolManagementSystem schoolManagementSystem = new SchoolManagementSystem();
+        do {
+            System.out.println("Please enter student Id!");
+            int studentId = Scanner_Utils.intScanner(scanner);
+            scanner.nextLine();
 
+            Student foundedStudent = find(studentId);
 
-        System.out.println("Please enter student Id!");
-        int studentId = Scanner_Utils.intScanner(scanner);
+            if (foundedStudent != null) {
 
-        Student foundedStudent = find(studentId);
-
-        if (foundedStudent != null) {
-            boolean girisBasarili = false;
-
-            do {
                 System.out.println("Enter the password of the student...");
                 String inputPassword = scanner.nextLine();
-                if (inputPassword.equals(foundedStudent.getPassword())) {
-                    SchoolManagementSystem.studentPage(foundedStudent);
+
+                if (foundedStudent.getPassword().equals(inputPassword)) {
+                    girisBasarili = true;
+                    System.out.println("Login successful!");
+                    schoolManagementSystem.studentPage(foundedStudent);
                 } else {
                     System.out.println("Wrong password!...");
                     System.out.println("Enter 't' to try again, 'c' to exit: ");
                     char secim = scanner.next().charAt(0);
-                    scanner.nextInt();
+                    scanner.nextLine();
 
                     if (secim == 'c' || secim == 'C') {
                         girisBasarili = true;
@@ -107,102 +78,15 @@ public class StudentMethods implements Login<Student>, SameOperations  {
                     }
                 }
 
-            } while (!girisBasarili);
+            }
+        } while (!girisBasarili);
+    }
 
 
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Gaukhar Ergin 70-170
-}
-
-    //TODO Husnu Sen 174- 274
     @Override
     public void addSomeoneInfo() {
-//Husnu Sen 174- 274
-        /*
-        1. burada eklenecek ogrencinin tum bilgileri sirasiyla alinacak ve obje olusturulacak
-        2. ogrencinin odemesi gereken para miktarini bu classta yer alan setStudentPrice methodunu kullanarak hesaplayacaksin
-        3. daha sonra StudentRepository clasindaki addRepoSomeoneInfo methodu cagrilacak ve ogrenci dbye kayit edilecek.
-        4. ogrenci basariyla kaydedildi diye sout atilacak.
 
-         */
-
-       //   public Student(String name, String surName, String password, String address, String phoneNumber,
-       //       UserRol role, int studentID, Grades grade, double lastYearGradeAvg, double payment, HashMap<Integer,
-       //       Lessons> allLessons, HashMap<Integer, Attendance> historyAttendance) {
-       //   super(name, surName, password, address, phoneNumber, role);
-       //   this.studentID = studentID;
-       //   this.grade = grade;
-       //   this.lastYearGradeAvg = lastYearGradeAvg;
-       //   this.payment = payment;
-       //   this.allLessons = allLessons;
-       //   this.historyAttendance = historyAttendance;
-       //   this.lessonCredit = 20;
-       //   this.totalPrice = 0;
-       //   this.thisYearGradeAvg = 0;
-       //       }
-
-
-        //burada tüm öğrencilerin bilgileri alınıyor ve obje oluşturuluyor
-
-
-        System.out.println("Please enter the name of the student you want to add " );
+        System.out.println("Please enter the name of the student you want to add ");
         String name = scanner.nextLine().trim();
         System.out.println("Please enter the surname of the student you want to add ");
         String surName = scanner.nextLine().trim();
@@ -214,498 +98,245 @@ public class StudentMethods implements Login<Student>, SameOperations  {
         String phoneNumber = scanner.nextLine();
         System.out.println("Please enter the total payment of student");
         double payment = Scanner_Utils.doubleScanner(scanner);
-        boolean sinifBelirleme=false; // bu döngü ile öğrencinin sınıfı belirleniyor
+        scanner.nextLine();
+        boolean sinifBelirleme = false;
         Grades stdgrades = null;
-        do  {
+        do {
             System.out.println("Which grade would you like to enroll in");
             int sinif = Scanner_Utils.intScanner(scanner);//
-
+            scanner.nextLine();
 
             if (sinif > 0 && sinif < 6) {
-
 
 
                 switch (sinif) {
                     case 1:
                         stdgrades = Grades.GRADE1;
-                        sinifBelirleme=true;
+                        sinifBelirleme = true;
                         break;
                     case 2:
                         stdgrades = Grades.GRADE2;
-                        sinifBelirleme=true;
+                        sinifBelirleme = true;
                         break;
                     case 3:
                         stdgrades = Grades.GRADE3;
-                        sinifBelirleme=true;
+                        sinifBelirleme = true;
                         break;
                     case 4:
                         stdgrades = Grades.GRADE4;
-                        sinifBelirleme=true;
+                        sinifBelirleme = true;
                         break;
                     case 5:
                         stdgrades = Grades.GRADE5;
-                        sinifBelirleme=true;
+                        sinifBelirleme = true;
                         break;
-                    default: stdgrades=null;
-
+                    default:
+                        stdgrades = null;
+                        break;
                 }
 
             } else {
                 System.out.println("Please enter valid class info");
             }
 
-        }while (!sinifBelirleme);
-
-        System.out.println("Please enter the  id of the student you want to add : ");
-        Integer studentID =  scanner.nextInt();
+        } while (!sinifBelirleme);
 
         System.out.println("Please enter the last year average of the student you want to add: ");
         double lastYearGradeAvg = Scanner_Utils.doubleScanner(scanner);
-
-
-
-                Student student = new Student(name,surName,password,address,phoneNumber,UserRol.STUDENT,studentID,stdgrades,lastYearGradeAvg,payment);
-
-                // burada obje oluşturuldu ve alttaki method yardımıyla öğrenci eklendi
-                 studentRepository.addRepoSomeoneInfo(student);
-
-
-//Husnu Sen 174- 274
-    }
-    //TODO Caner Unal 277- 327
-    @Override
-    public void removeSomeoneInfo() {
-        //Caner Unal 277- 327
-        /*
-        1. once silinecek ogrencinin id alinacak
-        2. StudentMethods icindeki find methodu ile o ogrenci bulunacak
-        3. daha sonra StudentRepository clasindaki removeRepoSomeoneInfo methodu cagrilarak ogrenci silinecek
-        */
-
-        System.out.println("Please enter the ID of the student you want to delete.");
-        int id= Scanner_Utils.intScanner(scanner);
-
-        if(find(id)!=null){
-            studentRepository.removeRepoSomeoneInfo(find(id));
+        scanner.nextLine();
+        int studentID;
+        if (getAllStudents() != null) {
+            studentID = Student.getStudentRegistrationNumber() + getAllStudents().size();
+        } else {
+            studentID = Student.getStudentRegistrationNumber();
         }
 
+        System.out.println("Student Id : " + studentID);
 
+        Student student = new Student(name, surName, password, address,
+                phoneNumber, UserRol.STUDENT, studentID, stdgrades, lastYearGradeAvg, payment);
 
+        setStudentPercentDiscount(student, lastYearGradeAvg);
+        // burada obje oluşturuldu ve alttaki method yardımıyla öğrenci eklendi
+        studentRepository.addRepoSomeoneInfo(student);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Caner Unal 277- 327
     }
 
-    //TODO  Seval Senturk 328 - 480
+
+    @Override
+    public void removeSomeoneInfo() {
+
+        System.out.println("Please enter the ID of the student you want to delete.");
+        int id = Scanner_Utils.intScanner(scanner);
+        scanner.nextLine();
+        if (find(id) != null) {
+            studentRepository.removeRepoSomeoneInfo(find(id));
+            System.out.println("The deletion process was completed successfully.");
+        } else {
+            System.out.println("Student not found !");
+        }
+
+    }
+
+
     @Override
     public void updateSomeoneInfo() {
-/*
-        1. once ogrencinin id alinacak
-        2. StudentMethods icindeki find methodu ile o ogrenci bulunacak
-        3. daha sonra update edilecek islem sorulacak
-        4. StudentRepository clasindaki updateRepoSomeoneInfo methodu cagrilarak ogrenci bilgisii update edilecek
-        choice 1 ise Adres, 2 ise sınıf, 3 ise ucret, 4 ise notu,  5 ise basari durumu
-         */
 
         System.out.println("Öğrencinin id'sini giriniz...");
-        int studentId=Scanner_Utils.intScanner(scanner);
+        int studentId = Scanner_Utils.intScanner(scanner);
+        scanner.nextLine();
+        Student studentToUpdate = find(studentId);
 
-        Student studentToUpdate=find(studentId);
-
-        if(studentToUpdate != null) {
+        if (studentToUpdate != null) {
 
             System.out.println("Güncellenecek bilgiyi seçiniz : ");
-            System.out.println("1. Adres\n2. Sınıf\n3. Ücret\n4. Notu\n5. Başarı Durumu");
+            boolean update = false;
+            do {
+                System.out.print("1. Address\n2. Class\n3. Payment\n4. Note\nYour Choice : ");
 
-            int choice = Scanner_Utils.intScanner(scanner);
-
-            switch (choice) {
-                case 1:
-                    System.out.println("Please Enter New Adress : ");
-                    String newAddress = scanner.nextLine();
-                    studentToUpdate.setAddress(newAddress);
-                    studentRepository.updateAdressInfo(studentToUpdate, newAddress);
-                    break;
-                case 2:
-                    System.out.println("Please Enter New Grade :");
-                    for (Grades grades : Grades.values()) {
-                        System.out.println(grades.name());
-                    }
-                    int gradeChoice = Scanner_Utils.intScanner(scanner);
-                    Grades newGrade = Grades.values()[gradeChoice - 1];
-                    studentToUpdate.setGrade(newGrade);
-                    studentRepository.updateClassInfo(studentToUpdate, newGrade);
-                    break;
-                case 3:
-                    System.out.println("Please Enter New Payment: ");
-                    double newFee = Scanner_Utils.doubleScanner(scanner);
-                    studentToUpdate.setPayment(newFee);
-                    studentRepository.updateFeeInfo(studentToUpdate, newFee);
-                    break;
-                case 4:
-                    System.out.println("Which lesson's Note do you want to update?");
-                    for (Lessons lesson : studentToUpdate.getAllLessons().values()) {
-                            System.out.println(lesson.getName().name());
-
-                    }
-                    String lessonChoice = scanner.nextLine();
-
-                    if (studentToUpdate.getAllLessons().containsKey(lessonChoice)) {
-                        Lessons selectedLesson = studentToUpdate.getAllLessons().get(lessonChoice);
-
-                        System.out.println("Please Enter New Note: ");
-                        int newNote = Scanner_Utils.intScanner(scanner);
-
-                        // İlgili dersin notunu güncelle
-                        selectedLesson.setStudentNote(newNote);
-
-                        studentRepository.updateLessonNoteInfo(studentToUpdate, selectedLesson, newNote);
-
-                        System.out.println("Student Note Information Updated !");
-                    } else {
-                        System.out.println("Invalid lesson Selection!");
-                    }
-                    break;
-                case 5:
-                    System.out.println("Which lesson's Success Degree do you want to update?");
-                    //Lessons lesson= studentToUpdate.getAllLessons().values();
-                    for (Lessons lesson : studentToUpdate.getAllLessons().values()) {
-                        System.out.println(lesson.getName().name());
-                    }
-
-                    String lessonChoiceForSuccess = scanner.nextLine();
-
-                    if (studentToUpdate.getAllLessons().containsKey(lessonChoiceForSuccess)) {
-                        Lessons selectedLesson = studentToUpdate.getAllLessons().get(lessonChoiceForSuccess);
-
-                        System.out.println("Yeni Başarı Durumu Giriniz: ");
-                        int SuccessDegree = Scanner_Utils.intScanner(scanner);
-
-                        SuccessDegree newSuccessDegree = domain.SuccessDegree.values()[SuccessDegree - 1];
-
-                        // İlgili dersin başarı durumunu güncelle
-                        selectedLesson.setLessonSuccessDegree(newSuccessDegree);
-
-                        studentRepository.updateSuccessDegreeInfo(studentToUpdate, selectedLesson, newSuccessDegree);
-
-                        System.out.println("Student Success Degree Information Updated !");
-                    } else {
-                        System.out.println("Invalid lesson Selection!");
-                    }
+                int choice = Scanner_Utils.intScanner(scanner);
+                scanner.nextLine();
+                switch (choice) {
+                    case 1:
+                        System.out.println("Please Enter New Adress : ");
+                        String newAddress = scanner.nextLine();
+                        studentToUpdate.setAddress(newAddress);
+                        studentRepository.updateAdressInfo(studentToUpdate, newAddress);
+                        update = true;
                         break;
-                    }
-                    System.out.println("Student update successful");
-            } else{
-                System.out.println("The Student you were looking for with " + studentId + " could not be found");
-            }
+                    case 2:
+                        System.out.println("Please Enter New Grade :");
+                        for (Grades grades : Grades.values()) {
+                            System.out.println(grades.name());
+                        }
+                        int gradeChoice = Scanner_Utils.intScanner(scanner);
+                        scanner.nextLine();
+                        Grades newGrade = Grades.values()[gradeChoice - 1];
+                        studentToUpdate.setGrade(newGrade);
+                        studentRepository.updateClassInfo(studentToUpdate, newGrade);
+                        update = true;
+                        break;
+                    case 3:
+                        System.out.println("Please Enter New Payment: ");
+                        double newFee = Scanner_Utils.doubleScanner(scanner);
+                        scanner.nextLine();
+                        studentToUpdate.setPayment(newFee);
+                        studentRepository.updateFeeInfo(studentToUpdate, newFee);
+                        update = true;
+                        break;
+                    case 4:
+                        updateStudentNote(studentToUpdate);
+                        update = true;
+                        break;
+                    default:
+                        System.out.println("Invalid Selection!");
+                }
+            } while (!update);
+            System.out.println("Student update successful");
+        } else {
+            System.out.println("The Student you were looking for with " + studentId + " could not be found");
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Seval Senturk 328 - 480
     }
 
-
-
-    //TODO  Zehra Erol 482 - 532
     @Override
     public void getSomeoneInfo(int id) {
 
-        /*
-        1. StudentRepository clasindaki getRepoSomeoneInfo methodu cagrilacak */
-
         studentRepository.getRepoSomeoneInfo(id);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Zehra Erol
-}
-
-    //TODO Hanife Ocak 534 - 584
-    public void updateStudentNote(){
-                /*
-        1. once ogrencinin id alinacak
-        2. StudentMethods icindeki find methodu ile o ogrenci bulunacak
-        3. daha sonra hangi ders notunu update etmek istedigi sorulacak
-        4. StudentRepository clasindaki updateRepoSomeoneInfo methodu choice 4 olarak cagrilarak
-        5. ogrenci notu update edildikten sonra bu classtaki alttaki setAndReturnSuccessDegree methodu cagrilacak
-
-
-         */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Hanife Ocak 534 - 584
 
     }
 
-    //TODO  Husnu Sen 586 - 686
-    public SuccessDegree setAndReturnSuccessDegree(Student student, Lessons lessons,int not){
+
+    public void updateStudentNote(Student studentToUpdate) {
+
+        System.out.println("Which lesson's Note do you want to update?");
+
+        int i = 1;      //Secim yapilacak ders listesini donguye sokup  dersleri alt alta yazdirdim.
+        for (Lessons each : studentToUpdate.getAllLessons()) {
+            System.out.println(i + ". " + each.getName());   //  1.( ders ismi ) seklinde console`a yazdirdim
+            i++;
+        }
+        int selected = Scanner_Utils.intScanner(scanner);
+        scanner.nextLine();
+        Lessons lessonChoice = studentToUpdate.getAllLessons().get(selected - 1);
+
+        if (studentToUpdate.getAllLessons().contains(lessonChoice)) {
+
+            System.out.println("Please Enter New Note: ");
+            int newNote = Scanner_Utils.intScanner(scanner);
+            scanner.nextLine();
+            for (Lessons lessons : studentToUpdate.getAllLessons()) {
+                if (lessons.getName().name().equals(lessonChoice.getName().name())) {
+                    lessons.setStudentNote(newNote);
+                    setStudentThisYearAvg(studentToUpdate);
+                    studentRepository.updateLessonNoteInfo(studentToUpdate, lessonChoice, newNote);
+                    lessons.setLessonSuccessDegree(setAndReturnSuccessDegree(studentToUpdate, lessons, newNote));
+                }
+
+            }
+            System.out.println("Student Note Information Updated !");
+        } else {
+            System.out.println("Student does not have this lesson");
+        }
+
+    }
 
 
+    public SuccessDegree setAndReturnSuccessDegree(Student student, Lessons lessons, int not) {
+        //Bu method yukarıdaki methoda yardımcı olarak oluşturuldu.
 
-            //Bu method yukarıdaki methoda yardımcı olarak oluşturuldu.
-
-
-        if (not >=80 && not<101){
-            studentRepository.updateSuccessDegreeInfo(student,lessons,SuccessDegree.A);
-           return SuccessDegree.A;
-        }else if (not>=60&&not<80){
-            studentRepository.updateSuccessDegreeInfo(student,lessons,SuccessDegree.B);
+        if (not >= 80 && not < 101) {
+            studentRepository.updateSuccessDegreeInfo(student, lessons, SuccessDegree.A);
+            return SuccessDegree.A;
+        } else if (not >= 60 && not < 80) {
+            studentRepository.updateSuccessDegreeInfo(student, lessons, SuccessDegree.B);
             return SuccessDegree.B;
-        } else if (not>=40&&not<60) {
-            studentRepository.updateSuccessDegreeInfo(student,lessons,SuccessDegree.C);
+        } else if (not >= 40 && not < 60) {
+            studentRepository.updateSuccessDegreeInfo(student, lessons, SuccessDegree.C);
             return SuccessDegree.C;
 
-        } else if (not>=20&&not<40) {
-            studentRepository.updateSuccessDegreeInfo(student,lessons,SuccessDegree.D);
+        } else if (not >= 20 && not < 40) {
+            studentRepository.updateSuccessDegreeInfo(student, lessons, SuccessDegree.D);
             return SuccessDegree.D;
-        } else if (not>=0&&not<20) {
-            studentRepository.updateSuccessDegreeInfo(student,lessons,SuccessDegree.F);
+        } else if (not >= 0 && not < 20) {
+            studentRepository.updateSuccessDegreeInfo(student, lessons, SuccessDegree.F);
             return SuccessDegree.F;
         }
 
+        return null;
 
-      return null;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Husnu Sen 586 - 686
-    }
-
-    //TODO Omer Faruk Osmanoglu 688 - 788
-    public void setStudentPercentDiscount(Student student, double lastYearGradeAvg){
-
-    //student.setPercentDiscount(); method ismi degisecek unutma
-//Omer Faruk Osmanoglu 688 - 788
-        //ogrencinin gecen yil ki ortalamasina gore indirim miktari set edilecek.
-
-
-        //ogrencinin toplam odeyecegi miktar set edilmis olacak
-
-        //kac puan araligina ne kadar indirim yapilacagini bu methodu yazan arkadas takdir edecek.
-        //bu method yardimci method olarak ogrenci kaydi yapilirken cagrilacak.
-        //student.setPercentDiscount();
-
-    if(lastYearGradeAvg>90){
-        student.setPercentDiscount(20);
-    } else if (lastYearGradeAvg>80) {
-        student.setPercentDiscount(10);
-    } else if (lastYearGradeAvg>70) {
-        student.setPercentDiscount(5);
     }
 
 
+    public void setStudentPercentDiscount(Student student, double lastYearGradeAvg) {
 
-//Omer Faruk Osmanoglu 688 - 788
+        if (lastYearGradeAvg > 90) {
+            student.setPercentDiscount(20);
+
+        } else if (lastYearGradeAvg > 80) {
+            student.setPercentDiscount(10);
+        } else if (lastYearGradeAvg > 70) {
+            student.setPercentDiscount(5);
+        }
+    }
+
+    public List<Student> getAllStudents() {
+
+        return studentRepository.getAllStudents();
+
+    }
+
+    public void setStudentThisYearAvg(Student student) {
+
+        int totalLessonNote = 0;
+        for (Lessons lessons : student.getAllLessons()) {
+            totalLessonNote += lessons.getStudentNote();
+        }
+        int thisYear = totalLessonNote / student.getAllLessons().size();
+
+        student.setThisYearGradeAvg(thisYear);
+        studentRepository.updateRepoThisYearGradeAvg(student, student.getThisYearGradeAvg());
+
     }
 
 }

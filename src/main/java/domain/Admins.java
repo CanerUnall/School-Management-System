@@ -1,7 +1,13 @@
 package domain;
 
-public class Admins extends Teacher{
+public class Admins extends Teacher {
+    private final static int adminRegistrationNumber = 10000;
     private int adminID;
+
+    public static int getAdminRegistrationNumber() {
+        return adminRegistrationNumber;
+    }
+
 
     public int getAdminID() {
         return adminID;

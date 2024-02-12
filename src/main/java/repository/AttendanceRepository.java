@@ -1,23 +1,40 @@
 package repository;
 
+import config.JDBC_Utils;
+
+import java.sql.SQLException;
+
+import static config.JDBC_Utils.setConnection;
+import static config.JDBC_Utils.setStatement;
+
 public class AttendanceRepository {
 
-    //TODO  Caner Unal
     public void createAttendanceTable() {
+        setConnection();
+        setStatement();
 
-    /*
-    bu tabloda tum okulun devamsizligi kaydedilecek
+        String createAttendanceTable = "CREATE TABLE IF NOT EXISTS t_attendance (" +
+                "attendanceID SERIAL PRIMARY KEY," +
+                "lesson_name VARCHAR(25)," +
+                "date DATE," +
+                "std_id INT REFERENCES t_student(std_id)" +
+                ")";
 
-    bu methodun query si yazilirken if not exist kullanilacak
+        try {
+            JDBC_Utils.getSt().executeUpdate(createAttendanceTable);
 
-        tablo adi = t_attendance
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                JDBC_Utils.getSt().close();
+                JDBC_Utils.getCon().close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
 
-        primary key serial olsun kendi atasin
-
-        lesson_name
-        date
-        studentID foreign key olacak
-    select count(studentID) from t_attendance where studentID = 123
-*/
+        }
     }
+
+
 }

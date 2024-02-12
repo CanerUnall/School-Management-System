@@ -4,25 +4,28 @@ import config.Scanner_Utils;
 import domain.Grades;
 import domain.Lessons;
 import domain.Student;
-import domain.SuccessDegree;
+
 import repository.ReportRepository;
 import repository.StudentRepository;
 
+
 import java.util.Scanner;
+
 public class ReportMethods {
     private final Scanner scanner;
     private final ReportRepository reportRepository;
+    private final StudentRepository studentRepository;
+    private final StudentMethods studentMethods;
 
-    public ReportMethods(Scanner scanner, ReportRepository reportRepository) {
+    public ReportMethods(Scanner scanner, ReportRepository reportRepository, StudentRepository studentRepository, StudentMethods studentMethods) {
         this.scanner = scanner;
         this.reportRepository = reportRepository;
+        this.studentRepository = studentRepository;
+        this.studentMethods = studentMethods;
     }
 
-    //TODO Husnu Sen 17 -117
+
     public void showLessonSuccess() {
-        //derse gore basariyi yazdiracak.
-        // mat, fen
-        //SuccessDegree enumlarini kullanacaksin
 
         System.out.println("Which course grade will you enter");
         System.out.println("1. MATHS");
@@ -37,400 +40,114 @@ public class ReportMethods {
         System.out.println("10.BIOLOGY");
 
         // burada 1 den 10 a kadar seçim yaptırılıp girmek istenen ders başarısı gösterilecek
-        System.out.println("Choose");
-         boolean lessonChoose = false;
+        System.out.print("Choose : ");
+        boolean lessonChoose = false;
         do {
 
-
             int secim = Scanner_Utils.intScanner(scanner);
-
+            scanner.nextLine();
 
             if (secim > 0 && secim < 11) {
                 switch (secim) {
                     case 1:
                         reportRepository.getLessonSuccess("MATHS");
+                        lessonChoose = true;
                         break;
                     case 2:
                         reportRepository.getLessonSuccess("ENGLISH");
+                        lessonChoose = true;
                         break;
                     case 3:
                         reportRepository.getLessonSuccess("HISTORY");
+                        lessonChoose = true;
                         break;
                     case 4:
                         reportRepository.getLessonSuccess("TURKISH");
+                        lessonChoose = true;
                         break;
                     case 5:
                         reportRepository.getLessonSuccess("PHYSICAL");
+                        lessonChoose = true;
                         break;
                     case 6:
                         reportRepository.getLessonSuccess("CHEMICAL");
+                        lessonChoose = true;
                         break;
                     case 7:
                         reportRepository.getLessonSuccess("GEOGRAPHY");
+                        lessonChoose = true;
                         break;
                     case 8:
                         reportRepository.getLessonSuccess("IT");
+                        lessonChoose = true;
                         break;
                     case 9:
                         reportRepository.getLessonSuccess("SPORTS");
+                        lessonChoose = true;
                         break;
                     case 10:
                         reportRepository.getLessonSuccess("BIOLOGY");
+                        lessonChoose = true;
                         break;
-
+                    default:
+                        System.out.println("Please enter valid lesson number");
+                        break;
                 }
 
             } else System.out.println("Please enter valid lesson number");
 
 
-        }while (!lessonChoose);//??
+        } while (!lessonChoose);//??
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Husnu Sen 17 -117
     }
 
-    //TODO Seval Senturk  119 - 219
+
     public void showClassSuccess() {
 
-        //SuccessDegree enumlarini kullanacaksin
-        //tüm öğrencileri sınıf sınıf çağıracağız
-        SuccessDegree successDegree = null; // ihtiyacımızı gidermiyor burası tekrar gözden geçecek!!!
-
-        switch (successDegree) {
-            case A:
-                System.out.println("Class success: Excellent");
-                break;
-            case B:
-                System.out.println("Class success: Good");
-                break;
-            case C:
-                System.out.println("Class success: Average");
-                break;
-            case D:
-                System.out.println("Class success: Pass");
-                break;
-            case F:
-                System.out.println("Class success: Fail");
-                break;
-            default:
-                System.out.println("Invalid value");
-                break;
+        System.out.println("Which class do you want to see success?");
+        int x = 1;
+        for (Grades grades : Grades.values()) {
+            System.out.println(x + " " + grades.name());
+            x++;
         }
-    /*
-        burada once kullanıcıya hangı sınıfın basarısını gormek ıstedıgını soracaksınız
-        daha sonra aldıgınız cevaba ıstınaden ReportReposıtory classındaki getClassSuccess methodunu
-        parametreli olarak cagiracaksiniz
-        */
+        int gradeChoice = Scanner_Utils.intScanner(scanner);
+        scanner.nextLine();
 
 
+        try {
+            // Kullanıcının girdiği sınıf ismini Grades enum değerine dönüştürüyoruz
+            Grades selectedGrade = Grades.values()[gradeChoice - 1];
 
-            System.out.println("Which class do you want to see success?");
-            String selectedClass = scanner.nextLine();
+            reportRepository.getClassSuccess(selectedGrade);
 
-            try {
-                // Kullanıcının girdiği sınıf ismini Grades enum değerine dönüştürüyoruz
-                Grades selectedGrade = Grades.valueOf(selectedClass);
-
-                reportRepository.getClassSuccess(selectedGrade);
-
-            } catch (IllegalArgumentException e) {
-                System.err.println("Invalid grade name. Please enter a valid grade name.");
-            } finally {
-                scanner.close();
-
-            }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Seval Senturk  119 - 219
+        } catch (IllegalArgumentException e) {
+            System.err.println("Invalid grade name. Please enter a valid grade name.");
         }
 
-    //TODO Caner Unal 221-321
+    }
+
+
     public void showStudentSuccess() {
-            //secilen ogrencinin once tum ders basarilari gosterilsin daha sonra genel ortalamaasi gosterilsin
 
         System.out.println("Enter the ID of the student whose success you want to see.");
         int id = Scanner_Utils.intScanner(scanner);
-        StudentRepository studentRepository = new StudentRepository();
-        StudentMethods studentMethods = new StudentMethods(scanner,studentRepository);
+        scanner.nextLine();
         Student student = studentMethods.find(id);
-        if (student!=null) {
-            System.out.println(student.getName() +" "+student.getSurName()+" all courses and grades of the named student are as follows:");
-            for (Lessons eachLesson:student.getAllLessons().values()){
-                System.out.println(eachLesson.getName().name()+ " " + eachLesson.getStudentNote() +" "+eachLesson.getLessonSuccessDegree().name());
+        if (student != null) {
+            System.out.println(student.getName() + " " + student.getSurName() + " all courses and grades of the named student are as follows:");
+            for (Lessons eachLesson : student.getAllLessons()) {
+                System.out.println(eachLesson.getName().name() + " " + eachLesson.getStudentNote() + " " + eachLesson.getLessonSuccessDegree().name());
             }
         }
 
+    }
 
 
+    public void showStudentRank() {
 
+        studentRepository.getStudentThisYearGradeAvg();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
-    //TODO Caner Unal 323-423
-     public void showStudentRank() {
-
-            //ogrencinin genel ortalamasina gore siralamasi gozuksun
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        }
+    }
 
 
 }

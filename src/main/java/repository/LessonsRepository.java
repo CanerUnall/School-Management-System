@@ -5,59 +5,52 @@ import domain.LessonNames;
 import domain.Lessons;
 import domain.Teacher;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+
 import config.JDBC_Utils;
 import domain.Student;
+
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
 import static config.JDBC_Utils.setConnection;
 import static config.JDBC_Utils.setStatement;
 
 
-
 public class LessonsRepository {
-    PreparedStatement prst;
-    TeacherRepository tRepo=new TeacherRepository();
 
+    TeacherRepository tRepo = new TeacherRepository();
 
-    //TODO Omer Faruk Osmanoglu 15- 115
-    public void createLessonsTable(){
-      /*
-      burada tum dersler kaydedilecek
-
-      bu methodun query si yazilirken if not exist kullanilacak
-
-      tablo adi = t_lessons
-
-      lessonID primary key
-
-      lesson_name
-      teacherID foreign key olarak eklenecek
-      lessonCredit
-      lessonFee real
-      studentNote
-      lesson_day
-      studentID foreign key olarak eklenecek
-*/
+    public void createLessonsTable() {
 
         setConnection();
         setStatement();
 
-        String createLessonsTable = "CREATE TABLE IF NOT EXISTS t_lessons (lessonID integer PRIMARY KEY AUTO_INCREMENT," +
-                "lesson_name varchar(25)" +
-                "teacherID integer foreign key" +
-                "lessonCredit integer" +
-                "lessonFee real" +
-                "studentNote integer" +
+        String createLessonsTable = "CREATE TABLE IF NOT EXISTS t_lessons (" +
+                "lessonID SERIAL PRIMARY KEY," +
+                "lesson_name varchar(25)," +
+                "teacherID INT REFERENCES t_teacher(teacherid)," +
+                "lessonCredit integer," +
+                "lessonFee real," +
+                "studentNote integer," +
+                "lesson_day varchar(25)," +
+                "std_id INT REFERENCES t_student(std_id)," +
+                "lessonSuccessDegree varchar(25)" +
+                ")";
+
+        String createLessonsList = "CREATE TABLE IF NOT EXISTS t_lessonsList (" +
+                "lessonID SERIAL PRIMARY KEY," +
+                "lesson_name varchar(25)," +
+                "teacherID INT REFERENCES t_teacher(teacherid)," +
+                "lessonCredit integer," +
+                "lessonFee real," +
                 "lesson_day varchar(25)" +
-                "studentID  integer foreign key)";
-
-
+                ")";
 
         try {
             JDBC_Utils.getSt().executeUpdate(createLessonsTable);
+            JDBC_Utils.getSt().executeUpdate(createLessonsList);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -70,89 +63,23 @@ public class LessonsRepository {
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Omer Faruk Osmanoglu 9 - 109
     }
 
-    //TODO Mustafa Ubeyde Kayhan 111 -  211
-    public void  addRepoLessons(Lessons lessons){
-        // ilgili dersi if not exist ile dbye kayit edecek
+    public void addRepoLessons(Lessons lessons) {
 
-        //tablo adi = t_lessons
-        //
-        //      lessonID primary key
-        //
-        //      lesson_name
-        //      teacherID foreign key olarak eklenecek
-        //      lessonCredit
-        //      lessonFee real
-        //      studentNote
-        //      lesson_day
-        //      studentID foreign key olarak eklenecek
         JDBC_Utils.setConnection();
 
-        String sql = "INSERT INTO IF NOT EXISTS t_lessons" +
-                "(lesson_name, teacherID, lessonCredit, lessonFee, studentNote, lesson_day, studentID)" +
-                " VALUES (?,?,?,?,?,?,?)";
-
+        String sql = "INSERT INTO t_lessonsList (lesson_name, teacherID, lessonCredit, lessonFee, lesson_day) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         JDBC_Utils.setPrst(sql);
-
 
         try {
             JDBC_Utils.getPrst().setString(1, String.valueOf(lessons.getName()));
             JDBC_Utils.getPrst().setInt(2, lessons.getTeacher().getTeacherID());
             JDBC_Utils.getPrst().setInt(3, lessons.getLessonCredit());
             JDBC_Utils.getPrst().setDouble(4, lessons.getLessonFee());
-            JDBC_Utils.getPrst().setInt(5, lessons.getStudentNote());
-            JDBC_Utils.getPrst().setString(6, lessons.getDay());
-           //JDBC_Utils.getPrst().setInt(7, lessons.getStudentID);
-
+            JDBC_Utils.getPrst().setString(5, lessons.getDay());
 
             JDBC_Utils.getPrst().executeUpdate();
         } catch (SQLException e) {
@@ -166,124 +93,29 @@ public class LessonsRepository {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Mustafa Ubeyde Kayhan 111 - 211
     }
 
 
-    //TODO RUMEYSA
-    public List<Lessons> getAllLessons(){
+    public List<Lessons> getAllLessons() {
 
-        //dbdeki tum dersleri getirecek ve br liste ekleyecek daha sonra o listi return edecek
 
         setConnection();
         setStatement();
 
-        String getAllLessons = "SELECT (lesson_name,lessonCredit,lessonFee,lesson_day,teacherID) FROM t_lessons";
-        ResultSet result = null;
+        String getAllLessons = "SELECT lesson_name, lessonCredit, lessonFee, lesson_day, teacherID FROM t_lessonsList";
+
 
         try {
 
-            result = JDBC_Utils.getSt().executeQuery(getAllLessons);
+            ResultSet result = JDBC_Utils.getSt().executeQuery(getAllLessons);
             List<Lessons> lessonsList = new ArrayList<>();
             while (result.next()) {
 
                 String lessonName = result.getString("lesson_name");
-                Integer lessonCredit = result.getInt("lessonCredit");
-                Double lessonFee = result.getDouble("lessonFee");
+                int lessonCredit = result.getInt("lessonCredit");
+                double lessonFee = result.getDouble("lessonFee");
                 String lessonDay = result.getString("lesson_day");
-                Integer TeacherId = result.getInt("teacherID");
+                int TeacherId = result.getInt("teacherID");
 
                 Teacher teacher = tRepo.find(TeacherId);
                 LessonNames lName = LessonNames.valueOf(lessonName); //String`i LessonNames data tipine cevirdik
@@ -295,7 +127,7 @@ public class LessonsRepository {
 
             }
 
-               return lessonsList;  // olusan list`i return ediyoruz.
+            return lessonsList;  // olusan list`i return ediyoruz.
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -308,23 +140,14 @@ public class LessonsRepository {
 
         }
 
-
-
         return null;
     }
-  
-  
-  
-  
 
-  
-    
-    //TODO RUMEYSA
-    public void addLessonStudent(Student student,Lessons lesson) {
+    public void addLessonStudent(Student student, Lessons lesson) {
 
         setConnection();
-        String sql = "INSERT INTO t_lessons (lesson_name, teacherID,lessonCredit,lessonFee,studentNote,lesson_day,studentID) VALUES (?,?,?,?,?,?,?)";
-          JDBC_Utils.setPrst(sql);
+        String sql = "INSERT INTO t_lessons (lesson_name, teacherID,lessonCredit,lessonFee,studentNote,lesson_day,std_id) VALUES (?,?,?,?,?,?,?)";
+        JDBC_Utils.setPrst(sql);
 
         try {
 
@@ -351,19 +174,4 @@ public class LessonsRepository {
     }
 
 
-
-
-
-
-
-
-
-
-
-    }
-
-
-
-
-
-
+}
